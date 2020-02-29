@@ -1,2 +1,2 @@
-# gethunters
-管理后台
+# by asatecx
+人材管理システム
