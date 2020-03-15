@@ -6,10 +6,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // 公共数据读取方法：this.$store.state.adminName
   state: {  //当前数据的状态，类似于组件对象data属性
-    adminName: '',  //当前登录的管理员名
-    globalSettings: { //项目的全局设置信息
-      apiUrl: 'http://127.0.0.1:8090'  //初始值
-    }
+      adminName: '',  //当前登录的管理员名
+      globalSettings: { //项目的全局设置信息
+      apiUrl: 'http://127.0.0.1:8080'  //初始值
+      },
+      userinfo:''
   },
   // 公共数据的修改方法：this.$store.commit('setAdminName','boss')
   // 公共数据的修改方法：this.$store.commit('setGlobalSettings',{...})
@@ -19,6 +20,10 @@ export default new Vuex.Store({
     },
     setGlobalSettings(state, value) {
       state.globalSettings = value
+    },
+    setuserinfo(state, value){
+      state.userinfo=value
+      console.log("userinfo="+state.userinfo)
     }
   }
 })

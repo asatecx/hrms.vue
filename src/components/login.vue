@@ -5,11 +5,11 @@
       <div>
         <el-form label-width="100px">
           <el-form-item label="ユーザ名">
-            <el-input placeholder="ユーザ名を入力してください" v-model="formData.aname"></el-input>
+            <el-input placeholder="ユーザ名を入力してください" v-model="formData.userId"></el-input>
           </el-form-item>
 
           <el-form-item label="パスワード：">
-            <el-input placeholder="パスワードを入力してください" type="password" v-model="formData.apwd"></el-input>
+            <el-input placeholder="パスワードを入力してください" type="password" v-model="formData.password"></el-input>
           </el-form-item>
 
           <el-form-item>
@@ -22,6 +22,8 @@
     <div style="text-align: center;">
     HRMの新しいお客様ですか？<br>
  　<el-button type="primary" @click="makeAcount">HRMのアカウントを作成</el-button>
+ <el-button type="primary" @click="upload">upload</el-button>
+ <el-button type="primary" @click="playmovie">movie</el-button>
   </div>
   </div>
 </template>
@@ -34,8 +36,8 @@
             return{
                 formData: {
                         //表单中用户输入的两个数据
-                        aname: "",
-                        apwd: ""
+                        userId: "",
+                        password: ""
                 },
                 title: ""
             }
@@ -51,35 +53,37 @@
                 },
                 doCancel: function(){
                           //清除用户登录
-                    this.formData.aname = "";
-                    this.formData.apwd = "";
+                    this.formData.userId = "";
+                    this.formData.password = "";
                 },
                 doLogin() {
                 //执行登录
                // var url =
                 //    this.$store.state.globalSettings.apiUrl +
                 //    `/admin/login/${this.formData.aname}/${this.formData.apwd}`;
-                var url=`http://localhost:8080/${this.formData.aname}/${this.formData.apwd}`
+               // var url=`http://47.74.24.150:8091/main/login/${this.formData.userId}/${this.formData.password}`
+               var url='http://47.74.24.150:8091/main/login'
+                //this.$axios.post('http://localhost:8080/niucaocao/makeAcount',this.$qs.stringify(this.ruleForm))
                 this.$axios
-                    .get(url)
+                    .post(url,this.formData)
                     .then(res => {
                         console.log(res)
-                    if (res.data.code == 200) {
+                    if (res.data.data.res == "OK") {
                         // 登录成功
                         // 把用户名存入Vuex仓库
                         console.log("OKOKOKOK")
                        
-                        this.$store.commit("setAdminName", this.formData.aname);
+                        this.$store.commit("setAdminName", this.formData.userId);
                         // 进行视图跳转
                         this.$router.push("/People");
                     } else {
                         //登录失败
                         this.$alert("用户名或密码有误！", "登录失败", { type: "error" })
                         .then(() => {
-                            this.formData.apwd = "";
+                            this.formData.password = "";
                         })
                         .catch(() => {
-                            this.formData.apwd = "";
+                            this.formData.password = "";
                         });
                     }
                     })
@@ -89,6 +93,12 @@
                 },
                makeAcount(){
                     this.$router.push("/makeAcount");
+               },
+               upload(){
+                    this.$router.push("/upload");
+               },
+               playmovie(){
+                    this.$router.push("/movie");
                },
             },
         mounted(){
