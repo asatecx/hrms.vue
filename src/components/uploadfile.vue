@@ -26,21 +26,30 @@ export default {
             upload: function() {
                 // FormData を利用して File を POST する
                 let formData = new FormData();
-                formData.append('mymove', this.uploadFile);
-                let config = {
-                    headers: {
-                        'content-type': 'multipart/form-data'
-                    }
-                };
+                formData.append('uploadfile', this.uploadFile);
+                 let config = {
+                     headers: {
+                         'content-type': 'multipart/form-data'
+                     }
+                 };
                 this.$axios
-                    //.post('http://localhost:8080/niucaocao/uploadfile', formData, config)
-                    .post('http://47.74.24.150:8091/video/upload', formData, config)
+                    .put('http://47.74.24.150:8091/video/upload', formData, config)
                     .then(function(response) {
                         // response 処理
                     })
                     .catch(function(error) {
                         // error 処理
                     })
+
+                    // this.$axios.post('http://localhost:8080/niucaocao/uploadfile', {
+                    //     uploadfile: this.uploadFile,
+                    // },config);
+
+
+
+
+
+
             }
         }
     }
