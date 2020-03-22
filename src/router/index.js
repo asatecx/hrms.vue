@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home/Home'
 import Login from '@/components/login'
 import People from '@/components/people'
+import Company from '@/components/company'
 import MakeAcount from '@/components/makeAcount'
 import Uploadfile from '@/components/Uploadfile'
 import Movie from '@/components/movie'
@@ -31,6 +32,11 @@ export default new Router({
       path: '/people',
       name: 'People',
       component: People
+    },
+    {
+      path: '/company',
+      name: 'company',
+      component: Company
     },
     {
       path: '/makeAcount',
