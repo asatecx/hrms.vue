@@ -18,6 +18,11 @@ Vue.component(HrmHeader.name,HrmHeader)
 import '../static/global/index.css'
 import axios from 'axios'
 Vue.prototype.$axios = axios //把axios设置为所有Vue组件实例的成员属性，以后可以使用this.$axios使用异步请求功能
+
+//引入多个对象的写法
+import * as api from './restful/api'
+Vue.prototype.$http = api
+
 //提交表单时用得qs
 import qs from 'qs'
 Vue.prototype.$qs = qs;
@@ -26,6 +31,12 @@ Vue.prototype.$qs = qs;
 import VideoPlayer from 'vue-video-player'
 Vue.use(VideoPlayer);
 
+//https://www.jianshu.com/p/535b53989b39
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+
+import logout from '@/components/logout'
+Vue.component("logout",logout)
 new Vue({
   el: '#app',
   router,

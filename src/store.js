@@ -10,7 +10,8 @@ export default new Vuex.Store({
       globalSettings: { //项目的全局设置信息
       apiUrl: 'http://127.0.0.1:8080'  //初始值
       },
-      userinfo:''
+      userinfo:'',
+      loginflg:false,
   },
   // 公共数据的修改方法：this.$store.commit('setAdminName','boss')
   // 公共数据的修改方法：this.$store.commit('setGlobalSettings',{...})

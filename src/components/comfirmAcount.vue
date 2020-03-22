@@ -32,7 +32,7 @@
            methods: {
             submitForm() {
                 this.$axios.post('http://localhost:8080/niucaocao/makeAcount',this.$qs.stringify(this.userinfo))
-                this.$router.push("/interviewList");
+                this.$router.push("/people");
             }
            }
     }

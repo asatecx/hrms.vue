@@ -8,6 +8,7 @@ import Uploadfile from '@/components/Uploadfile'
 import Movie from '@/components/movie'
 import ComfirmAcount from '@/components/comfirmAcount'
 import InterviewList from '@/components/interviewList'
+import Case from '@/components/case'
 Vue.use(Router)
 
 export default new Router({
@@ -55,6 +56,11 @@ export default new Router({
       path: '/interviewList',
       name: 'interviewList',
       component: InterviewList
+    },
+    {
+      path: '/displayCase/:id',
+      name: 'displayCase',
+      component: Case
     },
   ]
 })

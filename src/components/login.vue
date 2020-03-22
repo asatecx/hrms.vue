@@ -30,7 +30,7 @@
     
     <script>
         export default {
-
+        inject: ['reload'],
         name:'Login',
         data(){
             return{
@@ -58,22 +58,25 @@
                 },
                 doLogin() {
                 //执行登录
-               // var url =
-                //    this.$store.state.globalSettings.apiUrl +
-                //    `/admin/login/${this.formData.aname}/${this.formData.apwd}`;
-               // var url=`http://47.74.24.150:8091/main/login/${this.formData.userId}/${this.formData.password}`
-               var url='http://47.74.24.150:8091/main/login'
-                //this.$axios.post('http://localhost:8080/niucaocao/makeAcount',this.$qs.stringify(this.ruleForm))
+              // var url='http://47.74.24.150:8091/main/login'
+                 var url='http://localhost:8080/niucaocao/main/login'
                 this.$axios
                     .post(url,this.formData)
                     .then(res => {
                         console.log(res)
-                    if (res.data.data.res == "OK") {
+                    //if (res.data.data.res == "OK") {
+                    if (res.data.errCode == "10000") {
+
                         // 登录成功
                         // 把用户名存入Vuex仓库
                         console.log("OKOKOKOK")
-                       
+                       //http://docs.geetest.com/ 滑动认证的链接 但是我没用
+                        this.$cookies.set('access_token',res.data.data)
                         this.$store.commit("setAdminName", this.formData.userId);
+                        // console.log(this.$parent)
+                       // this.$root.reload();
+                       this.reload(); //刷新login控件
+                         //this.$store.commit("setloginflg", true);
                         // 进行视图跳转
                         this.$router.push("/People");
                     } else {

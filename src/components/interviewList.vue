@@ -38,6 +38,7 @@ export default {
       //"firstDaynotes":"take your notebook",
       //"firstDayPlace":"tamachi",
       //"firstDayTime":"2020-11-01 9:00"},
+      
         return {
             selectkey:{companyName:"",time:"",place:""},
             tableData:[]
@@ -50,7 +51,9 @@ export default {
             this.$axios.get('http://localhost:8080/niucaocao/interviewList', {
                 params: {
                     // ここにクエリパラメータを指定する
-                    companyName:comName
+                    companyName:comName ,
+                    //interviewTime:time,
+                   // interviewPlace:place,
                 }
             }).then((res) => {
             this.tableData = res.data;
