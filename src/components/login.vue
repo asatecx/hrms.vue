@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <el-card class="cat-login-card">
-      <div slot="header">{{title}}登録</div>
+      <div slot="header">{{title}}ログイン</div>
       <div>
         <el-form label-width="100px">
           <el-form-item label="ユーザ名">
@@ -58,15 +58,12 @@
                 },
                 doLogin() {
                 //执行登录
-              // var url='http://47.74.24.150:8091/main/login'
-                 var url='http://localhost:8080/niucaocao/main/login'
+                var url = this.$store.state.globalSettings.apiUrl + '/main/login';
                 this.$axios
                     .post(url,this.formData)
                     .then(res => {
                         console.log(res)
-                    //if (res.data.data.res == "OK") {
-                    if (res.data.errCode == "10000") {
-
+                    if (res.data.data.res == "OK") {
                         // 登录成功
                         // 把用户名存入Vuex仓库
                         console.log("OKOKOKOK")
@@ -78,7 +75,12 @@
                        this.reload(); //刷新login控件
                          //this.$store.commit("setloginflg", true);
                         // 进行视图跳转
-                        this.$router.push("/People");
+                        if(res.data.data.detail.userType == '1'){
+                          this.$router.push("/People");
+                        }else{
+                          this.$router.push("/company");
+                        }
+                        
                     } else {
                         //登录失败
                         this.$alert("用户名或密码有误！", "登录失败", { type: "error" })
@@ -110,7 +112,7 @@
         }
     </script>
     
-   <style lang="scss">
+<style lang="scss">
 .cat-login-card {
   width: 400px;
   margin: 150px auto;

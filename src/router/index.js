@@ -3,12 +3,14 @@ import Router from 'vue-router'
 import Home from '@/components/Home/Home'
 import Login from '@/components/login'
 import People from '@/components/people'
+import Company from '@/components/company'
 import MakeAcount from '@/components/makeAcount'
 import Uploadfile from '@/components/Uploadfile'
 import Movie from '@/components/movie'
 import ComfirmAcount from '@/components/comfirmAcount'
 import InterviewList from '@/components/interviewList'
 import Case from '@/components/case'
+import Persondetail from '@/components/persondetail'
 Vue.use(Router)
 
 export default new Router({
@@ -31,6 +33,11 @@ export default new Router({
       path: '/people',
       name: 'People',
       component: People
+    },
+    {
+      path: '/company',
+      name: 'company',
+      component: Company
     },
     {
       path: '/makeAcount',
@@ -62,5 +69,10 @@ export default new Router({
       name: 'displayCase',
       component: Case
     },
+    {
+      path: '/persondetail',
+      name: 'persondetail',
+      component: Persondetail
+    }
   ]
 })
