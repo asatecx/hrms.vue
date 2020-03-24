@@ -10,6 +10,7 @@ import Movie from '@/components/movie'
 import ComfirmAcount from '@/components/comfirmAcount'
 import InterviewList from '@/components/interviewList'
 import Case from '@/components/case'
+import Persondetail from '@/components/persondetail'
 Vue.use(Router)
 
 export default new Router({
@@ -68,5 +69,10 @@ export default new Router({
       name: 'displayCase',
       component: Case
     },
+    {
+      path: '/persondetail',
+      name: 'persondetail',
+      component: Persondetail
+    }
   ]
 })
