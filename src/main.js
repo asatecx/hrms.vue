@@ -12,8 +12,9 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 /* eslint-disable no-new */
 import HrmHeader from '@/components/common/HrmHeader'
+import Aside from '@/components/common/Aside'
 
-Vue.component(HrmHeader.name,HrmHeader)
+Vue.component(HrmHeader.name,HrmHeader,Aside.name,Aside)
 
 import '../static/global/index.css'
 import axios from 'axios'
