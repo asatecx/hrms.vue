@@ -10,7 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/resume/**': {
+        target: 'http://localhost:8091',
+        // target: this.$store.state.globalSettings.apiUrl,
+        changeOrigin: true,
+    },
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

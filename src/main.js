@@ -20,6 +20,8 @@ import '../static/global/index.css'
 import axios from 'axios'
 Vue.prototype.$axios = axios //把axios设置为所有Vue组件实例的成员属性，以后可以使用this.$axios使用异步请求功能
 
+axios.defaults.withCredentials =false;  // 跨域访问需要发送cookie时一定要设定为 true,否则设定为false;
+
 //引入多个对象的写法
 import * as api from './restful/api'
 Vue.prototype.$http = api
