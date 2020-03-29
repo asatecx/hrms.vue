@@ -15,6 +15,7 @@
           </div>
           <div class="bottom clearfix">
             <el-button type="primary" icon="el-icon-video-play" @click="playmovie">個人PRビデオ</el-button>
+            <el-button type="primary" icon="el-icon-video-play" @click="showResume">職歴書</el-button>
           </div>
         </el-card>
     </el-row>
@@ -45,6 +46,15 @@ export default {
   methods: {
     playmovie(){
       this.$router.push("/movie");
+    },
+    showResume(){
+      // this.$router.push("/resume");
+      var url = this.$store.state.globalSettings.apiUrl + '/resume';
+      this.$axios.post(url, this.formData)
+        .then(res => {
+            console.log(res.data)
+            alert(res.data);
+      })
     }
   },
   created() {
