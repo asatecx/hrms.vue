@@ -32899,3 +32899,32 @@ Consider defining a bean of type 'org.springframework.web.servlet.HandlerInterce
 2020-03-22 12:03:24.821  INFO 11800 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
 2020-03-22 12:03:25.952  INFO 11800 --- [main] niucaocao.Application                    : Started Application in 4.905 seconds (JVM running for 5.234)
 2020-03-22 12:03:30.521  INFO 11800 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-03-22 17:05:35.579  INFO 7916 --- [main] niucaocao.Application                    : Starting Application on DESKTOP-J5KJGVD with PID 7916 (C:\work\eclipse-workspace\springboot-angular\target\classes started by user in C:\work\eclipse-workspace\springboot-angular)
+2020-03-22 17:05:35.582  INFO 7916 --- [main] niucaocao.Application                    : No active profile set, falling back to default profiles: default
+2020-03-22 17:05:38.640  INFO 7916 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-03-22 17:05:38.642  INFO 7916 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.15
+2020-03-22 17:05:38.765  INFO 7916 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-03-22 17:05:39.990  INFO 7916 --- [main] niucaocao.Application                    : Started Application in 4.752 seconds (JVM running for 5.242)
+2020-03-22 17:06:30.473  INFO 7916 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-03-22 17:13:44.829  INFO 18904 --- [main] niucaocao.Application                    : Starting Application on DESKTOP-J5KJGVD with PID 18904 (C:\work\eclipse-workspace\springboot-angular\target\classes started by user in C:\work\eclipse-workspace\springboot-angular)
+2020-03-22 17:13:44.831  INFO 18904 --- [main] niucaocao.Application                    : No active profile set, falling back to default profiles: default
+2020-03-22 17:13:48.202  INFO 18904 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-03-22 17:13:48.203  INFO 18904 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.15
+2020-03-22 17:13:48.318  INFO 18904 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-03-22 17:13:49.436  INFO 18904 --- [main] niucaocao.Application                    : Started Application in 4.915 seconds (JVM running for 5.248)
+2020-03-22 17:24:12.481  INFO 18904 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-03-22 17:24:12.547  WARN 18904 --- [http-nio-8080-exec-1] o.s.web.servlet.PageNotFound             : Request method 'GET' not supported
+2020-03-22 17:27:50.951  INFO 13060 --- [main] niucaocao.Application                    : Starting Application on DESKTOP-J5KJGVD with PID 13060 (C:\work\eclipse-workspace\springboot-angular\target\classes started by user in C:\work\eclipse-workspace\springboot-angular)
+2020-03-22 17:27:50.953  INFO 13060 --- [main] niucaocao.Application                    : No active profile set, falling back to default profiles: default
+2020-03-22 17:27:54.297  INFO 13060 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-03-22 17:27:54.299  INFO 13060 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.15
+2020-03-22 17:27:54.412  INFO 13060 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-03-22 17:27:55.535  INFO 13060 --- [main] niucaocao.Application                    : Started Application in 4.885 seconds (JVM running for 5.219)
+2020-03-22 17:28:13.875  INFO 13060 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-03-29 08:37:40.866  INFO 8364 --- [main] niucaocao.Application                    : Starting Application on DESKTOP-J5KJGVD with PID 8364 (C:\work\eclipse-workspace\springboot-angular\target\classes started by user in C:\work\eclipse-workspace\springboot-angular)
+2020-03-29 08:37:40.869  INFO 8364 --- [main] niucaocao.Application                    : No active profile set, falling back to default profiles: default
+2020-03-29 08:37:44.661  INFO 8364 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-03-29 08:37:44.662  INFO 8364 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.15
+2020-03-29 08:37:44.803  INFO 8364 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-03-29 08:37:46.079  INFO 8364 --- [main] niucaocao.Application                    : Started Application in 5.585 seconds (JVM running for 6.11)
+2020-03-29 08:39:43.619  INFO 8364 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'

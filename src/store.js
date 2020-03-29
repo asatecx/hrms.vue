@@ -18,6 +18,7 @@ export default new Vuex.Store({
   mutations: {  //控制数据的进化（即修改state）,类似于组件对象中的methods——用mutations，修改数据可以保证数据的“响应式”
     setAdminName(state, value) {
       state.adminName = value
+      console.log("adminName="+state.adminName)
     },
     setGlobalSettings(state, value) {
       state.globalSettings = value

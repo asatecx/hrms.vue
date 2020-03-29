@@ -33,7 +33,8 @@ export default {
                      }
                  };
                 this.$axios
-                    .put('http://47.74.24.150:8091/video/upload', formData, config)
+                   // .put('http://47.74.24.150:8091/video/upload', formData, config)
+                    .put('http://localhost:8080/niucaocao/uploadfile', formData, config)
                     .then(function(response) {
                         // response 処理
                     })

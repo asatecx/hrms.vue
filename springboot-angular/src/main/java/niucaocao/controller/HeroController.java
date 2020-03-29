@@ -157,6 +157,30 @@ public class HeroController {
 	        }
 	    	//return heroService.findById(id);
 	    }
+	    
+	    @CrossOrigin
+	   // @RequestMapping(value = "/uploadfile",method = RequestMethod.POST)
+	    @RequestMapping(value = "/headphoto", method = RequestMethod.POST)
+	    public void uploadheadphoto(@RequestParam MultipartFile file  ) {
+	    	System.out.println(file.getOriginalFilename());
+	    	System.out.println(file.getContentType());
+	        // ファイルが空の場合は異常終了
+	        if(file.isEmpty()){
+	            // 異常終了時の処理
+	        }
+	        try {
+	            byte[] bytes = file.getBytes();
+	            BufferedOutputStream uploadFileStream =
+	                    new BufferedOutputStream(new FileOutputStream("C:\\Resources\\"+file.getOriginalFilename()));
+	            uploadFileStream.write(bytes);
+	            uploadFileStream.close();
+	        } catch (Exception e) {
+	            // 異常終了時の処理
+	        } catch (Throwable t) {
+	            // 異常終了時の処理
+	        }
+	    	//return heroService.findById(id);
+	    }
 	    /**
 	     * angular tutorial
 	     * reference app/hero-search.service.ts
