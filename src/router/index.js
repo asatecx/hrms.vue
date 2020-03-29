@@ -11,6 +11,7 @@ import ComfirmAcount from '@/components/comfirmAcount'
 import InterviewList from '@/components/interviewList'
 import Case from '@/components/case'
 import Persondetail from '@/components/persondetail'
+import Myinfo from '@/components/myinfo'
 Vue.use(Router)
 
 export default new Router({
@@ -73,6 +74,11 @@ export default new Router({
       path: '/persondetail',
       name: 'persondetail',
       component: Persondetail
-    }
+    },
+    {
+      path: '/myinfo',
+      name: 'myinfo',
+      component: Myinfo
+    },
   ]
 })
