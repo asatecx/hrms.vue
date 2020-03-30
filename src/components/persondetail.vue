@@ -15,7 +15,7 @@
           </div>
           <div class="bottom clearfix">
             <el-button type="primary" icon="el-icon-video-play" @click="playmovie">個人PRビデオ</el-button>
-            <el-button type="primary" icon="el-icon-video-play" @click="showResume">職歴書</el-button>
+            <el-button type="primary" icon="el-icon-download" @click="showResume">職歴書</el-button>
           </div>
         </el-card>
     </el-row>
