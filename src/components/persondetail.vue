@@ -15,7 +15,7 @@
           </div>
           <div class="bottom clearfix">
             <el-button type="primary" icon="el-icon-video-play" @click="playmovie">個人PRビデオ</el-button>
-            <el-button type="primary" icon="el-icon-video-play" @click="showResume">職歴書</el-button>
+            <el-button type="primary" icon="el-icon-download" @click="showResume">職歴書</el-button>
           </div>
         </el-card>
     </el-row>
@@ -50,10 +50,19 @@ export default {
     showResume(){
       // this.$router.push("/resume");
       var url = this.$store.state.globalSettings.apiUrl + '/resume';
-      this.$axios.post(url, this.formData)
+      this.$axios.post(url, this.formData, {responseType: 'arraybuffer'})
         .then(res => {
             console.log(res.data)
-            alert(res.data);
+            let blob = new Blob([res.data], {type: "application/pdf;charset-UTF-8"})
+            let objectUrl = URL.createObjectURL(blob) // 创建URL
+            // location.href = objectUrl;
+            // URL.revokeObjectURL(objectUrl);
+            let downEle = document.createElement("a");
+            let fname = `職歴書`; //下载文件的名字
+            downEle.href = objectUrl;
+            downEle.setAttribute("download", fname);
+            document.body.appendChild(downEle);
+            downEle.click();
       })
     }
   },
