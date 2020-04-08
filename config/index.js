@@ -11,9 +11,9 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/resume/**': {
-        target: 'http://localhost:8091',
-        // target: this.$store.state.globalSettings.apiUrl,
+      '/resume': {
+ //       target: 'http://localhost:8091',
+        target: 'http://47.74.24.150:8091',
         changeOrigin: true,
     },
     },
