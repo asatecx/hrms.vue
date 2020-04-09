@@ -1,17 +1,5 @@
 <template>
   <div>
-    <!-- <div style=" border: 4px  dashed #d9d9d9;width:178px">
-      <el-upload
-        class="avatar-uploader"
-        action="http://localhost:8080/niucaocao/headphoto"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload">
-        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-    </div>-->
-
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -110,17 +98,6 @@
 export default {
   data() {
     return {
-      imageUrl: "",
-      // ruleForm: {
-      //   name: "",
-      //   region: "",
-      //   date1: "",
-      //   date2: "",
-      //   delivery: false,
-      //   type: [],
-      //   sex: "",
-      //   desc: ""
-      // },
       userNameFirst: "",
       userNameLast: "",
       ruleForm: {
@@ -135,39 +112,22 @@ export default {
         staffNum: "",
       },
       rules: {
-        name: [
+        userNameFirst: [
           { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 3, max: 10, message: "最大桁数超えた", trigger: "blur" }
         ],
-        region: [
-          { required: true, message: "请选择活动区域", trigger: "change" }
+        userNameDisp: [
+          { required: true, message: "请选择活动区域", trigger: "blur" },
+          { max: 20, message: "最大桁数超えた", trigger: "blur" }
         ],
-        date1: [
+        mail: [
           {
-            type: "date",
+            type: "email",
             required: true,
-            message: "请选择日期",
-            trigger: "change"
+            message: "邮箱格式不正确",
+            trigger: "blur"
           }
         ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change"
-          }
-        ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change"
-          }
-        ],
-        sex: [{ required: true, message: "请选择活动资源", trigger: "change" }],
-        desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }]
       },
 
       zipcode: "",
@@ -176,21 +136,6 @@ export default {
     };
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
     submitForm(formName) {
       var url = this.$store.state.globalSettings.apiUrl + '/company/regist';
       this.$refs[formName].validate(valid => {
