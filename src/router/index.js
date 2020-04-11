@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home/Home'
 import Login from '@/components/login'
 import People from '@/components/people'
-import Company from '@/components/company'
+import Company from '@/components/company/company'
 import MakeAcount from '@/components/makeAcount'
 import Uploadfile from '@/components/Uploadfile'
 import Movie from '@/components/movie'
@@ -12,7 +12,7 @@ import InterviewList from '@/components/interviewList'
 import Case from '@/components/case'
 import Persondetail from '@/components/persondetail'
 import Myinfo from '@/components/myinfo'
-import CompanyRegist from '@/components/companyRegist'
+import CompanyRegist from '@/components/company/companyRegist'
 Vue.use(Router)
 
 export default new Router({
