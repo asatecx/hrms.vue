@@ -69,19 +69,10 @@ export default {
       } else if (key == "findcase") {
         this.$router.push("/company");
       } else if (key == "findhr") {
-        alert("工事中");
+        this.$router.push("/people");
       } else if (key == "regist") {
         this.$router.push("/company.regist");
       }
-      // if (keyPath[1] == "logout") {
-      //   this.logout();
-      // } else if (key[0] == "3") {
-      //   this.doLogin("login");
-      // } else if (key[0] == "1") {
-      //   this.$router.push("/Home");
-      // } else if (keyPath[1] == "info") {
-      //   this.$router.push("/myinfo");
-      // }
     }
   },
   mounted() {
