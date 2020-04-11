@@ -12,21 +12,21 @@
         <div class="sub-title">名前<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
         <el-col :span="10">
           <div class="sub-title">姓</div>
-          <el-form-item>
-            <el-input v-model="userNameFirst" placeholder="例）山田"></el-input>
+          <el-form-item prop="userNameFirst">
+            <el-input v-model="ruleForm.userNameFirst" placeholder="例）山田"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="10">
           <div class="sub-title">名</div>
-          <el-form-item>
-            <el-input v-model="userNameLast" placeholder="例）一郎"></el-input>
+          <el-form-item prop="userNameLast">
+            <el-input v-model="ruleForm.userNameLast" placeholder="例）一郎"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">表示名前</div>
-          <el-form-item>
+          <el-form-item prop="userNameDisp">
             <el-input v-model="ruleForm.userNameDisp" placeholder="例）yamada2020"></el-input>
           </el-form-item>
         </el-col>
@@ -34,7 +34,7 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">電話番号（ハイフン不要）<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item>
+          <el-form-item prop="tel">
             <el-input v-model="ruleForm.tel" placeholder="例）08033445566"></el-input>
           </el-form-item>
         </el-col>
@@ -42,7 +42,7 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">メールアドレス<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item>
+          <el-form-item prop="mail">
             <el-input v-model="ruleForm.mail" placeholder="例）sales@asatecx.com"></el-input>
           </el-form-item>
         </el-col>
@@ -50,7 +50,7 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">パスワード<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input placeholder="" v-model="ruleForm.password" show-password></el-input>
           </el-form-item>
         </el-col>
@@ -58,7 +58,7 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">会社名<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item>
+          <el-form-item prop="companyName">
             <el-input v-model="ruleForm.companyName" placeholder="例）株式会社アサテクス"></el-input>
           </el-form-item>
         </el-col>
@@ -66,7 +66,7 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">会社URL<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item>
+          <el-form-item prop="companyURL">
             <el-input v-model="ruleForm.companyURL" placeholder="例）http://www.asatecx.com"></el-input>
           </el-form-item>
         </el-col>
@@ -74,7 +74,7 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">設立年（西暦）<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item>
+          <el-form-item prop="establishYear">
             <el-input v-model="ruleForm.establishYear" placeholder="例）2019"></el-input>
           </el-form-item>
         </el-col>
@@ -82,7 +82,7 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">従業員数（人）<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item>
+          <el-form-item prop="staffNum">
             <el-input v-model="ruleForm.staffNum" placeholder="例）30"></el-input>
           </el-form-item>
         </el-col>
@@ -98,9 +98,10 @@
 export default {
   data() {
     return {
-      userNameFirst: "",
-      userNameLast: "",
+
       ruleForm: {
+        userNameFirst: "",
+        userNameLast: "",
         userName: "",
         userNameDisp: "",
         tel: "",
@@ -113,18 +114,22 @@ export default {
       },
       rules: {
         userNameFirst: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 10, message: "最大桁数超えた", trigger: "blur" }
+          { required: true, message: "お名前(姓)入力必須", trigger: "blur" },
+          { max: 10, message: "最大桁数(10)超えた", trigger: "blur" }
+        ],
+        userNameLast: [
+          { required: true, message: "お名前(名)入力必須", trigger: "blur" },
+          { max: 10, message: "最大桁数(10)超えた", trigger: "blur" }
         ],
         userNameDisp: [
-          { required: true, message: "请选择活动区域", trigger: "blur" },
-          { max: 20, message: "最大桁数超えた", trigger: "blur" }
+          { required: true, message: "表示名入力必須", trigger: "blur" },
+          { max: 20, message: "最大桁数(20)超えた", trigger: "blur" }
         ],
         mail: [
           {
             type: "email",
             required: true,
-            message: "邮箱格式不正确",
+            message: "メール形式不正",
             trigger: "blur"
           }
         ],
@@ -140,18 +145,17 @@ export default {
       var url = this.$store.state.globalSettings.apiUrl + '/company/regist';
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.ruleForm.userName = this.userNameFirst + '　' + this.userNameLast;
           this.$axios.post(url, this.ruleForm)
                     .then(res => {
                         console.log(res)
-                    if (res.data.data.res == "OK") {
+                    if (res.data.success) {
                         // 登录成功
                         // 进行视图跳转
                         this.$router.push("/People");
                         
                     } else {
                         //登录失败
-                        this.$alert( "登录失败", { type: "error" })
+                        this.$alert( res.data.message, { type: "error" })
                         .then(() => {
                             this.formData.password = "";
                         })
