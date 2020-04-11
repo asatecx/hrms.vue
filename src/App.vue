@@ -1,24 +1,14 @@
 <template>
   <div id="app">
-    <!-- <div class="container">
-      <el-container>
-        <el-header>
-          <logout v-if="isShow"></logout>
-        </el-header>
-        <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-main>
-          <router-view />
-        </el-main>
-        <el-footer>Footer</el-footer>
-      </el-container>
-      </el-container>
-    </div> -->
     <el-container>
-      <el-header><logout v-if="isShow"/></el-header>
+      <el-header>
+        <topmenu/>
+      </el-header>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-main><router-view /></el-main>
+        <!-- <el-aside width="200px">Aside</el-aside> -->
+        <el-main>
+          <router-view/>
+        </el-main>
       </el-container>
       <el-footer>Footer</el-footer>
     </el-container>

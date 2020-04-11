@@ -11,10 +11,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 /* eslint-disable no-new */
-import HrmHeader from '@/components/common/HrmHeader'
 import Aside from '@/components/common/Aside'
 
-Vue.component(HrmHeader.name,HrmHeader,Aside.name,Aside)
+Vue.component(Aside.name,Aside)
 
 import '../static/global/index.css'
 import axios from 'axios'
@@ -38,8 +37,8 @@ Vue.use(VideoPlayer);
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 
-import logout from '@/components/logout'
-Vue.component("logout",logout)
+import topmenu from '@/components/common/topmenu'
+Vue.component("topmenu", topmenu)
 new Vue({
   el: '#app',
   router,

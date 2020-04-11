@@ -1,0 +1,101 @@
+<template>
+  <div>
+    <el-menu
+      :default-active="activeIndex2"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
+      background-color="black"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+    >
+      <el-menu-item index="home">
+        <img src="../../assets/logo.jpg" height="100%" />
+      </el-menu-item>
+      <el-menu-item index="regist" style="float:right">会員登録</el-menu-item>
+      <el-menu-item index="login" style="float:right">ログイン</el-menu-item>
+      <el-menu-item index="findcase" style="float:right">案件を探す</el-menu-item>
+      <el-menu-item index="findhr" style="float:right">人材を探す</el-menu-item>
+      <!-- <el-submenu index="4" v-show="this.loginflg" style="float:right">
+        <template slot="title">
+          <el-avatar src="http://localhost:8080/movie/head.jpg"></el-avatar>
+          {{userid}}
+        </template>
+        <el-menu-item index="info">MY情報</el-menu-item>
+        <el-menu-item index="resume">MY履歴</el-menu-item>
+        <el-menu-item index="interview">MY面接</el-menu-item>
+        <el-menu-item index="logout">ログアウト</el-menu-item>
+      </el-submenu> -->
+    </el-menu>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "LoginOut",
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
+  data() {
+    return { loginflg: false, activeIndex: "1", activeIndex2: "1", userid: "" };
+  },
+  methods: {
+    logout() {
+      console.log("logout start");
+      this.$cookies.remove("access_token");
+      this.loginflg = false;
+      //this.$router.push("/Home");
+      this.$router.push({ name: "Login", params: { title: "kkk" } });
+      console.log("logout end");
+    },
+    doLogin(title) {
+      this.$router.push({ name: "Login", params: { title } });
+    },
+    back() {
+      this.$router.go(-1); //返回上一层
+    },
+    goInterviewList() {
+      this.$router.push("/interviewList");
+    },
+    handleSelect(key, keyPath) {
+      console.log(key);
+      console.log(keyPath);
+      if (key == "login") {
+        this.doLogin("login");
+      } else if (key == "home") {
+        this.$router.push("/Home");
+      } else if (key == "findcase") {
+        this.$router.push("/company");
+      } else if (key == "findhr") {
+        alert("工事中");
+      } else if (key == "regist") {
+        this.$router.push("/company.regist");
+      }
+      // if (keyPath[1] == "logout") {
+      //   this.logout();
+      // } else if (key[0] == "3") {
+      //   this.doLogin("login");
+      // } else if (key[0] == "1") {
+      //   this.$router.push("/Home");
+      // } else if (keyPath[1] == "info") {
+      //   this.$router.push("/myinfo");
+      // }
+    }
+  },
+  mounted() {
+    this.userid = this.$store.state.adminName;
+
+    if (this.$cookies.isKey("access_token")) {
+      this.loginflg = true;
+    } else {
+      this.loginflg = false;
+    }
+  },
+  computed: {}
+};
+</script>
+
+<style lang="scss" scoped>
+</style>
