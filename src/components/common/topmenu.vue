@@ -13,7 +13,7 @@
         <img src="../../assets/logo.jpg" height="100%" />
       </el-menu-item>
       <el-menu-item index="regist" style="float:right">会員登録</el-menu-item>
-      <el-menu-item index="login" style="float:right">ログイン</el-menu-item>
+      <el-menu-item index="login" v-show="!this.loginflg" style="float:right">ログイン</el-menu-item>
       <el-submenu index="userInfo" v-show="this.loginflg" style="float:right">
         <template slot="title">
           <el-avatar src="http://localhost:8080/movie/head.jpg"></el-avatar>
@@ -46,7 +46,7 @@ export default {
       console.log("logout start");
       this.$cookies.remove("access_token");
       this.loginflg = false;
-      //this.$router.push("/Home");
+      this.$router.push("/Home");
       this.$router.push({ name: "Login", params: { title: "kkk" } });
       console.log("logout end");
     },
@@ -72,6 +72,8 @@ export default {
         this.$router.push("/people");
       } else if (key == "regist") {
         this.$router.push("/company.regist");
+      } else if (key == "logout") {
+        this.logout();
       }
     }
   },
