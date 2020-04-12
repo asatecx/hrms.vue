@@ -29,7 +29,7 @@
   </div>
 </template>
     
-    <script>
+<script>
 export default {
   inject: ["reload"],
   name: "Login",
