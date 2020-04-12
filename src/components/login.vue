@@ -71,6 +71,7 @@ export default {
             //http://docs.geetest.com/ 滑动认证的链接 但是我没用
             this.$cookies.set("access_token", res.data.data);
             this.$store.commit("setAdminName", this.formData.userId);
+            this.$store.commit("setUserInfo", res.data.data.detail);
             // console.log(this.$parent)
             // this.$root.reload();
             this.reload(); //刷新login控件

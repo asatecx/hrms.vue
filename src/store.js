@@ -14,7 +14,10 @@ export default new Vuex.Store({
 //      apiUrl: 'http://localhost:8080/niucaocao'  //初始值
   //  apiUrl: 'http://47.74.24.150:8091'  //リリース
       },
-      userinfo:'',
+      userInfo:{
+        userId: '',
+        userType: ''
+      },
       loginflg:false,
   },
   // 公共数据的修改方法：this.$store.commit('setAdminName','boss')
@@ -27,9 +30,9 @@ export default new Vuex.Store({
     setGlobalSettings(state, value) {
       state.globalSettings = value
     },
-    setuserinfo(state, value){
-      state.userinfo=value
-      console.log("userinfo="+state.userinfo)
+    setUserInfo(state, value){
+      state.userInfo = value
+      console.log("userInfo="+state.userInfo)
     }
   }
 })

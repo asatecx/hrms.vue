@@ -20,6 +20,7 @@
           {{userid}}
         </template>
         <el-menu-item index="info">MY情報</el-menu-item>
+        <el-menu-item index="caseRegist" v-show="this.userType=='2'">案件登録</el-menu-item>
         <el-menu-item index="resume">MY履歴</el-menu-item>
         <el-menu-item index="interview">MY面接</el-menu-item>
         <el-menu-item index="logout">ログアウト</el-menu-item>
@@ -39,7 +40,7 @@ export default {
     };
   },
   data() {
-    return { loginflg: false, activeIndex: "1", activeIndex2: "1", userid: "" };
+    return { loginflg: false, activeIndex: "1", activeIndex2: "1", userid: "", userType: "" };
   },
   methods: {
     logout() {
@@ -79,9 +80,9 @@ export default {
   },
   mounted() {
     this.userid = this.$store.state.adminName;
-
     if (this.$cookies.isKey("access_token")) {
       this.loginflg = true;
+      this.userType = this.$store.state.userInfo.userType;
     } else {
       this.loginflg = false;
     }
