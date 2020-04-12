@@ -47,7 +47,7 @@ export default {
       this.$cookies.remove("access_token");
       this.loginflg = false;
       this.$router.push("/Home");
-      this.$router.push({ name: "Login", params: { title: "kkk" } });
+      // this.$router.push({ name: "Login", params: { title: "" } });
       console.log("logout end");
     },
     doLogin(title) {
