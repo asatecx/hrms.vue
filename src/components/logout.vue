@@ -48,11 +48,6 @@
 <script>
 export default {
   name: "LoginOut",
-  provide () {
-    return {
-      reload: this.reload
-    }
-  },
   data() {
     return { loginflg: false,
         activeIndex: '1',
@@ -91,7 +86,11 @@ export default {
         }else if(keyPath[1]=="info"){
           this.$router.push("/myinfo");
         }
-      }
+      },
+    reload() {
+      this.isShow = false;
+      this.$nextTick(() => (this.isShow = true));
+    }
   },
   mounted() {
       console.log("lllllllllllllllllllll")
