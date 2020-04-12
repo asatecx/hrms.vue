@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <el-header>
-        <topmenu/>
+        <topmenu v-if="isShow"/>
       </el-header>
       <el-container>
         <!-- <el-aside width="200px">Aside</el-aside> -->
