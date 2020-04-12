@@ -14,9 +14,7 @@
       </el-menu-item>
       <el-menu-item index="regist" style="float:right">会員登録</el-menu-item>
       <el-menu-item index="login" style="float:right">ログイン</el-menu-item>
-      <el-menu-item index="findcase" style="float:right">案件を探す</el-menu-item>
-      <el-menu-item index="findhr" style="float:right">人材を探す</el-menu-item>
-      <!-- <el-submenu index="4" v-show="this.loginflg" style="float:right">
+      <el-submenu index="userInfo" v-show="this.loginflg" style="float:right">
         <template slot="title">
           <el-avatar src="http://localhost:8080/movie/head.jpg"></el-avatar>
           {{userid}}
@@ -25,14 +23,16 @@
         <el-menu-item index="resume">MY履歴</el-menu-item>
         <el-menu-item index="interview">MY面接</el-menu-item>
         <el-menu-item index="logout">ログアウト</el-menu-item>
-      </el-submenu> -->
+      </el-submenu>
+      <el-menu-item index="findcase" style="float:right">案件を探す</el-menu-item>
+      <el-menu-item index="findhr" style="float:right">人材を探す</el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
 export default {
-  name: "LoginOut",
+  name: "topmenu",
   provide() {
     return {
       reload: this.reload
