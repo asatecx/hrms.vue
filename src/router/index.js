@@ -13,6 +13,7 @@ import Case from '@/components/case'
 import Persondetail from '@/components/persondetail'
 import Myinfo from '@/components/myinfo'
 import CompanyRegist from '@/components/company/companyRegist'
+import CaseRegist from '@/components/case/caseRegist'
 Vue.use(Router)
 
 export default new Router({
@@ -85,6 +86,11 @@ export default new Router({
       path: '/company.regist',
       name: 'company.regist',
       component: CompanyRegist
+    },
+    {
+      path: '/case/regist',
+      name: 'caseRegist',
+      component: CaseRegist
     },
   ]
 })

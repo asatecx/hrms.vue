@@ -73,6 +73,8 @@ export default {
         this.$router.push("/people");
       } else if (key == "regist") {
         this.$router.push("/company.regist");
+      } else if (key == "caseRegist") {
+        this.$router.push("/case/regist");
       } else if (key == "logout") {
         this.logout();
       }
