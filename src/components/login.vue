@@ -59,16 +59,13 @@ export default {
     },
     doLogin() {
       //执行登录
-     // var url = this.$store.state.globalSettings.apiUrl + "/main/login";
-     var url="http://localhost:8080/niucaocao"+ "/main/login";
+      var url = this.$store.state.globalSettings.apiUrl + "/main/login";
       this.$axios
-        .post(url, this.$qs.stringify(this.formData))
+        .post(url, this.formData)
         .then(res => {
-          console.log(res);
-          if (res.data.errCode == "10000") {
+            if (res.data.data.res == "OK") {
             // 登录成功
             // 把用户名存入Vuex仓库
-            console.log("OKOKOKOK");
             //http://docs.geetest.com/ 滑动认证的链接 但是我没用
             this.$cookies.set("access_token", res.data.data);
             this.$store.commit("setAdminName", this.formData.userId);
@@ -78,11 +75,11 @@ export default {
             this.reload(); //刷新login控件
             //this.$store.commit("setloginflg", true);
             // 进行视图跳转
-            //if (res.data.data.detail.userType == "1") {
+            if (res.data.data.detail.userType == "1") {
               this.$router.push("/People");
-           // } else {
-           //   this.$router.push("/company");
-           // }
+            } else {
+              this.$router.push("/company");
+            }
           } else {
             //登录失败
             this.$alert("用户名或密码有误！", "登录失败", { type: "error" })
