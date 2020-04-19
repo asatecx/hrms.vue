@@ -68,9 +68,10 @@ export default {
       } else if (key == "home") {
         this.$router.push("/Home");
       } else if (key == "findcase") {
-        this.$router.push("/company");
+        // this.$router.push("/company");
+        alert("工事中");
       } else if (key == "findhr") {
-        this.$router.push("/people");
+        this.$router.push("/company");
       } else if (key == "regist") {
         this.$router.push("/company.regist");
       } else if (key == "caseRegist") {
