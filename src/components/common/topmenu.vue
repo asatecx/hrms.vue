@@ -75,6 +75,8 @@ export default {
         this.$router.push("/company.regist");
       } else if (key == "logout") {
         this.logout();
+      } else if (key == "info") {
+         this.$router.push("/myinfo");
       }
     }
   },

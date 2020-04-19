@@ -160,7 +160,7 @@
 
                 <el-form-item label="">
                   <el-table :data="language" stripe style="width: 100%">
-                    <el-table-column prop="skill" label="開発言語" width="180"></el-table-column>
+                    <el-table-column label="開発言語" width="180"></el-table-column>
                     <el-table-column label="経験度" width="500">
                       <template slot-scope="scope">
                         <el-rate v-model="scope.row.exp" show-text @loadstart="loadstar(scope.row.exp)"></el-rate>
@@ -195,7 +195,7 @@
 
                 <el-form-item label="">
                   <el-table :data="db" stripe style="width: 100%">
-                    <el-table-column prop="skill" label="開発DB" width="180"></el-table-column>
+                    <el-table-column  label="開発DB" width="180"></el-table-column>
                     <el-table-column label="経験度" width="500">
                       <template slot-scope="scope">
                         <el-rate v-model="scope.row.exp" show-text @loadstart="loadstar(scope.row.exp)"></el-rate>
@@ -230,7 +230,7 @@
 
                 <el-form-item label="">
                   <el-table :data="os" stripe style="width: 100%">
-                    <el-table-column prop="skill" label="開発DB" width="180"></el-table-column>
+                    <el-table-column  label="開発DB" width="180"></el-table-column>
                     <el-table-column label="経験度" width="500">
                       <template slot-scope="scope">
                         <el-rate v-model="scope.row.exp" show-text @loadstart="loadstar(scope.row.exp)"></el-rate>
@@ -243,55 +243,50 @@
 
         <el-form-item label="職務履歴">
           <el-form-item
-            v-for="(domain, index) in dynamicValidateForm.domains"
-            :key="domain.key"
-            :prop="'domains.' + index + '.value'"
-            :rules="{
-               required: true, message: '域名不能为空', trigger: 'blur'
-                 }"
+            v-for="(carear, index) in ruleForm.carears"
+            :key="carear.key"
           >
-            <el-form
-              :model="ruleForm"
-              :rules="rules"
-              ref="ruleForm"
-              label-width="70px"
-              class="demo-ruleForm"
-              label-position="top"
-              size="mini"
-            >
               <br />
               <el-divider>{{"No." + index}}</el-divider>
               <div style="text-align: right">
-                <i class="el-icon-delete" @click.prevent="removeDomain(domain)"></i>
+                <i class="el-icon-delete" @click.prevent="removeCarear(carear)"></i>
               </div>
               <el-form-item label="期間" required>
                 <el-col :span="5">
-                  <el-form-item prop="projectFrom">
+                  <el-form-item 
+                    :prop="'carears.' + index + '.projectFrom'"
+                    :rules="{
+                      required: true, message: '開始日は必須です', trigger: 'blur'
+                        }"
+                  >
                     <el-date-picker
                       type="date"
-                      placeholder="选择日期"
-                      v-model="ruleForm.projectFrom"
+                      placeholder="日付を選択"
+                      v-model="carear.projectFrom"
                       style="width: 100%;"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col class="line" :span="2">～</el-col>
                 <el-col :span="5">
-                  <el-form-item prop="projectTo">
+                  <el-form-item 
+                    :prop="'carears.' + index + '.projectTo'"
+                    :rules="validate"
+                  >
                     <el-date-picker
                       type="date"
-                      placeholder="选择日期"
-                      v-model="ruleForm.projectTo"
+                      placeholder="日付を選択"
+                      v-model="carear.projectTo"
                       style="width: 100%;"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
               </el-form-item>
-              <el-form-item label="プロジェクト名" prop="desc">
-                 <el-input v-model="domain.value"></el-input>
+              <!-- <el-form-item label="プロジェクト名" prop="projectname" >
+                 <el-input v-model="carear.projectname" maxlength="50" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="業種" prop="city" >
-                <el-select  v-model="ruleForm.insustry" placeholder="業種名">
+              <el-form-item label="業種" prop="insustry" >
+                <el-select  v-model="carear.insustry" placeholder="業種名">
                   <el-option
                     v-for="item in industryList"
                     :key="item.value"
@@ -300,16 +295,16 @@
                   ></el-option>
                 </el-select>
             　</el-form-item>
-              <el-form-item label="プロジェクトと作業の内容" prop="desc">
-                <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+              <el-form-item label="プロジェクトと作業の内容" prop="contents">
+                <el-input type="textarea" v-model="carear.contents"></el-input>
+              </el-form-item> 
+
+              <el-form-item label="環境" prop="envirment">
+                <el-input type="textarea" v-model="carear.envirment"></el-input>
               </el-form-item>
 
-              <el-form-item label="環境" prop="desc">
-                <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-              </el-form-item>
-
-              <el-form-item label="担当フェーズ" prop="desc">
-                <el-checkbox-group v-model="checkList">
+              <el-form-item label="担当フェーズ" prop="face">
+                <el-checkbox-group v-model="carear.face">
                   <el-checkbox label="要件定義"></el-checkbox>
                   <el-checkbox label="基本設計"></el-checkbox>
                   <el-checkbox label="機能設計"></el-checkbox>
@@ -322,8 +317,8 @@
                 </el-checkbox-group>
               </el-form-item>
 
-              <el-form-item label="役割" prop="desc">
-                <el-checkbox-group v-model="checkList">
+              <el-form-item label="役割" prop="role">
+                <el-checkbox-group v-model="carear.role">
                   <el-checkbox label="tester"></el-checkbox>
                   <el-checkbox label="PG"></el-checkbox>
                   <el-checkbox label="SE"></el-checkbox>
@@ -337,14 +332,13 @@
                   <el-checkbox label="consultant"></el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
-              <el-form-item label="備考" prop="desc">
-                 <el-input v-model="domain.value"></el-input>
-              </el-form-item>
-            </el-form>
+              <el-form-item label="備考" prop="biko">
+                 <el-input v-model="carear.biko"></el-input>
+              </el-form-item>  -->
           </el-form-item>
 
           <div style="text-align: right">
-            <i class="el-icon-circle-plus" @click="addDomain"></i>
+            <i class="el-icon-circle-plus" @click="addCarear"></i>
           </div>
         </el-form-item>
 
@@ -367,7 +361,54 @@
 <script>
 export default {
   data() {
-    return {industryList:[{value:'建設業',label:'建設業'},
+    var   lowerThanDateOnly=(date1, date2)=>  {
+        var year1 = date1.getFullYear();
+        var month1 = date1.getMonth() + 1;
+        var day1 = date1.getDate();
+ 
+        var year2 = date2.getFullYear();
+        var month2= date2.getMonth() + 1;
+        var day2 = date2.getDate();
+ 
+        if (year1 == year2) {
+            if (month1 == month2) {
+                return day1 < day2;
+            }
+            else {
+                return month1 < month2;
+            }
+        } else {
+            return year1 < year2;
+        }
+    }
+
+    var messagesss="";
+    var checkDateTo = (rule, value, callback) => { 
+      console.log("ffffffrom"+rule)
+
+          var i=rule.field.substr(8,1);
+          //carears.' + index + '.projectFrom
+          //console.log("ffffffrom"+this.ruleForm.carears[i].projectFrom)
+          if(this.ruleForm.carears[i].projectFrom==""){
+              this.messagesss='開始日は入力されていない';
+              return callback(new Error('開始日は入力されていない'));
+          }else{
+            
+              var reulst=lowerThanDateOnly(this.ruleForm.carears[i].projectFrom,
+              this.ruleForm.carears[i].projectTo
+              )
+              if(!reulst){
+                  this.messagesss='終了日は開始日より小さい';
+                  return callback(new Error('終了日は開始日より小さい'));
+              }
+          }
+	    };
+    return {
+      validate:[
+        {required: true, message: messagesss, validator: checkDateTo,trigger: 'blur' },
+        //{required: true, message: '終了日は開始日より小さい', validator: checkDateTo,trigger: 'blur' },//写两个validator好像不行
+         ],
+      industryList:[{value:'建設業',label:'建設業'},
                           {value:'製造業',label:'製造業'},
                           {value:'電気･ガス･熱供給･水道業',label:'電気･ガス･熱供給･水道業'},
                           {value:'情報通信業',label:'情報通信業'},
@@ -643,6 +684,7 @@ export default {
       options2:[],//市区町村
       skillSourceLanguage:[],
       skillSourceDB:[],
+      skillSourceOS:[],
       isShow: true,
       squareUrl:
         "http://localhost:8080/movie/" + this.$store.state.adminName + ".jpg",
@@ -695,9 +737,17 @@ export default {
             skill: "",
             exp: ""
           }],
-        projectFrom: "",
-        projectTo: "",
+          carears:[{
+                    projectFrom: "",
+                    projectTo: "",
+          }
+
+          ]
+
       },
+      //https://www.jianshu.com/p/93c5cd5f3226
+      //https://qiita.com/tekunikaruza/items/0a68d86084d961d632ac
+      //https://blog.csdn.net/wadeltf/article/details/97629395
       rules: {
         name: [
           { required: true, message: "名前を入力してください", trigger: "blur" },
@@ -793,14 +843,14 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    removeDomain(item) {
-      var index = this.dynamicValidateForm.domains.indexOf(item);
+    removeCarear(item) {
+      var index = this.ruleForm.carears.indexOf(item);
       if (index !== -1) {
-        this.dynamicValidateForm.domains.splice(index, 1);
+        this.ruleForm.carears.splice(index, 1);
       }
     },
-    addDomain() {
-      this.dynamicValidateForm.domains.push({
+    addCarear() {
+      this.ruleForm.carears.push({
         value: "",
         key: Date.now()
       });
