@@ -2,14 +2,14 @@
   <div id="app">
     <el-container>
       <el-header>
-        <topmenu v-if="isShow"/>
+        <topmenu v-if="isShow" />
       </el-header>
       <el-container>
-        <el-aside width="18%">
-          <sidemenu v-if="isShow"/>
+        <el-aside width="18%" v-if="smShow" >
+          <sidemenu/>
         </el-aside>
         <el-main>
-          <router-view/>
+          <router-view />
         </el-main>
       </el-container>
       <el-footer>Footer</el-footer>
@@ -28,7 +28,8 @@ export default {
   },
   data() {
     return {
-      isShow: true
+      isShow: true,
+      smShow: false
     };
   },
   methods: {
@@ -37,15 +38,30 @@ export default {
       this.$nextTick(() => (this.isShow = true));
     }
   },
-  created () {
+  created() {
     // 在页面加载时读取sessionStorage
-    if (sessionStorage.getItem('store')) {
-      this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem('store'))))
+    if (sessionStorage.getItem("store")) {
+      this.$store.replaceState(
+        Object.assign(
+          {},
+          this.$store.state,
+          JSON.parse(sessionStorage.getItem("store"))
+        )
+      );
     }
     // 在页面刷新时将store保存到sessionStorage里
-    window.addEventListener('beforeunload', () => {
-      sessionStorage.setItem('store', JSON.stringify(this.$store.state))
-    })
+    window.addEventListener("beforeunload", () => {
+      sessionStorage.setItem("store", JSON.stringify(this.$store.state));
+    });
+  },
+  watch: {
+    $route(to) {
+      if (to.path == "/company") {
+        this.smShow = true;
+      } else {
+        this.smShow = false;
+      }
+    }
   },
   components: {}
 };
