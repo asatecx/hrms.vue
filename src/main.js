@@ -11,9 +11,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
 /* eslint-disable no-new */
-import Aside from '@/components/common/Aside'
+import sidemenu from '@/components/common/sidemenu'
 
-Vue.component(Aside.name,Aside)
+Vue.component(sidemenu.name,sidemenu)
 
 import '../static/global/index.css'
 import axios from 'axios'

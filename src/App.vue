@@ -5,7 +5,9 @@
         <topmenu v-if="isShow"/>
       </el-header>
       <el-container>
-        <!-- <el-aside width="200px">Aside</el-aside> -->
+        <el-aside width="18%">
+          <sidemenu v-if="isShow"/>
+        </el-aside>
         <el-main>
           <router-view/>
         </el-main>
