@@ -12,7 +12,7 @@
       <el-menu-item index="home">
         <img src="../../assets/logo.jpg" height="100%" />
       </el-menu-item>
-      <el-menu-item index="regist" style="float:right">会員登録</el-menu-item>
+      <el-menu-item index="regist" style="float:right" v-show="!this.loginflg">会員登録</el-menu-item>
       <el-menu-item index="login" v-show="!this.loginflg" style="float:right">ログイン</el-menu-item>
       <el-submenu index="userInfo" v-show="this.loginflg" style="float:right">
         <template slot="title">
