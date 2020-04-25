@@ -41,7 +41,7 @@
             予約時刻
           </div>
           <el-form-item prop="interviewdate">
-            <el-date-picker v-model="ruleForm.interviewdate" type="date" placeholder="日付" />
+            <el-date-picker v-model="ruleForm.interviewdate" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder="日付" />
           </el-form-item>
         </el-col>
         <el-col :span="3">
@@ -135,7 +135,8 @@ export default {
   methods: {
     submitForm(formName) {
       this.ruleForm.personId = this.$route.params.personId;
-      this.ruleForm.companyId = this.$store.state.userInfo.userId;
+      this.ruleForm.companyId = this.$store.state.adminName;
+      console.log(this.ruleForm.interviewdate);
       var url = this.$store.state.globalSettings.apiUrl + "/interview/regist";
       this.$refs[formName].validate(valid => {
         if (valid) {
