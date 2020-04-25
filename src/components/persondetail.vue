@@ -68,7 +68,7 @@ export default {
     },
     interview(){
       // this.$router.push("/interview/makeinterview");
-      this.$router.push({name: "makeinterview", params: {personId : "123abc"}});
+      this.$router.push({name: "makeinterview", params: {personId : this.personDetail.id}});
     },
   },
   created() {
