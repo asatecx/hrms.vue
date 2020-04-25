@@ -16,6 +16,7 @@
           <div class="bottom clearfix">
             <el-button type="primary" icon="el-icon-video-play" @click="playmovie">個人PRビデオ</el-button>
             <el-button type="primary" icon="el-icon-download" @click="showResume">職歴書</el-button>
+            <el-button type="primary" icon="el-icon-user" @click="interview">面談予約</el-button>
           </div>
         </el-card>
     </el-row>
@@ -64,7 +65,11 @@ export default {
             document.body.appendChild(downEle);
             downEle.click();
       })
-    }
+    },
+    interview(){
+      // this.$router.push("/interview/makeinterview");
+      this.$router.push({name: "makeinterview", params: {personId : "123abc"}});
+    },
   },
   created() {
   }

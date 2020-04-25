@@ -14,6 +14,8 @@ import Persondetail from '@/components/persondetail'
 import Myinfo from '@/components/myinfo'
 import CompanyRegist from '@/components/company/companyRegist'
 import CaseRegist from '@/components/case/caseRegist'
+import Makeinterview from '@/components/interview/makeinterview'
+import InterviewSuccess from '@/components/interview/success'
 Vue.use(Router)
 
 export default new Router({
@@ -91,6 +93,16 @@ export default new Router({
       path: '/case/regist',
       name: 'caseRegist',
       component: CaseRegist
+    },
+    {
+      path: '/interview/makeinterview',
+      name: 'makeinterview',
+      component: Makeinterview
+    },
+    {
+      path: '/interview/success',
+      name: 'interviewSuccess',
+      component: InterviewSuccess
     },
   ]
 })
