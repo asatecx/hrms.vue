@@ -1,8 +1,8 @@
 <template>
-  <div style="margin-top: 50px;">
+  <div style="margin-top: 50px;margin-left: 450px;">
 
     <!-- -->
-    <div style="text-align: left;width:800px">
+    <div style="text-align: left;width:1000px">
       　      <el-form
               :model="ruleForm"
               :rules="rules"
@@ -13,17 +13,17 @@
               >
     
                   <el-form-item>
-                    <el-col :span="10">
-               
+                    <el-col :span="8">
+                      <el-form-item label="写真　　" >
                         
                         <div class="demo-basic--circle">
                           <div class="block" v-for="size in sizeList" :key="size">
                             <el-avatar shape="square" :size="200" :src="`${squareUrl+'?'+now}`" v-if="isShow"></el-avatar>
                           </div>
                         </div>
-                        <div class="sub-title">square</div>
+                        <div class="sub-title">プロフィール写真</div>
                           <el-button type="text" @click="dialogVisible = true">編集</el-button>
-                        <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+                        <el-dialog title="※JPGファイルをアップロードしてください" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
                           <div style=" border: 4px  dashed #d9d9d9;width:178px">
                             <el-upload
                               class="avatar-uploader"
@@ -36,16 +36,16 @@
                               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </el-upload>
                           </div>
-
                         </el-dialog>
+                       </el-form-item >
                     </el-col>  
                     <el-col :span="11">
-                      <el-form-item label="名前" prop="name">
+                      <el-form-item label="名前　　" prop="name">
                         <el-input v-model="ruleForm.name"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="11">
-                      <el-form-item label="性別" prop="sex">
+                      <el-form-item label="性別　　" prop="sex">
                         <el-radio-group v-model="ruleForm.sex">
                           <el-radio label="男"></el-radio>
                           <el-radio label="女"></el-radio>
@@ -53,7 +53,7 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="11">
-                      <el-form-item label="住所" required >
+                      <el-form-item label="住所　　" required >
                         <el-form-item label="" prop="province" >
                           <el-select  v-model="ruleForm.province" placeholder="都道府県名" @change="getaddress()">
                             <el-option
@@ -76,64 +76,108 @@
                       　</el-form-item>
                       </el-form-item>
                     </el-col>
+                      <el-col :span="11">
+                          <el-form-item label="自己紹介">
+                          <el-upload
+                            class="upload-demo"
+                            action="http://localhost:8080/niucaocao/uploadfile"
+                            :on-change="handleChange"
+                            :file-list="fileList">
+                            <el-button size="small" type="primary">アピール動画アップロード</el-button>
+                            <div slot="tip" class="el-upload__tip">ファイルサイズ100M以下</div>
+                          </el-upload>
+                          </el-form-item>
+
+                      </el-col>
                   </el-form-item>
 
-                  <el-form-item label="生年月日" required>
-                    <el-form-item prop="birthday">
-                      <el-date-picker
-                        type="date"
-                        placeholder="日付を選択してください"
-                        v-model="ruleForm.birthday"
-                        style="width: 30%;"
-                      ></el-date-picker>
+
+               <el-form-item >
+                  <el-col :span="10">
+                    <el-form-item label="生年月日" required>
+                      <el-form-item prop="birthday">
+                        <el-date-picker
+                          type="date"
+                          placeholder="日付を選択"
+                          v-model="ruleForm.birthday"
+                          style="width: 50%;"
+                        ></el-date-picker>
+                      </el-form-item>
                     </el-form-item>
-                  </el-form-item>
-
-              <el-form-item label="国籍" prop="country" >
-                <el-select  v-model="ruleForm.country" placeholder="国名">
-                  <el-option
-                    v-for="item in countryList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-            　</el-form-item>
-              <el-form-item label="最寄り駅" prop="station">
-                <el-input placeholder="駅名を入力してください" v-model="ruleForm.station" style="width:250px">
-                  <template slot="append">駅</template>
-                </el-input>
-              </el-form-item>
-             <el-form-item label="最終学歴" prop="school">
-                <el-input placeholder="学校名を入力してください" v-model="ruleForm.school" style="width:250px">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="専攻" prop="major">
-                <el-input placeholder="例：情報通信" v-model="ruleForm.major" style="width:250px">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="卒業年月日" required>
-                <el-form-item prop="graduationDate">
-                  <el-date-picker
-                    type="date"
-                    placeholder="日付を選択してください"
-                    v-model="ruleForm.graduationDate"
-                    style="width: 30%;"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-form-item>
-              <el-form-item label="実務経験" prop="workyears">
-                <el-input placeholder="年数" v-model="ruleForm.workyears" style="width:120px">
-                  <template slot="append">年</template>
-                </el-input>
-              </el-form-item>
-              <el-form-item label="来日年度" prop="comeJapanyears">
-                <el-input placeholder="年数" v-model="ruleForm.comeJapanyears" style="width:120px">
-                  <template slot="append">年</template>
-                </el-input>
+                   </el-col>
+                   <el-col :span="10">
+                     <el-form-item label="国籍　　　" prop="country" >
+                      <el-select  v-model="ruleForm.country" placeholder="国名">
+                        <el-option
+                          v-for="item in countryList"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        ></el-option>
+                      </el-select>
+                  　</el-form-item>
+                   </el-col>
               </el-form-item>
 
+              <el-form-item >
+                <el-col :span="10">
+                      <el-form-item label="最寄り駅" prop="station">
+                        <el-input placeholder="駅名を入力してください" v-model="ruleForm.station" style="width:250px">
+                          <template slot="append">駅</template>
+                        </el-input>
+                      </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                      <el-form-item label="最終学歴　" prop="school">
+                        <el-input placeholder="学校名を入力してください" v-model="ruleForm.school" style="width:250px">
+                        </el-input>
+                      </el-form-item>
+                </el-col>
 
+              </el-form-item>
+
+              <el-form-item >
+                <el-col :span="10">
+                    <el-form-item label="専攻　　" prop="major">
+                       <el-input placeholder="例：情報通信" v-model="ruleForm.major" style="width:250px">
+                    </el-input>
+              </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                      <el-form-item label="卒業年月日" >
+                        <el-form-item prop="graduationDate">
+                          <el-date-picker
+                            type="date"
+                            placeholder="日付を選択"
+                            v-model="ruleForm.graduationDate"
+                            style="width: 45%;"
+                          ></el-date-picker>
+                        </el-form-item>
+              </el-form-item>
+                </el-col>
+
+              </el-form-item>
+
+               <el-form-item >
+                <el-col :span="10">
+                    <el-form-item label="実務経験" prop="workyears">
+                      <el-input placeholder="年数" v-model="ruleForm.workyears" type="number" min="0" style="width:120px">
+                        <template slot="append">年</template>
+                      </el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                    <el-form-item label="来日年度　" prop="comeJapanyears">
+                      <el-input placeholder="年数" v-model="ruleForm.comeJapanyears" type="number" min="0" style="width:120px">
+                        <template slot="append">年</template>
+                      </el-input>
+                    </el-form-item>
+                </el-col>
+
+              </el-form-item>
+
+              <el-form-item>
+              <el-col :span="20">
                 <el-form-item label="開発言語">
                   <div style="text-align: left;">
                     <el-transfer
@@ -157,18 +201,35 @@
                     </el-transfer>
                   </div>
                 </el-form-item>
+                </el-col>
+              </el-form-item>
 
-                <el-form-item label="">
-                  <el-table :data="language" stripe style="width: 100%">
-                    <el-table-column label="開発言語" width="180"></el-table-column>
-                    <el-table-column label="経験度" width="500">
-                      <template slot-scope="scope">
-                        <el-rate v-model="scope.row.exp" show-text @loadstart="loadstar(scope.row.exp)"></el-rate>
-                      </template>
-                    </el-table-column>
-                  </el-table>
-                </el-form-item>
+         　　<el-form-item>
+              <el-col :span="20">
+                <el-form-item label="　">
+                    <el-table :data="language" stripe style="width: 100%">
+                      <el-table-column label="開発言語" width="300px">
+                        <template slot-scope="scope">
+                          <el-input
+                            placeholder=""
+                            v-model="scope.row.skill"
+                            :disabled="true">
+                          </el-input>
+                        </template>
 
+                      </el-table-column>
+                      <el-table-column label="経験度" width="300px">
+                        <template slot-scope="scope">
+                          <el-rate v-model="scope.row.exp" show-text @loadstart="loadstar(scope.row.exp)"></el-rate>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-form-item>
+              </el-col>
+            </el-form-item>
+
+            <el-form-item>
+              <el-col :span="20">
                 <el-form-item label="ﾃﾞｰﾀﾍﾞｰｽ">
                   <div style="text-align: left;">
                     <el-transfer
@@ -192,18 +253,33 @@
                     </el-transfer>
                   </div>
                 </el-form-item>
-
-                <el-form-item label="">
+              </el-col>
+            </el-form-item>
+         　　<el-form-item>
+              <el-col :span="20">
+                <el-form-item label="　">
                   <el-table :data="db" stripe style="width: 100%">
-                    <el-table-column  label="開発DB" width="180"></el-table-column>
-                    <el-table-column label="経験度" width="500">
+                    <el-table-column  label="開発DB" width="300px">
+                      <template slot-scope="scope">
+                        <el-input
+                          placeholder=""
+                          v-model="scope.row.skill"
+                          :disabled="true">
+                        </el-input>
+                      </template>
+
+                    </el-table-column>
+                    <el-table-column label="経験度" width="300px">
                       <template slot-scope="scope">
                         <el-rate v-model="scope.row.exp" show-text @loadstart="loadstar(scope.row.exp)"></el-rate>
                       </template>
                     </el-table-column>
                   </el-table>
                 </el-form-item>
-
+                </el-col>
+            </el-form-item>
+            <el-form-item>
+              <el-col :span="20">
                 <el-form-item label="OS">
                   <div style="text-align: left;">
                     <el-transfer
@@ -227,128 +303,140 @@
                     </el-transfer>
                   </div>
                 </el-form-item>
-
-                <el-form-item label="">
+                </el-col>
+            </el-form-item>
+         　　<el-form-item>
+              <el-col :span="20">
+                <el-form-item label="　">
                   <el-table :data="os" stripe style="width: 100%">
-                    <el-table-column  label="開発DB" width="180"></el-table-column>
-                    <el-table-column label="経験度" width="500">
+                    <el-table-column  label="開発DB" width="300px">
+                      <template slot-scope="scope">
+                        <el-input
+                          placeholder=""
+                          v-model="scope.row.skill"
+                          :disabled="true">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column label="経験度" width="300px">
                       <template slot-scope="scope">
                         <el-rate v-model="scope.row.exp" show-text @loadstart="loadstar(scope.row.exp)"></el-rate>
                       </template>
                     </el-table-column>
                   </el-table>
                 </el-form-item>
-
-<!-- ------------------------------------------->
-
-        <el-form-item label="職務履歴">
-          <el-form-item
-            v-for="(carear, index) in ruleForm.carears"
-            :key="carear.key"
-          >
-              <br />
-              <el-divider>{{"No." + index}}</el-divider>
-              <div style="text-align: right">
-                <i class="el-icon-delete" @click.prevent="removeCarear(carear)"></i>
-              </div>
-              <el-form-item label="期間" required>
-                <el-col :span="5">
-                  <el-form-item 
-                    :prop="'carears.' + index + '.projectFrom'"
-                    :rules="{
-                      required: true, message: '開始日は必須です', trigger: 'blur'
-                        }"
-                  >
-                    <el-date-picker
-                      type="date"
-                      placeholder="日付を選択"
-                      v-model="carear.projectFrom"
-                      style="width: 100%;"
-                    ></el-date-picker>
-                  </el-form-item>
                 </el-col>
-                <el-col class="line" :span="2">～</el-col>
-                <el-col :span="5">
-                  <el-form-item 
-                    :prop="'carears.' + index + '.projectTo'"
-                    :rules="validate"
-                  >
-                    <el-date-picker
-                      type="date"
-                      placeholder="日付を選択"
-                      v-model="carear.projectTo"
-                      style="width: 100%;"
-                    ></el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-form-item>
-              <!-- <el-form-item label="プロジェクト名" prop="projectname" >
-                 <el-input v-model="carear.projectname" maxlength="50" show-word-limit></el-input>
-              </el-form-item>
-              <el-form-item label="業種" prop="insustry" >
-                <el-select  v-model="carear.insustry" placeholder="業種名">
-                  <el-option
-                    v-for="item in industryList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-            　</el-form-item>
-              <el-form-item label="プロジェクトと作業の内容" prop="contents">
-                <el-input type="textarea" v-model="carear.contents"></el-input>
-              </el-form-item> 
-
-              <el-form-item label="環境" prop="envirment">
-                <el-input type="textarea" v-model="carear.envirment"></el-input>
-              </el-form-item>
-
-              <el-form-item label="担当フェーズ" prop="face">
-                <el-checkbox-group v-model="carear.face">
-                  <el-checkbox label="要件定義"></el-checkbox>
-                  <el-checkbox label="基本設計"></el-checkbox>
-                  <el-checkbox label="機能設計"></el-checkbox>
-                  <el-checkbox label="詳細設計"></el-checkbox>
-                  <el-checkbox label="製造"></el-checkbox>
-                  <el-checkbox label="単体試験"></el-checkbox>
-                  <el-checkbox label="結合試験"></el-checkbox>
-                  <el-checkbox label="総合試験"></el-checkbox>
-                  <el-checkbox label="運用試験"></el-checkbox>
-                </el-checkbox-group>
-              </el-form-item>
-
-              <el-form-item label="役割" prop="role">
-                <el-checkbox-group v-model="carear.role">
-                  <el-checkbox label="tester"></el-checkbox>
-                  <el-checkbox label="PG"></el-checkbox>
-                  <el-checkbox label="SE"></el-checkbox>
-                  <el-checkbox label="BSE"></el-checkbox>
-                  <el-checkbox label="sub-Leader"></el-checkbox>
-                  <el-checkbox label="TL"></el-checkbox>
-                  <el-checkbox label="PMO"></el-checkbox>
-                  <el-checkbox label="AM"></el-checkbox>
-                  <el-checkbox label="PM"></el-checkbox>
-                  <el-checkbox label="Architect"></el-checkbox>
-                  <el-checkbox label="consultant"></el-checkbox>
-                </el-checkbox-group>
-              </el-form-item>
-              <el-form-item label="備考" prop="biko">
-                 <el-input v-model="carear.biko"></el-input>
-              </el-form-item>  -->
-          </el-form-item>
-
-          <div style="text-align: right">
-            <i class="el-icon-circle-plus" @click="addCarear"></i>
-          </div>
-        </el-form-item>
-
-
-
+            </el-form-item>
 <!-- ------------------------------------------->
-                 <el-form-item>
+      　　<el-form-item>
+          <el-col :span="20">
+              <el-form-item label="職務履歴">
+                <el-form-item
+                  v-for="(carear, index) in ruleForm.carears"
+                  :key="carear.key"
+                >
+                    <br />
+                    <el-divider>{{"No." + (index+1)}}</el-divider>
+                    <div style="text-align: right">
+                      <i class="el-icon-delete" @click.prevent="removeCarear(carear)"></i>
+                    </div>
+                    <el-form-item label="期間" >
+                      <el-col :span="5">
+                        <el-form-item 
+                          :prop="'carears.' + index + '.projectFrom'"
+                  
+                        >
+                          <el-date-picker
+                            type="date"
+                            placeholder="日付を選択"
+                            v-model="carear.projectFrom"
+                            style="width: 100%;"
+                          ></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                      <el-col class="line" :span="2">～</el-col>
+                      <el-col :span="5">
+                        <el-form-item 
+                          :prop="'carears.' + index + '.projectTo'"
+                          :rules="validate"
+                        >
+                          <el-date-picker
+                            type="date"
+                            placeholder="日付を選択"
+                            v-model="carear.projectTo"
+                            style="width: 100%;"
+                          ></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                    </el-form-item>
+                    <el-form-item label="プロジェクト名" prop="projectname" >
+                      <el-input v-model="carear.projectname" maxlength="50" show-word-limit></el-input>
+                    </el-form-item>
+                    <el-form-item label="業種" prop="insustry" >
+                      <el-select  v-model="carear.insustry" placeholder="業種名">
+                        <el-option
+                          v-for="item in industryList"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        ></el-option>
+                      </el-select>
+                  　</el-form-item>
+                  <el-form-item label="プロジェクトと作業の内容" prop="contents">
+                      <el-input type="textarea" v-model="carear.contents"></el-input>
+                    </el-form-item> 
+
+                    <el-form-item label="環境" prop="envirment">
+                      <el-input type="textarea" v-model="carear.envirment"></el-input>
+                    </el-form-item>
+
+                  <el-form-item label="担当フェーズ" prop="face">
+                      <el-checkbox-group v-model="carear.face">
+                        <el-checkbox label="要件定義"></el-checkbox>
+                        <el-checkbox label="基本設計"></el-checkbox>
+                        <el-checkbox label="機能設計"></el-checkbox>
+                        <el-checkbox label="詳細設計"></el-checkbox>
+                        <el-checkbox label="製造"></el-checkbox>
+                        <el-checkbox label="単体試験"></el-checkbox>
+                        <el-checkbox label="結合試験"></el-checkbox>
+                        <el-checkbox label="総合試験"></el-checkbox>
+                        <el-checkbox label="運用試験"></el-checkbox>
+                      </el-checkbox-group>
+                    </el-form-item>
+
+                    <el-form-item label="役割" prop="role">
+                      <el-checkbox-group v-model="carear.role">
+                        <el-checkbox label="tester"></el-checkbox>
+                        <el-checkbox label="PG"></el-checkbox>
+                        <el-checkbox label="SE"></el-checkbox>
+                        <el-checkbox label="BSE"></el-checkbox>
+                        <el-checkbox label="sub-Leader"></el-checkbox>
+                        <el-checkbox label="TL"></el-checkbox>
+                        <el-checkbox label="PMO"></el-checkbox>
+                        <el-checkbox label="AM"></el-checkbox>
+                        <el-checkbox label="PM"></el-checkbox>
+                        <el-checkbox label="Architect"></el-checkbox>
+                        <el-checkbox label="consultant"></el-checkbox>
+                      </el-checkbox-group>
+                    </el-form-item>
+                    <el-form-item label="備考" prop="biko">
+                      <el-input v-model="carear.biko"></el-input>
+                    </el-form-item> 
+                </el-form-item>
+
+                <div style="text-align: right">
+                  <i class="el-icon-circle-plus" @click="addCarear"></i>
+                </div>
+              </el-form-item>
+       </el-col>
+       </el-form-item>
+
+            <!-- ------------------------------------------->
+                 <el-form-item style="text-align: center">
                   <el-button type="primary" @click="submitForm('ruleForm')">提出</el-button>
                   <el-button @click="resetForm('ruleForm')">リセット</el-button>
-                 </el-form-item>
+                </el-form-item>
+         
 
 
       　      </el-form>
@@ -384,15 +472,15 @@ export default {
 
     var messagesss="";
     var checkDateTo = (rule, value, callback) => { 
-      console.log("ffffffrom"+rule)
+      console.log(rule)
 
           var i=rule.field.substr(8,1);
           //carears.' + index + '.projectFrom
-          //console.log("ffffffrom"+this.ruleForm.carears[i].projectFrom)
-          if(this.ruleForm.carears[i].projectFrom==""){
+          console.log("ffffffrom"+this.ruleForm.carears[i].projectFrom)
+          if(this.ruleForm.carears[i].projectFrom=="" && this.ruleForm.carears[i].projectTo!=""){
               this.messagesss='開始日は入力されていない';
               return callback(new Error('開始日は入力されていない'));
-          }else{
+          }else if(this.ruleForm.carears[i].projectFrom!="" && this.ruleForm.carears[i].projectTo!=""){
             
               var reulst=lowerThanDateOnly(this.ruleForm.carears[i].projectFrom,
               this.ruleForm.carears[i].projectTo
@@ -404,6 +492,10 @@ export default {
           }
 	    };
     return {
+       fileList: [{
+          name: 'xxx.mp4',
+          url: ''
+        }, ],
       validate:[
         {required: true, message: messagesss, validator: checkDateTo,trigger: 'blur' },
         //{required: true, message: '終了日は開始日より小さい', validator: checkDateTo,trigger: 'blur' },//写两个validator好像不行
@@ -740,6 +832,13 @@ export default {
           carears:[{
                     projectFrom: "",
                     projectTo: "",
+                    projectname: "",
+                    insustry: "",
+                    face:[],
+                    contents:"",
+                    envirment:"",
+                    role:[],
+                    biko:"",
           }
 
           ]
@@ -767,23 +866,8 @@ export default {
             trigger: "change"
           }
         ],
-        projectFrom: [
-          {
-            type: "date",
-            required: true,
-            message: "時間を選択してください",
-            trigger: "change"
-          }
-        ],
-        projectTo: [
-          {
-            type: "date",
-            required: true,
-            message: "時間を選択してください",
-            trigger: "change"
-          }
-        ],
-        sex: [{ required: true, message: "请选择活动资源", trigger: "change" }],
+
+        sex: [{ required: true, message: "性別を選択してください", trigger: "change" }],
       }
     };
   },
@@ -809,8 +893,11 @@ export default {
       return isJPG && isLt2M;
     },
     submitForm(formName) {
+       console.log("XXXXXXXXXXXXx")
+        console.log(this.ruleForm)
       this.$refs[formName].validate(valid => {
         if (valid) {
+         
           alert("submit!");
         } else {
           console.log("error submit!!");
@@ -830,19 +917,6 @@ export default {
       console.log(obj);
       obj = 1;
     },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
     removeCarear(item) {
       var index = this.ruleForm.carears.indexOf(item);
       if (index !== -1) {
@@ -851,13 +925,21 @@ export default {
     },
     addCarear() {
       this.ruleForm.carears.push({
-        value: "",
+                    projectFrom: "",
+                    projectTo: "",
+                    projectname: "",
+                    insustry: "",
+                    face:"",
+                    contents:"",
+                    envirment:"",
+                    role:"",
+                    biko:"",
         key: Date.now()
       });
     },
     //photo
     handleClose(done) {
-      this.$confirm("确认关闭？")
+      this.$confirm("閉じますか？")
         .then(_ => {
           done();
         })
@@ -948,6 +1030,9 @@ export default {
           // error 処理
         });
     },
+    handleChange(file, fileList) {
+        this.fileList = fileList.slice(-1);
+    }
   },
  
   computed: {
@@ -999,6 +1084,8 @@ export default {
         if (this.selectedDB.hasOwnProperty(key)) {
           let index =this.selectedDB[key]
           const element = this.skillSourceDB[index-1].label;
+           console.log("-----------");
+          console.log(element);
           let expV = 1;
           
           for (const key in tabledatedb) {
