@@ -1,6 +1,6 @@
 <template>
   <div>
-    xxxxxxx
+    i am footer
   </div>
 </template>
 
