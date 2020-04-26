@@ -7,9 +7,9 @@ import store from './store'
 //elementを導入する   https://element.eleme.io/#/zh-CN/component/quickstart
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
+import locale from 'element-ui/lib/locale/lang/ja'
 Vue.config.productionTip = false
-Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
+Vue.use(ElementUI, { size: 'small', zIndex: 3000,locale });
 /* eslint-disable no-new */
 import sidemenu from '@/components/common/sidemenu'
 
@@ -39,6 +39,10 @@ Vue.use(VueCookies)
 
 import topmenu from '@/components/common/topmenu'
 Vue.component("topmenu", topmenu)
+
+import movie from '@/components/movie'
+Vue.component("movie", movie)
+
 new Vue({
   el: '#app',
   router,

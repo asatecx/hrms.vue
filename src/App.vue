@@ -12,7 +12,7 @@
           <router-view />
         </el-main>
       </el-container>
-      <el-footer>Footer</el-footer>
+      <el-footer><topmenu v-if="isShow" /></el-footer>
     </el-container>
   </div>
 </template>

@@ -6,16 +6,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // 公共数据读取方法：this.$store.state.adminName
   state: {  //当前数据的状态，类似于组件对象data属性
-      adminName: '',  //当前登录的管理员名
+      adminName: '',  //当前登录的用户名
       globalSettings: { //项目的全局设置信息
       apiUrl: 'http://127.0.0.1:8091'  //ローカル
-//    apiUrl: 'http://47.74.24.150:8091'  //リリース
-//    apiUrl: 'http://192.168.99.100:8091'  //ToolBOx
+    //apiUrl: 'http://47.74.24.150:8091'  //リリース
+  //  apiUrl: 'http://192.168.99.100:8091'  //ToolBOx
       },
       userInfo:{
         userId: '',
         userType: ''
       },
+      myinfo:"",
       loginflg:false,
   },
   // 公共数据的修改方法：this.$store.commit('setAdminName','boss')
@@ -30,7 +31,11 @@ export default new Vuex.Store({
     },
     setUserInfo(state, value){
       state.userInfo = value
-      console.log("userInfo="+state.userInfo)
+      console.log(state.userInfo)
+    },
+    setmyinfo(state, value){
+      state.myinfo = value
+      console.log(state.myinfo)
     }
   }
 })

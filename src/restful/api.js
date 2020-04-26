@@ -1,7 +1,10 @@
 import Axios from 'axios'
 import VueCookies from 'vue-cookies'
-Axios.defaults.baseURL='http://localhost:8080/niucaocao'
-const xxxurl='/cccc'
+import store from '../store'
+
+Axios.defaults.baseURL=store.state.globalSettings.apiUrl+'/niucaocao'
+const addressurl='/getaddress'//人材の住所を取得する。
+const skillurl='/getskillsource'
 const yyyurl='/cccc/?userid='
 const zzzzurl='/zzzz'
 
@@ -24,12 +27,30 @@ Axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
   });
 
-export function geetest(){
-    return Axios.get(xxxurl).then(res=>res.data)
-}
+export function getaddress(searchkey){
+    ////http://localhost:8091/niucaocao/getaddress
 
+    return  Axios
+    .get(addressurl, {
+      params: {
+        // ここにクエリパラメータを指定する
+        city: searchkey
+        //interviewTime:time,
+        // interviewPlace:place,
+      }
+    })
+    .then(res=>res.data);
+  
+   
+}
+export function getskillsource(){
+   // http://localhost:8091/niucaocao/getskillsource
+
+    return  Axios.get(skillurl)
+   ;
+}
 export function getuserinfo(userid){
-    return Axios.get(`${xxxurl}${userid}`).then(res=>res.data)
+    return Axios.get(`${yyyurl}${userid}`).then(res=>res.data)
 }
 
 export function userinfo(paramas){

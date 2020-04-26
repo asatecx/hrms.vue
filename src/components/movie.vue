@@ -9,6 +9,12 @@ import '../../node_modules/video.js/dist/video-js.css'
 import '../../node_modules/vue-video-player/src/custom-theme.css'
 //https://blog.csdn.net/fj101229/article/details/80844417
   export default {
+    props: {whoseVideo:{
+            type: String,
+            default: 'abc',
+            required: true
+          },
+    },
     data () {
       return {
         playerOptions: {
@@ -24,7 +30,7 @@ import '../../node_modules/vue-video-player/src/custom-theme.css'
           sources: [{
             type: 'video/mp4',
             // src: 'http://localhost:8080/movie/movie.mp4'//你所放置的视频的地址，最好是放在服务器上
-            src: this.$store.state.globalSettings.apiUrl + '/videos/hahaha.mp4'//你所放置的视频的地址，最好是放在服务器上
+            src: this.$store.state.globalSettings.apiUrl + '/videos/'+this.whoseVideo+'.mp4'//你所放置的视频的地址，最好是放在服务器上
           }],
          // poster: "http://39.106.117.192:8080/static/indexImg.png", //你的封面地址（覆盖在视频上面的图片）
           poster: this.$store.state.globalSettings.apiUrl + '/videos/logo.png', //你的封面地址（覆盖在视频上面的图片）
