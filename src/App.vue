@@ -12,7 +12,9 @@
           <router-view />
         </el-main>
       </el-container>
-      <el-footer>Footer</el-footer>
+      <el-footer>
+        <footer/>
+      </el-footer>
     </el-container>
   </div>
 </template>
