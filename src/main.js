@@ -50,3 +50,6 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+import pagefooter from '@/components/common/pagefooter'
+Vue.component("pagefooter", pagefooter)
