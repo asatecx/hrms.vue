@@ -16,7 +16,7 @@
       <el-menu-item index="login" v-show="!this.loginflg" style="float:right">ログイン</el-menu-item>
       <el-submenu index="userInfo" v-show="this.loginflg" style="float:right">
         <template slot="title">
-          <el-avatar src="http://localhost:8080/movie/head.jpg"></el-avatar>
+          <el-avatar  :src="`${headphoto+'?'+now}`"></el-avatar>
           {{userid}}
         </template>
         <el-menu-item index="info">MY情報</el-menu-item>
@@ -40,7 +40,9 @@ export default {
     };
   },
   data() {
-    return { loginflg: false, activeIndex: "1", activeIndex2: "1", userid: "", userType: "" };
+    return { 
+      headphoto:this.$store.state.globalSettings.apiUrl +"/photos/"+this.$store.state.adminName + ".jpg",
+      loginflg: false, activeIndex: "1", activeIndex2: "1", userid: "", userType: "" };
   },
   methods: {
     logout() {
@@ -92,7 +94,12 @@ export default {
       this.loginflg = false;
     }
   },
-  computed: {}
+  computed: {
+
+        now: function() {
+        return Math.random();
+      }
+  }
 };
 </script>
 
