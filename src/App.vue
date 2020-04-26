@@ -13,7 +13,7 @@
         </el-main>
       </el-container>
       <el-footer>
-        <footer/>
+        <pagefooter/>
       </el-footer>
     </el-container>
   </div>

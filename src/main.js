@@ -47,5 +47,5 @@ new Vue({
   template: '<App/>'
 })
 
-import footer from '@/components/common/footer'
-Vue.component("footer", footer)
+import pagefooter from '@/components/common/pagefooter'
+Vue.component("pagefooter", pagefooter)
