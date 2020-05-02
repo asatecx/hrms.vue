@@ -5,8 +5,8 @@
 </template>
 <script>
 import { videoPlayer } from 'vue-video-player'
-import '../../node_modules/video.js/dist/video-js.css'
-import '../../node_modules/vue-video-player/src/custom-theme.css'
+import '../../../node_modules/video.js/dist/video-js.css'
+import '../../../node_modules/vue-video-player/src/custom-theme.css'
 //https://blog.csdn.net/fj101229/article/details/80844417
   export default {
     props: {whoseVideo:{

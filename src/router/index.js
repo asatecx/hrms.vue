@@ -6,7 +6,7 @@ import People from '@/components/people'
 import Company from '@/components/company/company'
 import MakeAcount from '@/components/makeAcount'
 import Uploadfile from '@/components/Uploadfile'
-import Movie from '@/components/movie'
+import Movie from '@/components/parts/movie'
 import ComfirmAcount from '@/components/comfirmAcount'
 import InterviewList from '@/components/interviewList'
 import Case from '@/components/case'
@@ -16,6 +16,9 @@ import CompanyRegist from '@/components/company/companyRegist'
 import CaseRegist from '@/components/case/caseRegist'
 import Makeinterview from '@/components/interview/makeinterview'
 import InterviewSuccess from '@/components/interview/success'
+import comfirmMyinfo from '@/components/comfirmMyinfo'
+import regist from '@/components/common/regist'
+
 Vue.use(Router)
 
 export default new Router({
@@ -90,6 +93,11 @@ export default new Router({
       component: CompanyRegist
     },
     {
+      path: '/regist',
+      name: 'regist',
+      component: regist
+    },
+    {
       path: '/case/regist',
       name: 'caseRegist',
       component: CaseRegist
@@ -103,6 +111,11 @@ export default new Router({
       path: '/interview/success',
       name: 'interviewSuccess',
       component: InterviewSuccess
+    },
+    {
+      path: '/comfirmMyinfo',
+      name: 'comfirmMyinfo',
+      component: comfirmMyinfo
     },
   ]
 })

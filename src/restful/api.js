@@ -5,6 +5,10 @@ import store from '../store'
 Axios.defaults.baseURL=store.state.globalSettings.apiUrl+'/niucaocao'
 const addressurl='/getaddress'//人材の住所を取得する。
 const skillurl='/getskillsource'
+const toptenurl='/gettopTen'
+const CaseListurl ='/getCaseList'
+const interviewListurl ='/interviewList'
+
 const yyyurl='/cccc/?userid='
 const zzzzurl='/zzzz'
 
@@ -49,7 +53,54 @@ export function getskillsource(){
     return  Axios.get(skillurl)
    ;
 }
-export function getuserinfo(userid){
+
+//http://localhost:8080/niucaocao/gettopTen
+//toptenurl
+export function gettopTen(searchkey,id){
+  return Axios
+  .get(toptenurl, {
+    params: {
+      // ここにクエリパラメータを指定する
+      keyword: searchkey,
+      userid:id,
+      //interviewTime:time,
+      // interviewPlace:place,
+    }
+  })
+ 
+}
+//http://localhost:8080/niucaocao/getCaseList
+export function getCaseList(searchkey,id,currentPage,pagesize){
+  return Axios
+  .get(CaseListurl, {
+    params: {
+      // ここにクエリパラメータを指定する
+      keyword: searchkey,
+      userid:id,
+      currentPage:currentPage,
+      pagesize:pagesize,
+      //interviewTime:time,
+      // interviewPlace:place,
+    }
+  })
+}
+//http://localhost:8080/niucaocao/interviewList
+export function getInterviewList(comName,id,currentPage,pagesize){
+     
+  return  Axios.get(interviewListurl, {
+        params: {
+            // ここにクエリパラメータを指定する
+            companyName:comName ,
+            userid:id,
+            currentPage:currentPage,
+            pagesize:pagesize,
+            //interviewTime:time,
+          // interviewPlace:place,
+        }
+    })
+}
+
+export function gettotest(userid){
     return Axios.get(`${yyyurl}${userid}`).then(res=>res.data)
 }
 

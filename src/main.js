@@ -40,9 +40,35 @@ Vue.use(VueCookies)
 import topmenu from '@/components/common/topmenu'
 Vue.component("topmenu", topmenu)
 
-import movie from '@/components/movie'
+import movie from '@/components/parts/movie'
 Vue.component("movie", movie)
 
+import photo from '@/components/parts/photo'
+Vue.component("photo", photo)
+
+import paging from '@/components/parts/paging'
+Vue.component("paging", paging)
+
+//https://momentjs.com/
+import moment  from 'moment'
+Vue.filter('moment', function (date) {
+  return moment(date).format('YYYY/MM/DD');
+ 
+    }
+)
+Vue.filter('connection', function (ary) {
+  return ary.join('/');
+    }
+)
+Vue.filter('maru', function (bb) {
+      if(bb){
+        return "〇"
+      }else{
+        return ""
+      }
+ 
+    }
+)
 new Vue({
   el: '#app',
   router,

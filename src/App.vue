@@ -13,7 +13,7 @@
         </el-main>
       </el-container>
       <el-footer>
-        <pagefooter/>
+        <!-- <pagefooter/> -->
       </el-footer>
     </el-container>
   </div>
@@ -23,6 +23,7 @@
 import Home from "@/components/Home/Home";
 export default {
   name: "App",
+  
   provide: function() {
     return {
       reload: this.reload
@@ -89,7 +90,7 @@ export default {
   background-color: white;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  /*line-height: 160px;*/
 }
 
 body > .el-container {

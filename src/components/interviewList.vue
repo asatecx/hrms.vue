@@ -4,8 +4,9 @@
 面接時間：<el-input v-model="selectkey.time" placeholder="面接時間を入力" style="width:10%"></el-input>
 面接場所：<el-input v-model="selectkey.place" placeholder="面接場所を入力" style="width:10%"></el-input>
 {{select}}<!--ここ書かないとcomputedがきかない-->
+
 <el-table
-    :data="tableData"
+    :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
     style="width: 100%">
     <el-table-column
     prop="companyName"
@@ -21,11 +22,36 @@
     prop="interviewPlace"
     label="面接場所">
     </el-table-column>
-</el-table>
+    <el-table-column
+    prop="interviewResult"
+    label="面接結果">
+    </el-table-column>
+    <el-table-column
+      align="right">
+      <template slot="header" slot-scope="scope">
+        <el-input
+          v-model="search"
+          size="mini"
+          placeholder="输入关键字搜索"/>
+      </template>
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </div>
 </template>
 
 <script>
+ var pagetotal=0;
+ var currentPage=1;
+ var pagesize=100;
 export default {
     data() {
 
@@ -48,19 +74,20 @@ export default {
          getlist(){
              console.log("i am  selecting")
             let comName = this.selectkey.companyName
-            this.$axios.get('http://localhost:8080/niucaocao/interviewList', {
-                params: {
-                    // ここにクエリパラメータを指定する
-                    companyName:comName ,
-                    //interviewTime:time,
-                   // interviewPlace:place,
-                }
-            }).then((res) => {
+            let id=this.$store.state.adminName;
+             this.$http.getInterviewList(comName,id,currentPage,pagesize)
+          .then((res) => {
             this.tableData = res.data;
             }).catch(function(error) {
                 // error 処理
             });
-         }
+         },
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
+      }
 
      }
     ,created(){

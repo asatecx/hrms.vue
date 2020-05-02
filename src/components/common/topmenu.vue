@@ -59,9 +59,6 @@ export default {
     back() {
       this.$router.go(-1); //返回上一层
     },
-    goInterviewList() {
-      this.$router.push("/interviewList");
-    },
     handleSelect(key, keyPath) {
       console.log(key);
       console.log(keyPath);
@@ -75,13 +72,16 @@ export default {
       } else if (key == "findhr") {
         this.$router.push("/company");
       } else if (key == "regist") {
-        this.$router.push("/company.regist");
+        //this.$router.push("/company.regist");
+        this.$router.push("/regist");
       } else if (key == "caseRegist") {
         this.$router.push("/case/regist");
       } else if (key == "logout") {
         this.logout();
       } else if (key == "info") {
          this.$router.push("/myinfo");
+      } else if (key == "interview") {
+          this.$router.push("/interviewList");
       }
     }
   },

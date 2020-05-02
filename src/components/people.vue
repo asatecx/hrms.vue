@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-carousel :interval="3000" type="card" height="200px">
+    <el-carousel :interval="20000" type="card" height="200px">
       <el-carousel-item v-for="item in lunboImgs" :key="item.id">
         <!-- <img :src="item.imgSrc" alt=""> -->
         <a @click="displayCase($event,item.id)">
@@ -17,6 +17,7 @@
     <el-input v-model="selectkey.place" placeholder="面接場所を入力" style="width:10%"></el-input>
     {{select}}
     <!--ここ書かないとcomputedがきかない-->
+    <paging @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="caseName" label="案件名" width="180"></el-table-column>
       <el-table-column prop="busiContent" label="業務内容" width="180"></el-table-column>
@@ -29,7 +30,11 @@
 </template>
 
 <script>
+ var pagetotal=0;
+ var currentPage=1;
+ var pagesize=100;
 export default {
+ 
   data() {
     return {
       lunboImgs: [
@@ -59,15 +64,9 @@ export default {
     gettopTen() {
       console.log("i am  selecting");
       let searchkey = this.keyword;
-      this.$axios
-        .get("http://localhost:8080/niucaocao/gettopTen", {
-          params: {
-            // ここにクエリパラメータを指定する
-            keyword: searchkey
-            //interviewTime:time,
-            // interviewPlace:place,
-          }
-        })
+      let id=this.$store.state.adminName;
+    this.$http
+        .gettopTen(searchkey,id)
         .then(res => {
           this.lunboImgs = res.data;
         })
@@ -75,18 +74,12 @@ export default {
           // error 処理
         });
     },
-    getCaseList() {
+    getCaseList(currentPage,pagesize) {
       console.log("i am  selecting");
       let searchkey = this.keyword;
-      this.$axios
-        .get("http://localhost:8080/niucaocao/getCaseList", {
-          params: {
-            // ここにクエリパラメータを指定する
-            keyword: searchkey
-            //interviewTime:time,
-            // interviewPlace:place,
-          }
-        })
+       let id=this.$store.state.adminName;
+    this.$http
+        .getCaseList(searchkey,id,currentPage,pagesize)
         .then(res => {
           this.tableData = res.data;
         })
@@ -102,6 +95,17 @@ export default {
         let title = "個人";
         this.$router.push({ name: "Login", params: { title } });
       }
+    },
+    handleSizeChange(val) {
+      pagesize=val;
+        console.log(`P每页 ${val} 条`);
+        this.getCaseList(currentPage,pagesize);
+       
+    },
+    handleCurrentChange(val) {
+      currentPage=val;
+        console.log(`P当前页: ${val}`);
+        this.getCaseList(currentPage,pagesize);
     }
   },
   created() {

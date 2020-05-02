@@ -10,15 +10,20 @@
         class="demo-ruleForm"
         size="mini"
       >
+
         <el-form-item>
           <el-col :span="8">
             <el-form-item label="写真　　">
-              <div class="demo-basic--circle">
+              <!-- <div class="demo-basic--circle">
                 <div class="block" v-for="size in sizeList" :key="size">
                   <el-avatar shape="square" :size="200" :src="`${squareUrl+'?'+now}`" v-if="isShow"></el-avatar>
                 </div>
-              </div>
-              <div class="sub-title">プロフィール写真</div>
+              </div> -->
+              <!-- <div class="sub-title">プロフィール写真</div> -->
+             
+              <photo v-if="isShow" ></photo>
+             
+              
               <el-button type="text" @click="dialogVisible = true">編集</el-button>
               <el-dialog
                 title="※JPGファイルをアップロードしてください"
@@ -323,7 +328,7 @@
           <el-col :span="20">
             <el-form-item label="　">
               <el-table :data="os" stripe style="width: 100%">
-                <el-table-column label="開発DB" width="300px">
+                <el-table-column label="開発環境" width="300px">
                   <template slot-scope="scope">
                     <el-input placeholder v-model="scope.row.skill" :disabled="true"></el-input>
                   </template>
@@ -392,17 +397,16 @@
                 </el-form-item>
 
                 <el-form-item label="担当フェーズ" prop="face">
-                  <el-checkbox-group v-model="carear.face">
-                    <el-checkbox label="要件定義"></el-checkbox>
-                    <el-checkbox label="基本設計"></el-checkbox>
-                    <el-checkbox label="機能設計"></el-checkbox>
-                    <el-checkbox label="詳細設計"></el-checkbox>
-                    <el-checkbox label="製造"></el-checkbox>
-                    <el-checkbox label="単体試験"></el-checkbox>
-                    <el-checkbox label="結合試験"></el-checkbox>
-                    <el-checkbox label="総合試験"></el-checkbox>
-                    <el-checkbox label="運用試験"></el-checkbox>
-                  </el-checkbox-group>
+                  <el-checkbox v-model="carear.face.yo" >要件定義</el-checkbox>
+                  <el-checkbox v-model="carear.face.kiho" >基本設計</el-checkbox>
+                  <el-checkbox v-model="carear.face.kino" >機能設計</el-checkbox>
+                  <el-checkbox v-model="carear.face.syo" >詳細設計</el-checkbox>
+                  <el-checkbox v-model="carear.face.sei" >製造</el-checkbox>
+                  <el-checkbox v-model="carear.face.dan" >単体試験</el-checkbox>
+                  <el-checkbox v-model="carear.face.ketu" >結合試験</el-checkbox>
+                  <el-checkbox v-model="carear.face.so" >総合試験</el-checkbox>
+                  <el-checkbox v-model="carear.face.un" >運用保守</el-checkbox>
+
                 </el-form-item>
 
                 <el-form-item label="役割" prop="role">
@@ -468,29 +472,32 @@ export default {
 
     var messagesss = "";
     var checkDateTo = (rule, value, callback) => {
-      console.log(rule);
+    //  console.log(rule);
 
       var i = rule.field.substr(8, 1);
       //carears.' + index + '.projectFrom
-      console.log("ffffffrom" + this.ruleForm.carears[i].projectFrom);
       if (
         this.ruleForm.carears[i].projectFrom == "" &&
         this.ruleForm.carears[i].projectTo != ""
       ) {
         this.messagesss = "開始日は入力されていない";
-        return callback(new Error("開始日は入力されていない"));
+         callback(new Error("開始日は入力されていない"));
       } else if (
         this.ruleForm.carears[i].projectFrom != "" &&
         this.ruleForm.carears[i].projectTo != ""
       ) {
         var reulst = lowerThanDateOnly(
-          this.ruleForm.carears[i].projectFrom,
-          this.ruleForm.carears[i].projectTo
-        );
+                      this.ruleForm.carears[i].projectFrom,
+                      this.ruleForm.carears[i].projectTo
+                    );
         if (!reulst) {
           this.messagesss = "終了日は開始日より小さい";
-          return callback(new Error("終了日は開始日より小さい"));
+           callback(new Error("終了日は開始日より小さい"));
+        }else{
+           callback();
         }
+      }else{
+        callback();
       }
     };
     return {
@@ -589,7 +596,7 @@ export default {
             projectTo: "",
             projectname: "",
             insustry: "",
-            face: [],
+            face: {yo:false,kiho:false,kino:false,syo:false,sei:false,dan:false,ketu:false,so:false,un:false},
             contents: "",
             envirment: "",
             role: [],
@@ -649,6 +656,7 @@ export default {
   methods: {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
+      this.myreload();
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -663,12 +671,13 @@ export default {
       return isJPG && isLt2M;
     },
     submitForm(formName) {
-      console.log("XXXXXXXXXXXXx");
-      console.log(this.ruleForm);
+      //console.log(this.ruleForm);
       this.$refs[formName].validate(valid => {
+           console.log(valid);
         if (valid) {
           this.$store.commit("setmyinfo", this.ruleForm);
           alert("submit!");
+            this.$router.push("/comfirmMyinfo");
         } else {
           console.log("error submit!!");
           return false;
@@ -699,10 +708,10 @@ export default {
         projectTo: "",
         projectname: "",
         insustry: "",
-        face: "",
+        face: {yo:false,kiho:false,kino:false,syo:false,sei:false,dan:false,ketu:false,so:false,un:false},
         contents: "",
         envirment: "",
-        role: "",
+        role: [],
         biko: "",
         key: Date.now()
       });
@@ -787,7 +796,8 @@ export default {
     handleChange(file, fileList) {
       this.fileList = fileList.slice(-1);
       this.buttonDialogVisible = true;
-    }
+    },
+
   },
 
   computed: {

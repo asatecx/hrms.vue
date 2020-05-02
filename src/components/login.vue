@@ -63,6 +63,7 @@ export default {
       this.$axios
         .post(url, this.formData)
         .then(res => {
+          console.log(res)
             if (res.data.data.res == "OK") {
             // 登录成功
             // 把用户名存入Vuex仓库
