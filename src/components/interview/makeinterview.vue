@@ -7,13 +7,15 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <span>面談情報入力</span>
+      <el-page-header @back="goBack" content="面接予約登録"/>
+      <el-row class>
+        <el-form-item prop="">
+          <br/>
+        </el-form-item>
+      </el-row>
       <el-row class>
         <el-col :span="10">
-          <div class="sub-title">
-            案件名称／概要
-            <!-- <el-tag type="danger" effect="dark" size="small">必須</el-tag> -->
-          </div>
+          <div class="sub-title">案件名称／概要</div>
           <el-form-item prop="casename">
             <el-input v-model="ruleForm.casename" placeholder></el-input>
           </el-form-item>
@@ -103,7 +105,8 @@ export default {
         endtime: "",
         workcontents: "",
         companyId: "",
-        personId: ""
+        personId: "",
+        UPDATE_DATE_TIME: "",
       },
       rules: {
         casename: [
@@ -136,8 +139,12 @@ export default {
     submitForm(formName) {
       this.ruleForm.personId = this.$route.params.personId;
       this.ruleForm.companyId = this.$store.state.adminName;
-      console.log(this.ruleForm.interviewdate);
-      var url = this.$store.state.globalSettings.apiUrl + "/interview/regist";
+      var url = this.$store.state.globalSettings.apiUrl;
+      if(this.$route.params.opetype == '2'){
+        url = url + "/interview/update";
+      }else{
+        url = url + "/interview/regist";
+      }
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$axios
@@ -168,12 +175,28 @@ export default {
         }
       });
     },
+    initForm() {
+      this.ruleForm.personId = this.$route.params.personId;
+      this.ruleForm.casename = this.$route.params.casename;
+      this.ruleForm.workplace = this.$route.params.workplace;
+      this.ruleForm.interviewplace = this.$route.params.interviewplace;
+      this.ruleForm.interviewdate = this.$route.params.interviewdate;
+      this.ruleForm.starttime = this.$route.params.starttime;
+      this.ruleForm.endtime = this.$route.params.endtime;
+      this.ruleForm.workcontents = this.$route.params.workcontents;
+      this.ruleForm.companyId = this.$route.params.companyId;
+      // this.ruleForm.UPDATE_DATE_TIME = this.$moment(this.$route.params.UPDATE_DATE_TIME).utcOffset(540).format('YYYY-MM-DD HH:mm:ss.SSS');
+      this.ruleForm.UPDATE_DATE_TIME = this.$route.params.UPDATE_DATE_TIME;
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
     back(){
         this.$router.go(-1);//返回上一层
     },
+  },
+  created() {
+    this.initForm();
   }
 };
 </script>

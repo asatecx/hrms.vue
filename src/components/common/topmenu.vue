@@ -21,8 +21,9 @@
         </template>
         <el-menu-item index="info">MY情報</el-menu-item>
         <el-menu-item index="caseRegist" v-show="this.userType=='2'">案件登録</el-menu-item>
-        <el-menu-item index="resume">MY履歴</el-menu-item>
-        <el-menu-item index="interview">MY面接</el-menu-item>
+        <el-menu-item index="myinterview" v-show="this.userType=='2'">面接管理</el-menu-item>
+        <el-menu-item index="resume" v-show="this.userType=='1'">MY履歴</el-menu-item>
+        <el-menu-item index="interview" v-show="this.userType=='1'">MY面接</el-menu-item>
         <el-menu-item index="logout">ログアウト</el-menu-item>
       </el-submenu>
       <el-menu-item index="findcase" style="float:right">案件を探す</el-menu-item>
@@ -78,6 +79,8 @@ export default {
         this.$router.push("/company.regist");
       } else if (key == "caseRegist") {
         this.$router.push("/case/regist");
+      } else if (key == "myinterview") {
+        this.$router.push("/interview/interviewlist");
       } else if (key == "logout") {
         this.logout();
       } else if (key == "info") {

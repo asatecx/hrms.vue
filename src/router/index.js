@@ -15,6 +15,7 @@ import Myinfo from '@/components/myinfo'
 import CompanyRegist from '@/components/company/companyRegist'
 import CaseRegist from '@/components/case/caseRegist'
 import Makeinterview from '@/components/interview/makeinterview'
+import MyInterview from '@/components/interview/interviewlist'
 import InterviewSuccess from '@/components/interview/success'
 Vue.use(Router)
 
@@ -98,6 +99,11 @@ export default new Router({
       path: '/interview/makeinterview',
       name: 'makeinterview',
       component: Makeinterview
+    },
+    {
+      path: '/interview/interviewlist',
+      name: 'interviewlist',
+      component: MyInterview
     },
     {
       path: '/interview/success',
