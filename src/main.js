@@ -51,9 +51,9 @@ Vue.component("paging", paging)
 
 //https://momentjs.com/
 import moment  from 'moment'
+Vue.prototype.$moment = moment;
 Vue.filter('moment', function (date) {
   return moment(date).format('YYYY/MM/DD');
- 
     }
 )
 Vue.filter('connection', function (ary) {

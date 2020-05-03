@@ -19,7 +19,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     back(){
-        this.$router.go(-1);//返回上一层
+        this.$router.push("/interview/interviewlist");
     },
   }
 };

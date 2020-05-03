@@ -185,8 +185,8 @@ export default {
       this.ruleForm.endtime = this.$route.params.endtime;
       this.ruleForm.workcontents = this.$route.params.workcontents;
       this.ruleForm.companyId = this.$route.params.companyId;
-      // this.ruleForm.UPDATE_DATE_TIME = this.$moment(this.$route.params.UPDATE_DATE_TIME).utcOffset(540).format('YYYY-MM-DD HH:mm:ss.SSS');
-      this.ruleForm.UPDATE_DATE_TIME = this.$route.params.UPDATE_DATE_TIME;
+      this.ruleForm.UPDATE_DATE_TIME = this.$moment(this.$route.params.UPDATE_DATE_TIME).utcOffset(540).format('YYYY-MM-DD HH:mm:ss.SSS');
+      // this.ruleForm.UPDATE_DATE_TIME = this.$route.params.UPDATE_DATE_TIME;
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
