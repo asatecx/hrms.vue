@@ -9,47 +9,47 @@
         </el-row>
         <el-row class>
           <div class="sub-title">所属</div>
-          <el-form-item prop="userNameDisp">
-            <el-checkbox-group v-model="checkList">
-              <el-checkbox label="自社"></el-checkbox>
+          <el-form-item prop="">
+            <el-checkbox-group v-model="ruleForm.contractType">
+              <el-checkbox label="1">自社</el-checkbox>
               <br />
-              <el-checkbox label="協力"></el-checkbox>
+              <el-checkbox label="2">協力</el-checkbox>
               <br />
-              <el-checkbox label="フリーランス"></el-checkbox>
+              <el-checkbox label="3">フリーランス</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
         </el-row>
         <el-row class>
           <div class="sub-title">現在の状況</div>
-          <el-form-item prop="userNameDisp">
-            <el-checkbox-group v-model="checkList">
-              <el-checkbox label="すぐ稼働可能です"></el-checkbox>
+          <el-form-item prop="">
+            <el-checkbox-group v-model="ruleForm.status">
+              <el-checkbox label="1">すぐ稼働可能です</el-checkbox>
               <br />
-              <el-checkbox label="今後稼働が空く予定です"></el-checkbox>
+              <el-checkbox label="2">今後稼働が空く予定です</el-checkbox>
               <br />
-              <el-checkbox label="案件によります"></el-checkbox>
+              <el-checkbox label="3">案件によります</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
         </el-row>
-        <el-row class>
+        <!-- <el-row class>
           <div class="sub-title">参画可能期間</div>
           <el-col>
             <el-form-item prop>
-              <el-date-picker v-model="value1" type="date" placeholder="から" />
+              <el-date-picker v-model="ruleForm.startdate" type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="から" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row class>
           <el-col>
             <el-form-item prop>
-              <el-date-picker v-model="value2" type="date" placeholder="まで" />
+              <el-date-picker v-model="ruleForm.enddate" type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="まで" />
             </el-form-item>
           </el-col>
-        </el-row>
+        </el-row> -->
         <el-row class>
           <div class="sub-title">性別</div>
           <el-form-item prop>
-            <el-select v-model="val_gender" placeholder="未選択">
+            <el-select v-model="ruleForm.gender" placeholder="未選択">
               <el-option
                 v-for="item in opt_gender"
                 :key="item.value"
@@ -62,7 +62,7 @@
         <el-row class>
           <div class="sub-title">国籍</div>
           <el-form-item prop>
-            <el-select v-model="val_country" placeholder="未選択">
+            <el-select v-model="ruleForm.country" placeholder="未選択">
               <el-option
                 v-for="item in opt_country"
                 :key="item.value"
@@ -124,11 +124,16 @@
 export default {
   data() {
     return {
-      param: {
-        companyId: "",
-        personId: ""
+      ruleForm: {
+        contractType: [],
+        status: [],
+        startdate: "",
+        enddate: "",
+        gender: "0",
+        country: "0",
       },
-      checkList: [],
+      cl_contractType: [],
+      cl_status: [],
       opt_gender: [
         {
           value: "0",
@@ -143,8 +148,6 @@ export default {
           label: "女"
         }
       ],
-      val_gender: "",
-
       opt_country: [
         {
           value: "0",
@@ -171,52 +174,6 @@ export default {
         { type: "info", label: "Linux" }
       ],
       tableData: [],
-      goodsList: [
-        {
-          id: "1",
-          name: "TANG.XF",
-          gender: "男",
-          age: "39",
-          work_sts: "今後稼働が空く予定です（20/04/01 ~ ）",
-          company: "株式会社Asatecx",
-          exp:
-            "JavaでのWebアプリケーション開発中心に上流工程までキャリアを育ててきました。業種としては、業界大手のECサイト、仮想通貨取引などの経験が豊富です。工...",
-          price: "70万円 〜 80万円 ※応相談",
-          update: "2020年03月24日"
-        },
-        {
-          id: "2",
-          name: "LIU.C",
-          gender: "男",
-          age: "39",
-          work_sts: "今後稼働が空く予定です（20/04/01 ~ ）",
-          company: "株式会社Asatecx",
-          exp:
-            "JavaでのWebアプリケーション開発中心に上流工程までキャリアを育ててきました。業種としては、業界大手のECサイト、仮想通貨取引などの経験が豊富です。工...",
-          price: "70万円 〜 80万円 ※応相談",
-          update: "2020年03月24日"
-        },
-        {
-          id: "3",
-          name: "3"
-        },
-        {
-          id: "4",
-          name: "4"
-        },
-        {
-          id: "5",
-          name: "5"
-        },
-        {
-          id: "6",
-          name: "6"
-        },
-        {
-          id: "7",
-          name: "7"
-        }
-      ]
     };
   },
   mounted() {},
@@ -227,7 +184,7 @@ export default {
     getPersonList() {
       var url = this.$store.state.globalSettings.apiUrl + "/person/list";
       this.$axios
-        .post(url, this.param)
+        .post(url, this.ruleForm)
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.data;
