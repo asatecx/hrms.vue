@@ -9,7 +9,7 @@
         </el-row>
         <el-row class>
           <div class="sub-title">所属</div>
-          <el-form-item prop="">
+          <el-form-item prop>
             <el-checkbox-group v-model="ruleForm.contractType">
               <el-checkbox label="1">自社</el-checkbox>
               <br />
@@ -21,7 +21,7 @@
         </el-row>
         <el-row class>
           <div class="sub-title">現在の状況</div>
-          <el-form-item prop="">
+          <el-form-item prop>
             <el-checkbox-group v-model="ruleForm.status">
               <el-checkbox label="1">すぐ稼働可能です</el-checkbox>
               <br />
@@ -45,7 +45,7 @@
               <el-date-picker v-model="ruleForm.enddate" type="date" format="yyyy-MM-dd" value-format="yyyy-MM-dd" placeholder="まで" />
             </el-form-item>
           </el-col>
-        </el-row> -->
+        </el-row>-->
         <el-row class>
           <div class="sub-title">性別</div>
           <el-form-item prop>
@@ -108,7 +108,7 @@
               更新日：{{ item.UPDATE_DATE_TIME }}
             </div>
             <div class="bottom clearfix">
-              <el-button type="text" class="button" @click="gotoPersonDetail">詳細をみる</el-button>
+              <el-button type="text" class="button" @click="gotoPersonDetail(item.PERSON_ID)">詳細をみる</el-button>
             </div>
           </el-card>
         </el-col>
@@ -130,7 +130,7 @@ export default {
         startdate: "",
         enddate: "",
         gender: "0",
-        country: "0",
+        country: "0"
       },
       cl_contractType: [],
       cl_status: [],
@@ -173,13 +173,18 @@ export default {
         { type: "success", label: "AWS" },
         { type: "info", label: "Linux" }
       ],
-      tableData: [],
+      tableData: []
     };
   },
   mounted() {},
   methods: {
-    gotoPersonDetail() {
-      this.$router.push("/PersonDetail");
+    gotoPersonDetail(personId) {
+      this.$router.push({
+        name: "persondetail",
+        params: {
+          personId: personId
+        }
+      });
     },
     getPersonList() {
       var url = this.$store.state.globalSettings.apiUrl + "/person/list";

@@ -3,14 +3,14 @@
     <el-row>
       <el-card :body-style="{ padding: '0px 5px 0px 5px' }" class="box-card" shadow="hover">
           <div slot="header">
-            <span>{{ personDetail.name }}さん&nbsp;&nbsp;{{ personDetail.gender }}&nbsp;&nbsp;{{ personDetail.age }}歳</span>
+            <span>{{ personDetail.USER_DISPLAY_NAME }}さん&nbsp;&nbsp;{{ personDetail.GENDER }}&nbsp;&nbsp;{{ personDetail.age }}歳</span>
           </div>
           <div class="text">
-              {{ personDetail.work_sts }}<br>
-              会社名：{{ personDetail.company }}<br>
-              所属：{{ personDetail.company }}<br>
+              現在の状況：{{ personDetail.STATUS }}<br>
+              会社名：{{ personDetail.COMPANY }}<br>
+              所属：{{ personDetail.CONTRACT_TYPE }}<br>
               経験PR：{{ personDetail.exp }}<br>
-              希望月額単価：{{ personDetail.price }}<br>
+              希望月額単価：{{ personDetail.PRICE_MIN }} ～ {{ personDetail.PRICE_MAX }}<br>
               更新日：{{ personDetail.update }}
           </div>
           <div class="bottom clearfix">
@@ -28,17 +28,16 @@ export default {
   data() {
       return {
       personDetail:{
-          id: "1",
-          name: "TANG.XF",
-          gender: "男",
-          age: "39",
-          work_sts:"今後稼働が空く予定です（20/04/01 ~ ）",
-          company:"株式会社Asatecx",
-          exp: "JavaでのWebアプリケーション開発中心に上流工程までキャリアを育ててきました。業種としては、業界大手のECサイト、仮想通貨取引などの経験が豊富です。工...",
-          price:"70万円 〜 80万円 ※応相談",
-          update:"2020年03月24日"
-        }
-             
+          // id: "1",
+          // name: "TANG.XF",
+          // gender: "男",
+          // age: "39",
+          // work_sts:"今後稼働が空く予定です（20/04/01 ~ ）",
+          // company:"株式会社Asatecx",
+          // exp: "JavaでのWebアプリケーション開発中心に上流工程までキャリアを育ててきました。業種としては、業界大手のECサイト、仮想通貨取引などの経験が豊富です。工...",
+          // price:"70万円 〜 80万円 ※応相談",
+          // update:"2020年03月24日"
+        },
       }
     },
     mounted () {
@@ -51,7 +50,7 @@ export default {
     showResume(){
       // this.$router.push("/resume");
       var url = this.$store.state.globalSettings.apiUrl + '/resume';
-      this.$axios.post(url, this.formData, {responseType: 'arraybuffer'})
+      this.$axios.post(url, this.personDetail, {responseType: 'arraybuffer'})
         .then(res => {
             console.log(res.data)
             let blob = new Blob([res.data], {type: "application/pdf;charset-UTF-8"})
@@ -72,6 +71,21 @@ export default {
     },
   },
   created() {
+    var url =
+        this.$store.state.globalSettings.apiUrl + "/person/detail";
+      this.$axios
+        .post(url, {"personId": this.$route.params.personId})
+        .then(res => {
+          if (res.data.success) {
+            // 登录成功
+            // 进行视图跳转
+            // this.$router.push("/interview/success");
+            this.personDetail = res.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
   }
   ,
     computed: {
