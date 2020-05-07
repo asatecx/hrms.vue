@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <el-card class="cat-login-card">
-      <div slot="header">{{title}}ログイン</div>
+      <div slot="header">ログイン</div>
       <div>
         <el-form label-width="100px">
           <el-form-item label="ユーザ名">
@@ -11,7 +11,9 @@
           <el-form-item label="パスワード：">
             <el-input placeholder="パスワードを入力してください" type="password" v-model="formData.password"></el-input>
           </el-form-item>
-
+          <el-form-item>
+            <span style="color:red" v-if="isShow">ユーザまたはパスワード間違った</span>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="doLogin">ログイン</el-button>
             <el-button @click="doCancel">キャンセル</el-button>
@@ -19,13 +21,13 @@
         </el-form>
       </div>
     </el-card>
-    <div style="text-align: center;">
+    <!-- <div style="text-align: center;">
       HRMの新しいお客様ですか？
       <br />
       <el-button type="primary" @click="makeAcount">HRMのアカウントを作成</el-button>
       <el-button type="primary" @click="upload">upload</el-button>
       <el-button type="primary" @click="playmovie">movie</el-button>
-    </div>
+    </div> -->
   </div>
 </template>
     
@@ -40,7 +42,8 @@ export default {
         userId: "",
         password: ""
       },
-      title: ""
+      title: "",
+      isShow: false,
     };
   },
   methods: {
@@ -64,7 +67,7 @@ export default {
         .post(url, this.formData)
         .then(res => {
           console.log(res)
-            if (res.data.data.res == "OK") {
+            if (res.data.success) {
             // 登录成功
             // 把用户名存入Vuex仓库
             //http://docs.geetest.com/ 滑动认证的链接 但是我没用
@@ -83,28 +86,29 @@ export default {
             }
           } else {
             //登录失败
-            this.$alert("用户名或密码有误！", "登录失败", { type: "error" })
-              .then(() => {
-                this.formData.password = "";
-              })
-              .catch(() => {
-                this.formData.password = "";
-              });
+            // this.$alert("用户名或密码有误！", "登录失败", { type: "error" })
+            //   .then(() => {
+            //     this.formData.password = "";
+            //   })
+            //   .catch(() => {
+            //     this.formData.password = "";
+            //   });
+            this.isShow = true;
           }
         })
         .catch(err => {
           console.log(err);
         });
     },
-    makeAcount() {
-      this.$router.push("/makeAcount");
-    },
-    upload() {
-      this.$router.push("/upload");
-    },
-    playmovie() {
-      this.$router.push("/movie");
-    }
+    // makeAcount() {
+    //   this.$router.push("/makeAcount");
+    // },
+    // upload() {
+    //   this.$router.push("/upload");
+    // },
+    // playmovie() {
+    //   this.$router.push("/movie");
+    // }
   },
   mounted() {
     this.showInfo();
