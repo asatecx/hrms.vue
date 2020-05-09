@@ -3,7 +3,7 @@
       {{message}}
         <div style="height:100px"></div>
         <price
-          v-model="tankainfo.PRICE_MIN"
+          v-model="tankainfo.price_min"
             :type="`comma`"
            :disabled="tankaflg"
         ></price>
@@ -11,7 +11,7 @@
  <div class="block" style="margin-top:50px">
     <span class="demonstration">稼働可開始日:</span>
     <el-date-picker
-      v-model="tankainfo.SCHEDUALSTART"
+      v-model="tankainfo.schedualstart"
       type="date"
       placeholder="选择日期"
       :disabled="startflg"
@@ -21,7 +21,7 @@
    <div class="block" style="margin-top:50px">
     <span class="demonstration">稼働可終了日:</span>
     <el-date-picker
-      v-model="tankainfo.SCHEDUALEND"
+      v-model="tankainfo.schedualend"
       type="date"
       placeholder="选择日期"
       :disabled="endflg"
@@ -47,9 +47,9 @@
                   tankainfo:{
                   // valDecimal: '',
                       PERSON_ID:this.$store.state.adminName,
-                      PRICE_MIN: '',
-                      SCHEDUALSTART:"",
-                      SCHEDUALEND:"",
+                      price_min: '',
+                      schedualstart:"",
+                      schedualend:"",
                   }
                 };
          },

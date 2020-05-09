@@ -48,31 +48,31 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="姓名（漢字）" prop="USER_NAME_KANJI">
-              <el-input v-model="ruleForm.USER_NAME_KANJI"></el-input>
+              <el-input v-model="ruleForm.user_name_kanji"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11">
             <el-form-item label="姓名（カナ）" prop="USER_NAME_KANA">
-              <el-input v-model="ruleForm.USER_NAME_KANA"></el-input>
+              <el-input v-model="ruleForm.user_name_kana"></el-input>
             </el-form-item>
           </el-col>
            <el-col :span="11">
             <el-form-item label="姓名（ローマ字）" prop="USER_NAME_ROMA">
-              <el-input v-model="ruleForm.USER_NAME_ROMA"></el-input>
+              <el-input v-model="ruleForm.user_name_roma"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11">
             <el-form-item label="性別　　" prop="GENDER">
-              <el-radio-group v-model="ruleForm.GENDER">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
+              <el-radio-group v-model="ruleForm.gender">
+                <el-radio :label="'1'" >男</el-radio>
+                <el-radio :label="'0'" >女</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="11">
             <el-form-item label="住所　　" required>
               <el-form-item label prop="ADDR_PREF">
-                <el-select v-model="ruleForm.ADDR_PREF" placeholder="都道府県名" @change="getaddress()">
+                <el-select v-model="ruleForm.addr_pref" placeholder="都道府県名" @change="getaddress()">
                   <el-option
                     v-for="item in options1"
                     :key="item.value"
@@ -82,7 +82,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label prop="ADDR_CITY">
-                <el-select v-model="ruleForm.ADDR_CITY" placeholder="市区町村名">
+                <el-select v-model="ruleForm.addr_city" placeholder="市区町村名">
                   <el-option
                     v-for="item in options2"
                     :key="item.value"
@@ -99,7 +99,7 @@
                 <el-date-picker
                   type="date"
                   placeholder="日付を選択"
-                  v-model="ruleForm.BIRTHDAY"
+                  v-model="ruleForm.birthday"
                   style="width: 50%;"
                 ></el-date-picker>
               </el-form-item>
@@ -116,14 +116,14 @@
                     { type: 'email', message: '有効なメールアドレスを入力してください', trigger: ['blur', 'change'] }
                     ]"
                 >
-                    <el-input v-model="ruleForm.MAIL"></el-input>
+                    <el-input v-model="ruleForm.mail"></el-input>
                 </el-form-item>
           </el-col>
           <el-col :span="10">
              <el-form-item label="電話番号" prop="tel">
                     <el-input
                     placeholder="请输入内容"
-                    v-model="ruleForm.TEL"
+                    v-model="ruleForm.tel"
                     clearable>
                   </el-input>
               </el-form-item>
@@ -132,7 +132,7 @@
         <el-form-item>
           <el-col :span="10">
                 <el-form-item label="国籍　　　" prop="country">
-                  <el-select v-model="ruleForm.COUNTRY" placeholder="国名">
+                  <el-select v-model="ruleForm.country" placeholder="国名">
                     <el-option
                       v-for="item in countryList"
                       :key="item.value"
@@ -144,7 +144,7 @@
           </el-col>
           <el-col :span="10">
                <el-form-item label="日本語レベル　　　" prop="country">
-                  <el-select v-model="ruleForm.JAPANESELEVEL" placeholder="日本語資格">
+                  <el-select v-model="ruleForm.japaneselevel" placeholder="日本語資格">
                     <el-option
                       v-for="item in japaneseList"
                       :key="item.value"
@@ -159,14 +159,14 @@
         <el-form-item>
           <el-col :span="10">
             <el-form-item label="最寄り駅" prop="station">
-              <el-input placeholder="駅名を入力してください" v-model="ruleForm.STATION" style="width:250px">
+              <el-input placeholder="駅名を入力してください" v-model="ruleForm.station" style="width:250px">
                 <template slot="append">駅</template>
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10">
             <el-form-item label="最終学歴　" prop="school">
-              <el-input placeholder="学校名を入力してください" v-model="ruleForm.EDUCATION" style="width:250px"></el-input>
+              <el-input placeholder="学校名を入力してください" v-model="ruleForm.education" style="width:250px"></el-input>
             </el-form-item>
           </el-col>
         </el-form-item>
@@ -174,7 +174,7 @@
         <el-form-item>
           <el-col :span="10">
             <el-form-item label="専攻　　" prop="major">
-              <el-input placeholder="例：情報通信" v-model="ruleForm.MAJOR" style="width:250px"></el-input>
+              <el-input placeholder="例：情報通信" v-model="ruleForm.major" style="width:250px"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10">
@@ -183,7 +183,7 @@
                 <el-date-picker
                   type="date"
                   placeholder="日付を選択"
-                  v-model="ruleForm.GRADUATIONDATE"
+                  v-model="ruleForm.graduationdate"
                   style="width: 45%;"
                 ></el-date-picker>
               </el-form-item>
@@ -196,7 +196,7 @@
             <el-form-item label="実務経験" prop="workyears">
               <el-input
                 placeholder="年数"
-                v-model="ruleForm.WORK_EXP"
+                v-model="ruleForm.work_exp"
                 type="number"
                 min="0"
                 style="width:120px"
@@ -209,7 +209,7 @@
             <el-form-item label="来日年度　" prop="comeJapanyears">
               <el-input
                 placeholder="年数"
-                v-model="ruleForm.JAPAN_EXP"
+                v-model="ruleForm.japan_exp"
                 type="number"
                 min="0"
                 style="width:120px"
@@ -308,24 +308,24 @@ export default {
 
       imageUrl: "",
       ruleForm: {
-        PERSON_ID:this.$store.state.adminName,
-        USER_NAME_KANJI: "",
-        USER_NAME_KANA: "",
-        USER_NAME_ROMA: "",
-        GENDER: "",
-        ADDR_PREF: "",
-        ADDR_CITY: "",
-        BIRTHDAY: "",
-        COUNTRY: "",
-        JAPANESELEVEL:"",
-        STATION: "",
-        EDUCATION: "",
-        MAJOR: "",
-        GRADUATIONDATE: "",
-        WORK_EXP: "",
-        JAPAN_EXP: "",
-        MAIL: "",
-        TEL: ""
+        person_id:this.$store.state.adminName,
+        user_name_kanji: "",
+        user_name_kana: "",
+        user_name_roma: "",
+        gender: "",
+        addr_pref: "",
+        addr_city: "",
+        birthday: "",
+        country: "",
+        japaneselevel:"",
+        station: "",
+        education: "",
+        major: "",
+        graduationdate: "",
+        work_exp: "",
+        japan_exp: "",
+        mail: "",
+        tel: ""
       },
       //https://www.jianshu.com/p/93c5cd5f3226
       //https://qiita.com/tekunikaruza/items/0a68d86084d961d632ac
@@ -359,14 +359,14 @@ export default {
           {
             required: true,
             message: "都道府県を入力してください",
-            trigger: "change"
+            trigger: "blur"
           }
         ],
         ADDR_CITY: [
           {
             required: true,
             message: "市区町村を入力してください",
-            trigger: "change"
+            trigger: "blur"
           }
         ],
         BIRTHDAY: [
@@ -374,7 +374,7 @@ export default {
             type: "date",
             required: true,
             message: "日付を選択してください",
-            trigger: "change"
+            trigger: "blur"
           }
         ],
 
@@ -382,14 +382,23 @@ export default {
           {
             required: true,
             message: "性別を選択してください",
-            trigger: "change"
+            trigger: "blur"
           }
         ]
       }
     };
   },
   created() {
+           this.$http.getBaseInfo(this.$store.state.adminName).then(
+            res => {
+              console.log(res.data);
+           
+              this.ruleForm=res.data
+      
+             }
 
+           )
+           this.getaddress()
   },
   methods: {
     handleAvatarSuccess(res, file) {
@@ -450,7 +459,7 @@ export default {
     },
     getaddress() {
       console.log("i am  selecting");
-      let searchkey = this.ruleForm.ADDR_PREF;
+      let searchkey = this.ruleForm.addr_pref;
       this.$http
         .getaddress(searchkey)
         .then(res => {
