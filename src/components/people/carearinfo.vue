@@ -27,7 +27,7 @@
                         type="date"
                         placeholder="日付を選択"
                         v-model="carear.start_ym"
-                        style="width: 100%;"
+                        style="width: 150px"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -38,7 +38,7 @@
                         type="date"
                         placeholder="日付を選択"
                         v-model="carear.end_ym"
-                        style="width: 100%;"
+                        style="width: 150px;"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -123,6 +123,12 @@ import * as infodata from "../myinfoData";
 export default {
   data() {
     var lowerThanDateOnly = (date1, date2) => {
+      console.log(date1);
+       console.log(date2);
+       date1=new Date(date1);
+        date2=new Date(date2);
+              console.log(date1);
+       console.log(date2);
       var year1 = date1.getFullYear();
       var month1 = date1.getMonth() + 1;
       var day1 = date1.getDate();
@@ -232,6 +238,16 @@ export default {
     };
   },
   created() {
+            this.$http.getCarearInfo(this.$store.state.adminName).then(
+            res => {
+              console.log(res);
+             console.log(res.data[2]);
+              this.ruleForm.carears=res.data
+      console.log(this.ruleForm.carears[2]);
+             }
+
+           )
+
 
   },
   methods: {

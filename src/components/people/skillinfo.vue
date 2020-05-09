@@ -210,14 +210,18 @@
 
 <script>
 import * as infodata from "../myinfoData";
+
 export default {
   data() {
 
 
     var messagesss = "";
-
+   
     return {
       //url:this.$
+        loadflg1:false,
+      loadflg2:false,
+      loadflg3:false,
       textsLan:infodata.mydata.textsLan,
       textsDB:infodata.mydata.textsDB,
       textsOS:infodata.mydata.textsOS,
@@ -283,10 +287,39 @@ export default {
     };
   },
   created() {
-    console.log("ccccccccc");
-    this.getskillsource();
+  
+   
+    this.$http.getSkillInfo(this.$store.state.adminName).then(
+      res => {
+         console.log("333333333");
+        console.log(res);
+        this.loadflg1=true;
+        this.loadflg2=true;
+        this.loadflg3=true;
+        this.ruleForm=res.data
+
+        this.initselectedskill(this.ruleForm.tableDataLanguage,this.skillSourceLanguage,this.selectedLanguage);
+        this.initselectedskill(this.ruleForm.tableDataDB,this.skillSourceDB,this.selectedDB);
+        this.initselectedskill(this.ruleForm.tableDataOS,this.skillSourceOS,this.selectedOS);
+
+      }
+    )
+     this.getskillsource();
+        
   },
   methods: {
+    initselectedskill(tableData,skillsource,selectedSkill){
+            for (let index = 0; index < tableData.length; index++) {
+              const lan = tableData[index];
+               for (let index = 0; index < skillsource.length; index++) {
+                  const element = skillsource[index];
+        
+                  if(lan.skill==element.label){
+                    selectedSkill.push(element.key)
+                  }
+               }
+          }
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       this.myreload();
@@ -298,11 +331,11 @@ export default {
          
         if (valid) {
           this.$store.commit("setskillinfo", this.ruleForm);
-            console.log(this.ruleForm);
+        
           alert("submit!");
             this.$router.push("/skillinfoComfirm");
         } else {
-          console.log("error submit!!");
+     
           return false;
         }
       });
@@ -312,11 +345,10 @@ export default {
     },
     //skill list
     handleChange(value, direction, movedKeys) {
-      console.log(value, direction, movedKeys);
+  
     },
     loadstar(obj) {
-      console.log("objobjobjobjobjobjobjobj");
-      console.log(obj);
+
       obj = 1;
     },
    
@@ -387,149 +419,160 @@ export default {
   },
 
   computed: {
-    now: function() {
-      console.log("nnnnnnnnn");
-      this.imageUrl;
-      return Math.random();
-    },
-    // cities:function(){
-    //   this.province;
-    //    this.getaddress() ;
-    // }
+
     language: function() {
-      console.log("ssssssssss");
-      //tabledataをクリアする。
-      //this.tableData.length = 0;
-      let tabledateLan = this.ruleForm.tableDataLanguage;
-      let temp = [];
-      for (const key in this.selectedLanguage) {
-        if (this.selectedLanguage.hasOwnProperty(key)) {
-          let index = this.selectedLanguage[key];
-          const element = this.skillSourceLanguage[index - 1].label;
-          let levelV = 1;
-          let expV = 1;
-          for (const key in tabledateLan) {
-            if (tabledateLan.hasOwnProperty(key)) {
-              const element2 = tabledateLan[key];
-              if (element2.skill == element) {
-                levelV = element2.level;
-                expV=element2.exp;
+  console.log("444444444");
+
+   
+      if(this.loadflg1){
+         console.log("88888");
+        let index = this.selectedLanguage;//因为computed 的原理好像是方法里要用到有变动的data，没用到的话就不会执行者个代码虽然没用但是为了让computed执行而写的
+        this.loadflg1=false;
+         return this.ruleForm.tableDataLanguage;
+      }else{
+         // console.log(this.selectedLanguage);
+          let tabledateLan = this.ruleForm.tableDataLanguage;
+          let temp = [];
+          for (const key in this.selectedLanguage) {
+            if (this.selectedLanguage.hasOwnProperty(key)) {
+              let index = this.selectedLanguage[key];
+              const element = this.skillSourceLanguage[index - 1].label;
+              let levelV = 1;
+              let expV = 1;
+              for (const key in tabledateLan) {
+                if (tabledateLan.hasOwnProperty(key)) {
+                  const element2 = tabledateLan[key];
+                  if (element2.skill == element) {
+                    levelV = element2.level;
+                    expV=element2.exp;
+                  }
+                }
               }
+
+              temp.push({
+                person_id:this.$store.state.adminName,
+                skillkbn: "LAN",
+                skill: element,
+                level: levelV ,//defalt　value
+                exp:expV
+              });
             }
           }
-
-          temp.push({
-             person_id:this.$store.state.adminName,
-             skillkbn: "LAN",
-            skill: element,
-            level: levelV ,//defalt　value
-            exp:expV
-          });
-        }
+          this.ruleForm.tableDataLanguage.length = 0;
+          
+          if(temp.length==0){
+            this.ruleForm.tableDataLanguage.push(   { 
+                person_id:this.$store.state.adminName,
+                  skillkbn: "LAN",
+                skill: "",
+                exp: "",
+                level: 5,
+              });
+          }else{
+              this.ruleForm.tableDataLanguage = temp;
+          }
+        
+          return temp;
       }
-      this.ruleForm.tableDataLanguage.length = 0;
-      
-      if(temp.length==0){
-         this.ruleForm.tableDataLanguage.push(   { 
-             person_id:this.$store.state.adminName,
-               skillkbn: "LAN",
-            skill: "",
-            exp: "",
-            level: 5,
-          });
-      }else{
-          this.ruleForm.tableDataLanguage = temp;
-      }
-     
-      return temp;
     },
     db: function() {
-      let tabledatedb = this.ruleForm.tableDataDB;
-      let temp = [];
-      for (const key in this.selectedDB) {
-        if (this.selectedDB.hasOwnProperty(key)) {
-          let index = this.selectedDB[key];
-          const element = this.skillSourceDB[index - 1].label;
-          console.log("-----------");
-          console.log(element);
-          let levelV = 1;
-          let expV = 1;
-          for (const key in tabledatedb) {
-            if (tabledatedb.hasOwnProperty(key)) {
-              const element2 = tabledatedb[key];
-              if (element2.skill == element) {
-                levelV = element2.level;
-                expV = element2.exp;
+      if(this.loadflg2){
+        let index = this.selectedDB;
+          this.loadflg2=false;
+          return this.ruleForm.tableDataDB;
+      }else{
+          let tabledatedb = this.ruleForm.tableDataDB;
+          let temp = [];
+          for (const key in this.selectedDB) {
+            if (this.selectedDB.hasOwnProperty(key)) {
+              let index = this.selectedDB[key];
+              const element = this.skillSourceDB[index - 1].label;
+
+              let levelV = 1;
+              let expV = 1;
+              for (const key in tabledatedb) {
+                if (tabledatedb.hasOwnProperty(key)) {
+                  const element2 = tabledatedb[key];
+                  if (element2.skill == element) {
+                    levelV = element2.level;
+                    expV = element2.exp;
+                  }
+                }
               }
+
+              temp.push({
+                person_id:this.$store.state.adminName,
+                  skillkbn:"DB",
+                skill: element,
+                level: levelV, //defalt　value
+                exp:expV
+              });
             }
           }
-
-          temp.push({
-             person_id:this.$store.state.adminName,
-               skillkbn:"DB",
-            skill: element,
-            level: levelV, //defalt　value
-            exp:expV
-          });
-        }
+          this.ruleForm.tableDataDB.length = 0;
+          if(temp.length==0){
+            this.ruleForm.tableDataDB.push(   { 
+                person_id:this.$store.state.adminName,
+                  skillkbn:"DB",
+                skill: "",
+                exp: "",
+                level: 5,
+              });
+          }else{
+              this.ruleForm.tableDataDB = temp;
+          }
+        
+          return temp;
       }
-      this.ruleForm.tableDataDB.length = 0;
-      if(temp.length==0){
-         this.ruleForm.tableDataDB.push(   { 
-             person_id:this.$store.state.adminName,
-              skillkbn:"DB",
-            skill: "",
-            exp: "",
-            level: 5,
-          });
-      }else{
-          this.ruleForm.tableDataDB = temp;
-      }
-     
-      return temp;
     },
     os: function() {
-      let tabledateos = this.ruleForm.tableDataOS;
-      let temp = [];
-      for (const key in this.selectedOS) {
-        if (this.selectedOS.hasOwnProperty(key)) {
-          let index = this.selectedOS[key];
-          const element = this.skillSourceOS[index - 1].label;
-          let levelV = 1;
-          let expV = 1;
-          for (const key in tabledateos) {
-            if (tabledateos.hasOwnProperty(key)) {
-              const element2 = tabledateos[key];
-              if (element2.skill == element) {
-                levelV = element2.level;
-                expV = element2.exp;
+      if(this.loadflg3){
+          let index = this.selectedOS;
+          this.loadflg3=false;
+          return this.ruleForm.tableDataOS;
+      }else{
+          let tabledateos = this.ruleForm.tableDataOS;
+          let temp = [];
+          for (const key in this.selectedOS) {
+            if (this.selectedOS.hasOwnProperty(key)) {
+              let index = this.selectedOS[key];
+              const element = this.skillSourceOS[index - 1].label;
+              let levelV = 1;
+              let expV = 1;
+              for (const key in tabledateos) {
+                if (tabledateos.hasOwnProperty(key)) {
+                  const element2 = tabledateos[key];
+                  if (element2.skill == element) {
+                    levelV = element2.level;
+                    expV = element2.exp;
+                  }
+                }
               }
+
+              temp.push({
+                person_id:this.$store.state.adminName,
+                  skillkbn:"OS",
+                skill: element,
+                level: levelV, //defalt　value
+                exp:expV
+              });
             }
           }
-
-          temp.push({
-             person_id:this.$store.state.adminName,
-              skillkbn:"OS",
-            skill: element,
-            level: levelV, //defalt　value
-            exp:expV
-          });
-        }
+          this.ruleForm.tableDataOS.length = 0;
+            if(temp.length==0){
+            this.ruleForm.tableDataOS.push(   { 
+                person_id:this.$store.state.adminName,
+                  skillkbn:"OS",
+                skill: "",
+                exp: "",
+                level: 5,
+              });
+          }else{
+              this.ruleForm.tableDataOS = temp;
+          }
+        
+          return temp;
       }
-      this.ruleForm.tableDataOS.length = 0;
-         if(temp.length==0){
-         this.ruleForm.tableDataOS.push(   { 
-             person_id:this.$store.state.adminName,
-              skillkbn:"OS",
-            skill: "",
-            exp: "",
-            level: 5,
-          });
-      }else{
-          this.ruleForm.tableDataOS = temp;
-      }
-     
-      return temp;
     }
   }
 };

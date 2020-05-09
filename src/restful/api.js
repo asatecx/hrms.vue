@@ -16,6 +16,10 @@ const gettankaurl='/niucaocao/gettanka'
 const baseinfourl='/niucaocao/baseinfo'
 const skillinfourl='/niucaocao/skillinfo'
 const carearinfourl='/niucaocao/carearinfo'
+const getBaseInfourl='/niucaocao/getbaseinfo'
+const getSkillInfourl='/niucaocao/getskillinfo'
+const getCarearInfourl='/niucaocao/getcarearinfo'
+
 
 const yyyurl='/cccc/?userid='
 const zzzzurl='/zzzz'
@@ -169,6 +173,43 @@ export function getTanka(userId){
         }
     })
 }
+
+export function getBaseInfo(userId){
+     
+  return  Axios.get(getBaseInfourl, {
+        params: {
+            // ここにクエリパラメータを指定する
+    
+            userid:userId,
+
+        }
+    })
+}
+
+export function getSkillInfo(userId){
+     
+  return  Axios.get(getSkillInfourl, {
+        params: {
+            // ここにクエリパラメータを指定する
+    
+            userid:userId,
+
+        }
+    })
+}
+
+export function getCarearInfo(userId){
+     
+  return  Axios.get(getCarearInfourl, {
+        params: {
+            // ここにクエリパラメータを指定する
+    
+            userid:userId,
+
+        }
+    })
+}
+
 
 
 
