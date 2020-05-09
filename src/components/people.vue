@@ -110,7 +110,7 @@ export default {
   },
   created() {
     this.gettopTen();
-    this.getCaseList();
+    this.getCaseList(currentPage,pagesize);
   }
   ,
     computed: {

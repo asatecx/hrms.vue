@@ -17,12 +17,7 @@
             getCaseDetail(){
                 console.log("i am  selecting casedetail")
                 let selectID = this.$route.params.id;
-                this.$axios.get('http://localhost:8080/niucaocao/getCaseDetail', {
-                    params: {
-                        // ここにクエリパラメータを指定する
-                        id:selectID ,
-                    }
-                }).then((res) => {
+                this.$http.getCaseDetail(selectID).then((res) => {
                 this.caseDetail = res.data.content;
                 }).catch(function(error) {
                     // error 処理

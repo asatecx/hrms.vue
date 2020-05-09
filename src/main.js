@@ -49,6 +49,9 @@ Vue.component("photo", photo)
 import paging from '@/components/parts/paging'
 Vue.component("paging", paging)
 
+import price from '@/components/parts/price'
+Vue.component("price", price)
+
 //https://momentjs.com/
 import moment  from 'moment'
 Vue.prototype.$moment = moment;
@@ -68,6 +71,11 @@ Vue.filter('maru', function (bb) {
       }
  
     }
+)
+Vue.filter('addComma', function (val) {
+  return Number(val).toLocaleString();
+
+  }
 )
 new Vue({
   el: '#app',

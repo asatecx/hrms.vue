@@ -12,11 +12,13 @@ export default new Vuex.Store({
     //apiUrl: 'http://47.74.24.150:8091'  //リリース
   //  apiUrl: 'http://192.168.99.100:8091'  //ToolBOx
       },
-      userInfo:{
+      userinfo:{
         userId: '',
         userType: ''
       },
       myinfo:"",
+      baseinfo:"",
+      skillinfo:"",
       loginflg:false,
   },
   // 公共数据的修改方法：this.$store.commit('setAdminName','boss')
@@ -36,6 +38,14 @@ export default new Vuex.Store({
     setmyinfo(state, value){
       state.myinfo = value
       console.log(state.myinfo)
+    },
+    setbaseinfo(state, value){
+      state.baseinfo = value
+     
+    },
+    setskillinfo(state, value){
+      state.skillinfo = value
+     
     }
   }
 })

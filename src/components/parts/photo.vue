@@ -2,7 +2,10 @@
   <div>
     <div class="demo-basic--circle">
       <div class="block" v-for="size in sizeList" :key="size">
-        <el-avatar shape="square" :size="200" :src="`${squareUrl+'?'+now}`" ></el-avatar>
+        <el-avatar shape="square" :size="200" :src="`${squareUrl+'?'+now}`" >
+
+          <img src="../../assets/default.png"/>
+        </el-avatar>
    
       </div>
     </div>
