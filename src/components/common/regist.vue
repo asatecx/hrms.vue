@@ -8,10 +8,10 @@
                       &nbsp;
                  </div>
                  <div class="shadow regist " @click="goPeoplepage">
-                    <span class="zhiti" >人材を探す</span>
+                    <span class="zhiti" >個人登録</span>
                  </div>
                 <div class="shadow regist"  @click="goCompanypage">
-                       <span class="zhiti">  案件を探す</span>
+                       <span class="zhiti">企業登録</span>
                  </div>
 
             </div>   
