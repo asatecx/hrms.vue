@@ -1,0 +1,518 @@
+<template>
+  <div style="margin-left: 300px;margin-top: 50px;">
+    <!-- -->
+    <div style="text-align: left;width:1000px">
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+        size="mini"
+      >
+
+        <el-form-item>
+          <el-col :span="8">
+            <el-form-item label="写真　　">
+              <!-- <div class="demo-basic--circle">
+                <div class="block" v-for="size in sizeList" :key="size">
+                  <el-avatar shape="square" :size="200" :src="`${squareUrl+'?'+now}`" v-if="isShow"></el-avatar>
+                </div>
+              </div> -->
+              <!-- <div class="sub-title">プロフィール写真</div> -->
+             
+              <photo v-if="isShow" ></photo>
+             
+              
+              <el-button type="text" @click="dialogVisible = true">編集</el-button>
+              <el-dialog
+                title="※JPGファイルをアップロードしてください"
+                :visible.sync="dialogVisible"
+                width="30%"
+                :before-close="handleClose"
+              >
+                <div style=" border: 4px  dashed #d9d9d9;width:178px">
+                  <el-upload
+                    class="avatar-uploader"
+                    :action="photouploadUrl"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload"
+                  >
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  </el-upload>
+                </div>
+              </el-dialog>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="姓名（漢字）" prop="USER_NAME_KANJI">
+              <el-input v-model="ruleForm.USER_NAME_KANJI"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="姓名（カナ）" prop="USER_NAME_KANA">
+              <el-input v-model="ruleForm.USER_NAME_KANA"></el-input>
+            </el-form-item>
+          </el-col>
+           <el-col :span="11">
+            <el-form-item label="姓名（ローマ字）" prop="USER_NAME_ROMA">
+              <el-input v-model="ruleForm.USER_NAME_ROMA"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="性別　　" prop="GENDER">
+              <el-radio-group v-model="ruleForm.GENDER">
+                <el-radio label="男"></el-radio>
+                <el-radio label="女"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="住所　　" required>
+              <el-form-item label prop="ADDR_PREF">
+                <el-select v-model="ruleForm.ADDR_PREF" placeholder="都道府県名" @change="getaddress()">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label prop="ADDR_CITY">
+                <el-select v-model="ruleForm.ADDR_CITY" placeholder="市区町村名">
+                  <el-option
+                    v-for="item in options2"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+             <el-form-item label="生年月日" required>
+              <el-form-item prop="BIRTHDAY">
+                <el-date-picker
+                  type="date"
+                  placeholder="日付を選択"
+                  v-model="ruleForm.BIRTHDAY"
+                  style="width: 50%;"
+                ></el-date-picker>
+              </el-form-item>
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+    <el-form-item>
+          <el-col :span="10">
+                <el-form-item
+                    prop="MAIL"
+                    label="Eメールアドレス"
+                    :rules="[
+                    { required: true, message: 'メールアドレスを入力してください', trigger: 'blur' },
+                    { type: 'email', message: '有効なメールアドレスを入力してください', trigger: ['blur', 'change'] }
+                    ]"
+                >
+                    <el-input v-model="ruleForm.MAIL"></el-input>
+                </el-form-item>
+          </el-col>
+          <el-col :span="10">
+             <el-form-item label="電話番号" prop="tel">
+                    <el-input
+                    placeholder="请输入内容"
+                    v-model="ruleForm.TEL"
+                    clearable>
+                  </el-input>
+              </el-form-item>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-col :span="10">
+                <el-form-item label="国籍　　　" prop="country">
+                  <el-select v-model="ruleForm.COUNTRY" placeholder="国名">
+                    <el-option
+                      v-for="item in countryList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    ></el-option>
+                  </el-select>
+                 </el-form-item>
+          </el-col>
+          <el-col :span="10">
+               <el-form-item label="日本語レベル　　　" prop="country">
+                  <el-select v-model="ruleForm.JAPANESELEVEL" placeholder="日本語資格">
+                    <el-option
+                      v-for="item in japaneseList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    ></el-option>
+                  </el-select>
+                 </el-form-item>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item>
+          <el-col :span="10">
+            <el-form-item label="最寄り駅" prop="station">
+              <el-input placeholder="駅名を入力してください" v-model="ruleForm.STATION" style="width:250px">
+                <template slot="append">駅</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="最終学歴　" prop="school">
+              <el-input placeholder="学校名を入力してください" v-model="ruleForm.EDUCATION" style="width:250px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item>
+          <el-col :span="10">
+            <el-form-item label="専攻　　" prop="major">
+              <el-input placeholder="例：情報通信" v-model="ruleForm.MAJOR" style="width:250px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="卒業年月日">
+              <el-form-item prop="graduationDate">
+                <el-date-picker
+                  type="date"
+                  placeholder="日付を選択"
+                  v-model="ruleForm.GRADUATIONDATE"
+                  style="width: 45%;"
+                ></el-date-picker>
+              </el-form-item>
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item>
+          <el-col :span="10">
+            <el-form-item label="実務経験" prop="workyears">
+              <el-input
+                placeholder="年数"
+                v-model="ruleForm.WORK_EXP"
+                type="number"
+                min="0"
+                style="width:120px"
+              >
+                <template slot="append">年</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="来日年度　" prop="comeJapanyears">
+              <el-input
+                placeholder="年数"
+                v-model="ruleForm.JAPAN_EXP"
+                type="number"
+                min="0"
+                style="width:120px"
+              >
+                <template slot="append">年</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+        <!-- ------------------------------------------->
+        <el-form-item style="text-align: center">
+          <el-button type="primary" @click="submitForm('ruleForm')">提出</el-button>
+          <el-button @click="resetForm('ruleForm')">リセット</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</template>
+
+<script>
+import * as infodata from "../myinfoData";
+export default {
+  data() {
+    var lowerThanDateOnly = (date1, date2) => {
+      var year1 = date1.getFullYear();
+      var month1 = date1.getMonth() + 1;
+      var day1 = date1.getDate();
+
+      var year2 = date2.getFullYear();
+      var month2 = date2.getMonth() + 1;
+      var day2 = date2.getDate();
+
+      if (year1 == year2) {
+        if (month1 == month2) {
+          return day1 < day2;
+        } else {
+          return month1 < month2;
+        }
+      } else {
+        return year1 < year2;
+      }
+    };
+
+    var messagesss = "";
+
+    return {
+      //url:this.$
+      buttonDialogVisible: false,
+      centerDialogVisible: false,
+      fileList: [],
+
+      industryList: infodata.mydata.industryList,
+      countryList: infodata.mydata.countris,
+      japaneseList: infodata.mydata.japanese,
+      options1: infodata.mydata.cities, //都道府県
+      options2: [], //市区町村
+      skillSourceLanguage: [],
+      skillSourceDB: [],
+      skillSourceOS: [],
+      isShow: true,
+      squareUrl:
+        this.$store.state.globalSettings.apiUrl +
+        "/photos/" +
+        this.$store.state.adminName +
+        ".jpg",
+      photouploadUrl:
+        this.$store.state.globalSettings.apiUrl +
+        "/headphoto?username=" +
+        this.$store.state.adminName,
+      videouploadUrl:
+        this.$store.state.globalSettings.apiUrl +
+        "/video?username=" +
+        this.$store.state.adminName,
+      sizeList: ["large"],
+      dialogVisible: false,
+      checkList: ["选中且禁用", "复选框 A"],
+      star: null,
+      value: [1],
+      selectedLanguage: [],
+      selectedDB: [],
+      selectedOS: [],
+      renderFunc(h, option) {
+        return (
+          <span>
+            {option.key} - {option.label}
+          </span>
+        );
+      },
+      dynamicValidateForm: {
+        domains: [
+          {
+            value: ""
+          }
+        ]
+      },
+
+      imageUrl: "",
+      ruleForm: {
+        PERSON_ID:this.$store.state.adminName,
+        USER_NAME_KANJI: "",
+        USER_NAME_KANA: "",
+        USER_NAME_ROMA: "",
+        GENDER: "",
+        ADDR_PREF: "",
+        ADDR_CITY: "",
+        BIRTHDAY: "",
+        COUNTRY: "",
+        JAPANESELEVEL:"",
+        STATION: "",
+        EDUCATION: "",
+        MAJOR: "",
+        GRADUATIONDATE: "",
+        WORK_EXP: "",
+        JAPAN_EXP: "",
+        MAIL: "",
+        TEL: ""
+      },
+      //https://www.jianshu.com/p/93c5cd5f3226
+      //https://qiita.com/tekunikaruza/items/0a68d86084d961d632ac
+      //https://blog.csdn.net/wadeltf/article/details/97629395
+      rules: {
+        USER_NAME_KANJI: [
+          {
+            required: true,
+            message: "名前を入力してください",
+            trigger: "blur"
+          },
+          { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+        ],
+        USER_NAME_KANA: [
+          {
+            required: true,
+            message: "名前を入力してください",
+            trigger: "blur"
+          },
+          { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+        ],
+          USER_NAME_ROMA: [
+          {
+            required: true,
+            message: "名前を入力してください",
+            trigger: "blur"
+          },
+          { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+        ],
+        ADDR_PREF: [
+          {
+            required: true,
+            message: "都道府県を入力してください",
+            trigger: "change"
+          }
+        ],
+        ADDR_CITY: [
+          {
+            required: true,
+            message: "市区町村を入力してください",
+            trigger: "change"
+          }
+        ],
+        BIRTHDAY: [
+          {
+            type: "date",
+            required: true,
+            message: "日付を選択してください",
+            trigger: "change"
+          }
+        ],
+
+        GENDER: [
+          {
+            required: true,
+            message: "性別を選択してください",
+            trigger: "change"
+          }
+        ]
+      }
+    };
+  },
+  created() {
+
+  },
+  methods: {
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+      this.myreload();
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
+    submitForm(formName) {
+      //console.log(this.ruleForm);
+      this.$refs[formName].validate(valid => {
+           console.log(valid);
+        if (valid) {
+          this.$store.commit("setbaseinfo", this.ruleForm);
+          alert("submit!");
+            this.$router.push("/baseinfoComfirm");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    //skill list
+    handleChange(value, direction, movedKeys) {
+      console.log(value, direction, movedKeys);
+    },
+    loadstar(obj) {
+      console.log("objobjobjobjobjobjobjobj");
+      console.log(obj);
+      obj = 1;
+    },
+
+    //photo
+    handleClose(done) {
+      this.$confirm("閉じますか？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
+    myreload() {
+      this.dialogVisible = false;
+      this.isShow = false;
+      this.$nextTick(() => (this.isShow = true));
+    },
+    getaddress() {
+      console.log("i am  selecting");
+      let searchkey = this.ruleForm.ADDR_PREF;
+      this.$http
+        .getaddress(searchkey)
+        .then(res => {
+          this.options2 = [];
+          for (const key in res) {
+            if (res.hasOwnProperty(key)) {
+              const element = res[key];
+              console.log(element);
+              this.options2.push({ value: element, label: element });
+            }
+          }
+        })
+        .catch(function(error) {
+          // error 処理
+        });
+    },
+   
+    handleChange(file, fileList) {
+      this.fileList = fileList.slice(-1);
+      this.buttonDialogVisible = true;
+    },
+
+  },
+
+  computed: {
+    now: function() {
+      console.log("nnnnnnnnn");
+      this.imageUrl;
+      return Math.random();
+    },
+    // cities:function(){
+    //   this.province;
+    //    this.getaddress() ;
+    // }
+
+
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.avatar-uploader .el-upload {
+  border: 4px dashed black;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>
