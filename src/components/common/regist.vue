@@ -22,7 +22,8 @@
     export default {
           methods: {
               goPeoplepage(){
-                this.$router.push("/myinfo");
+               // this.$router.push("/myinfo");
+                this.$router.push("/makeAcount");
               },
                goCompanypage(){
                 this.$router.push("/company.regist");

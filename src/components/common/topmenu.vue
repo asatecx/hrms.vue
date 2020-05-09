@@ -16,14 +16,22 @@
       <el-menu-item index="login" v-show="!this.loginflg" style="float:right">ログイン</el-menu-item>
       <el-submenu index="userInfo" v-show="this.loginflg" style="float:right">
         <template slot="title">
-          <el-avatar  :src="`${headphoto+'?'+now}`"></el-avatar>
+          <el-avatar  :src="`${headphoto+'?'+now}`"  @error="errorHandler">
+            <img src="../../assets/default.png"/>
+          </el-avatar>
           {{userid}}
         </template>
         <el-menu-item index="info">MY情報</el-menu-item>
+         <el-menu-item index="eigyo" v-show="this.userType=='3'">自社人材管理</el-menu-item>
         <el-menu-item index="caseRegist" v-show="this.userType=='2'">案件登録</el-menu-item>
         <el-menu-item index="myinterview" v-show="this.userType=='2'">面接管理</el-menu-item>
         <el-menu-item index="resume" v-show="this.userType=='1'">MY履歴</el-menu-item>
         <el-menu-item index="interview" v-show="this.userType=='1'">MY面接</el-menu-item>
+        <el-menu-item index="priceandshc" v-show="this.userType=='1'">MY単価・日程</el-menu-item>
+        <el-menu-item index="appealvideo" v-show="this.userType=='1'">MYアピール動画</el-menu-item>
+        <el-menu-item index="baseinfo" v-show="this.userType=='1'">MY基本情報</el-menu-item>
+        <el-menu-item index="skillinfo" v-show="this.userType=='1'">MY技術情報</el-menu-item>
+        <el-menu-item index="carearinfo" v-show="this.userType=='1'">MYプロジェクト履歴</el-menu-item>
         <el-menu-item index="logout">ログアウト</el-menu-item>
       </el-submenu>
       <el-menu-item index="findcase" style="float:right">案件を探す</el-menu-item>
@@ -69,7 +77,7 @@ export default {
         this.$router.push("/Home");
       } else if (key == "findcase") {
         // this.$router.push("/company");
-        alert("工事中");
+        this.$router.push("/people");
       } else if (key == "findhr") {
         this.$router.push("/company");
       } else if (key == "regist") {
@@ -85,8 +93,23 @@ export default {
          this.$router.push("/myinfo");
       } else if (key == "interview") {
           this.$router.push("/interviewList");
+      } else if (key == "priceandshc") {
+         this.$router.push("/priceandshc");
+      } else if (key =="eigyo"){
+         
+      }else if (key =="baseinfo"){
+         this.$router.push("/baseinfo");
+      }else if (key =="skillinfo"){
+         this.$router.push("/skillinfo");
+      }else if (key =="carearinfo"){
+         this.$router.push("/carearinfo");
+      }else if (key =="appealvideo"){
+         this.$router.push("/appealvideo");//appealvideo
       }
-    }
+    },
+     errorHandler() {
+        return true
+      }
   },
   mounted() {
     this.userid = this.$store.state.adminName;

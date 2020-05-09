@@ -2,12 +2,10 @@
     <div class="divcss5">
         <p style="text-align: center;"> アカウントを作成</p>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="名前" prop="name">
-                    <el-input v-model="ruleForm.name"></el-input>
+                <el-form-item label="ユーザーID" prop="userId">
+                    <el-input v-model="ruleForm.userId"></el-input>
                 </el-form-item>
-                <el-form-item label="フリガナ" prop="furikana">
-                    <el-input v-model="ruleForm.furikana"></el-input>
-                </el-form-item>
+
                 <el-form-item label="パスワード" prop="password">
                 <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
                 </el-form-item>
@@ -24,11 +22,18 @@
                 >
                     <el-input v-model="ruleForm.email"></el-input>
                 </el-form-item>
+
+                   <el-radio v-model="ruleForm.userType" label="1" border>フリーランス</el-radio>
+                  <el-radio v-model="ruleForm.userType" label="2" border>営業担当</el-radio>
+
+               
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')">作成</el-button>
                     <el-button @click="resetForm('ruleForm')">リセット</el-button>
                 </el-form-item>
             </el-form>
+
+
     </div>
 </template>
 
@@ -56,11 +61,12 @@ data() {
   };
   return {
     ruleForm: {
-      name: '',
-      furikana: '',
+      userId: '',
       password: '',
       checkPass: '',
-      email: ''
+      email: '',
+      userType:'1',
+      validFlg:"1"
     },
     rules: {
       name: [
@@ -87,7 +93,7 @@ methods: {
         if (valid) {
           //this.$axios.post('http://localhost:8080/niucaocao/makeAcount',this.$qs.stringify(this.ruleForm))
           //alert('submit!');
-         this.$store.commit("setuserinfo", this.ruleForm);
+         this.$store.commit("setUserInfo", this.ruleForm);
          this.$router.push("/comfirmAcount");
         } else {
           console.log('error submit!!');

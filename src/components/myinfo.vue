@@ -47,7 +47,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="11">
-            <el-form-item label="名前　　" prop="name">
+            <el-form-item label="姓名（漢字）" prop="name">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
           </el-col>
@@ -815,7 +815,12 @@ export default {
       //tabledataをクリアする。
       //this.tableData.length = 0;
       let tabledateLan = this.ruleForm.tableDataLanguage;
-      let temp = [];
+      let temp = [
+       {
+            skill: "なし",
+            exp: 0 //defalt　value
+          }
+      ];
       for (const key in this.selectedLanguage) {
         if (this.selectedLanguage.hasOwnProperty(key)) {
           let index = this.selectedLanguage[key];
@@ -843,7 +848,10 @@ export default {
     },
     db: function() {
       let tabledatedb = this.ruleForm.tableDataDB;
-      let temp = [];
+      let temp = [{
+            skill: "なし",
+            exp: 0 //defalt　value
+          }];
       for (const key in this.selectedDB) {
         if (this.selectedDB.hasOwnProperty(key)) {
           let index = this.selectedDB[key];
@@ -873,7 +881,12 @@ export default {
     },
     os: function() {
       let tabledateos = this.ruleForm.tableDataOS;
-      let temp = [];
+      let temp = [
+        {
+            skill: "なし",
+            exp: 0 //defalt　value
+          }
+      ];
       for (const key in this.selectedOS) {
         if (this.selectedOS.hasOwnProperty(key)) {
           let index = this.selectedOS[key];

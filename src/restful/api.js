@@ -2,12 +2,20 @@ import Axios from 'axios'
 import VueCookies from 'vue-cookies'
 import store from '../store'
 
-Axios.defaults.baseURL=store.state.globalSettings.apiUrl+'/niucaocao'
-const addressurl='/getaddress'//人材の住所を取得する。
-const skillurl='/getskillsource'
-const toptenurl='/gettopTen'
-const CaseListurl ='/getCaseList'
-const interviewListurl ='/interviewList'
+Axios.defaults.baseURL=store.state.globalSettings.apiUrl
+const addressurl='/niucaocao/getaddress'//人材の住所を取得する。
+const skillurl='/niucaocao/getskillsource'
+const toptenurl='/niucaocao/gettopTen'
+const CaseListurl ='/niucaocao/getCaseList'
+const interviewListurl ='/niucaocao/interviewList'
+const delInterviewurl ='/niucaocao/deleteInterview'
+const caseDetailurl ='/niucaocao/getCaseDetail'
+const acounturl='/main/makeAcount'
+const tankaurl='/niucaocao/tanka'
+const gettankaurl='/niucaocao/gettanka'
+const baseinfourl='/niucaocao/baseinfo'
+const skillinfourl='/niucaocao/skillinfo'
+const carearinfourl='/niucaocao/carearinfo'
 
 const yyyurl='/cccc/?userid='
 const zzzzurl='/zzzz'
@@ -90,7 +98,7 @@ export function getInterviewList(comName,id,currentPage,pagesize){
   return  Axios.get(interviewListurl, {
         params: {
             // ここにクエリパラメータを指定する
-            companyName:comName ,
+            casename:comName ,
             userid:id,
             currentPage:currentPage,
             pagesize:pagesize,
@@ -99,6 +107,74 @@ export function getInterviewList(comName,id,currentPage,pagesize){
         }
     })
 }
+//delInterviewurl
+export function deleteInterview(interviewId,userid){
+     
+  return  Axios.get(delInterviewurl, {
+        params: {
+            // ここにクエリパラメータを指定する
+            interviewId:interviewId ,
+            userid:userid,
+ 
+        }
+    })
+}
+//http://localhost:8080/niucaocao/getCaseDetail
+//caseDetailurl
+export function getCaseDetail(selectID){
+ 
+  return  Axios.get(caseDetailurl, {
+      params: {
+          // ここにクエリパラメータを指定する
+          id:selectID ,
+      }
+  })
+}
+//this.$axios.post('http://localhost:8080/niucaocao/makeAcount',this.$qs.stringify(this.userinfo))
+export function makeAcount(userinfo){
+ 
+  return  Axios.post(acounturl,userinfo)
+}
+
+export function modifytanka(tankainfo){
+ 
+  return  Axios.post(tankaurl,tankainfo)
+}
+
+export function modifybaseinfo(baseinfo){
+ 
+  return  Axios.post(baseinfourl,baseinfo)
+}
+
+//https://blog.csdn.net/Moddlec/article/details/83894308
+export function modifyskillinfo(skillinfo){
+ 
+  return  Axios.post(skillinfourl, skillinfo
+)
+}
+
+export function modifycarearinfo(carearinfo){
+ 
+  return  Axios.post(carearinfourl,carearinfo)
+}
+
+export function getTanka(userId){
+     
+  return  Axios.get(gettankaurl, {
+        params: {
+            // ここにクエリパラメータを指定する
+    
+            userid:userId,
+
+        }
+    })
+}
+
+
+
+
+
+
 
 export function gettotest(userid){
     return Axios.get(`${yyyurl}${userid}`).then(res=>res.data)

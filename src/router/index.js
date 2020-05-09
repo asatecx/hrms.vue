@@ -19,6 +19,14 @@ import MyInterview from '@/components/interview/interviewlist'
 import InterviewSuccess from '@/components/interview/success'
 import comfirmMyinfo from '@/components/comfirmMyinfo'
 import regist from '@/components/common/regist'
+import priceandshc from '@/components/people/priceAndSchedule'
+import baseinfo from '@/components/people/baseinfo'
+import carearinfo from '@/components/people/carearinfo'
+import skillinfo from '@/components/people/skillinfo'
+import appealvideo from '@/components/people/appealvideo'
+import baseinfoComfirm from '@/components/people/baseinfoComfirm'
+import carearinfoComfirm from '@/components/people/carearinfoComfirm'
+import skillinfoComfirm from '@/components/people/skillinfoComfirm'
 
 Vue.use(Router)
 
@@ -32,6 +40,41 @@ export default new Router({
       path: '/Home',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/baseinfo',
+      name: 'baseinfo',
+      component: baseinfo
+    },
+    {
+      path: '/baseinfoComfirm',
+      name: 'baseinfoComfirm',
+      component: baseinfoComfirm
+    },
+    {
+      path: '/carearinfo',
+      name: 'carearinfo',
+      component: carearinfo
+    },
+    {
+      path: '/carearinfoComfirm',
+      name: 'carearinfoComfirm',
+      component: carearinfoComfirm
+    },
+    {
+      path: '/skillinfo',
+      name: 'skillinfo',
+      component: skillinfo
+    },
+    {
+      path: '/skillinfoComfirm',
+      name: 'skillinfoComfirm',
+      component: skillinfoComfirm
+    },
+    {
+      path: '/appealvideo',
+      name: 'appealvideo',
+      component: appealvideo
     },
     {
       path: '/login/:title',
@@ -123,5 +166,11 @@ export default new Router({
       name: 'comfirmMyinfo',
       component: comfirmMyinfo
     },
+    {
+      path: '/priceandshc',
+      name: 'priceandshc',
+      component: priceandshc
+    },
+    
   ]
 })

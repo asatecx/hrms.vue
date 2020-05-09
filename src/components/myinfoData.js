@@ -1,5 +1,19 @@
 
-export var mydata={industryList:[{value:'建設業',label:'建設業'},
+
+export var mydata={
+    textsLan:["知識あり","簡単なプログラミングができる","一人でアプリケーション開発できる","業務で即戦力になれる","メンバー指導できる",""],
+    textsDB:["知識あり","簡単なSELECT文が書ける","SQLを使ったプログラミングができる","システムの要件に応じてテーブル設計できる","メインPG/メンターとして，主設計を任せられる",""],
+    textsOS:["知識あり","基本操作ができる","インストールから基本設定までできる","システムデザイン、ネットワーク構築できる","トラブルシューティング、キャパシティプランニングができる",""],
+    
+    japanese:[
+        {value:'ネイテイブ',label:'ネイテイブ'},
+        {value:'N1',label:'N1'},
+        {value:'N2',label:'N2'},
+        {value:'N3',label:'N3'},
+        {value:'N4',label:'N4'},
+        {value:'N5',label:'N5'},
+    ],
+    industryList:[{value:'建設業',label:'建設業'},
                                 {value:'製造業',label:'製造業'},
                                 {value:'電気･ガス･熱供給･水道業',label:'電気･ガス･熱供給･水道業'},
                                 {value:'情報通信業',label:'情報通信業'},
