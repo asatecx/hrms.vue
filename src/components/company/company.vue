@@ -73,7 +73,7 @@
           </el-form-item>
         </el-row>
         <div class="bottom clearfix">
-          <el-button type="primary" @click="getPersonList()">検索</el-button>
+          <el-button type="primary" @click="getPersonList(1)">検索</el-button>
         </div>
       </el-form>
     </div>
@@ -114,7 +114,15 @@
         </el-col>
       </el-row>
       <div style="line-height:50px;padding-top:20px">
-        <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+        <el-pagination
+          v-if="this.total > 0"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          background
+          layout="prev, pager, next, total"
+          :page-size="pagesize"
+          :total="this.total"
+        ></el-pagination>
       </div>
     </div>
   </div>
@@ -173,7 +181,10 @@ export default {
         { type: "success", label: "AWS" },
         { type: "info", label: "Linux" }
       ],
-      tableData: []
+      tableData: [],
+      pagesize: 12,
+      currentPage:1,
+      total : 0,
     };
   },
   mounted() {},
@@ -186,19 +197,35 @@ export default {
         }
       });
     },
-    getPersonList() {
-      var url = this.$store.state.globalSettings.apiUrl + "/person/list";
+    getPersonList(pageNo) {
+      var url = this.$store.state.globalSettings.apiUrl + "/person/list/" + pageNo + "/" + this.pagesize;
       this.$axios
         .post(url, this.ruleForm)
         .then(res => {
           if (res.data.success) {
+            this.total = res.data.totalCount;
             this.tableData = res.data.data;
           }
         })
         .catch(err => {
           console.log(err);
         });
-    }
+    },
+    // 分页
+        // 每页显示的条数
+       handleSizeChange(val) {
+           // 改变每页显示的条数 
+           this.PageSize=val
+           // 注意：在改变每页显示的条数时，要将页码显示到第一页
+           this.currentPage=1
+       },
+         // 显示第几页
+       handleCurrentChange(val) {
+           // 改变默认的页数
+            this.currentPage=val;
+            // 切换页码时，要获取每页显示的条数
+            this.getPersonList(val);
+       },
   },
   created() {
     // alert(this.$route.params.test);
