@@ -10,14 +10,12 @@
 <el-table
     :data="tableData.filter(data => {
       
-      var str = data.companyName
-               +data.time
-               +data.interviewPlace
-               +data.interviewstatus
+      var str = data.casename
+               +data.starttime
+               +data.endtime
+               +data.workplace
+               +data.interviewresult
                +data.comment
-               +data.firstDayTime
-               + data.firstDayPlace
-               + data.firstDaynotes;
       return !search || str.toLowerCase().includes(search.toLowerCase())
     
     
@@ -32,7 +30,7 @@
     
     <el-table-column
     prop="companyName"
-    label="会社名"
+    label="案件名"
     width="180">
     </el-table-column>
     <el-table-column
