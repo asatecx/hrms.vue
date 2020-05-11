@@ -19,6 +19,7 @@
             </el-checkbox-group>
           </el-form-item>
         </el-row>
+        <el-divider></el-divider>
         <el-row class>
           <div class="sub-title">現在の状況</div>
           <el-form-item prop>
@@ -31,6 +32,7 @@
             </el-checkbox-group>
           </el-form-item>
         </el-row>
+        <el-divider></el-divider>
         <!-- <el-row class>
           <div class="sub-title">参画可能期間</div>
           <el-col>
@@ -287,7 +289,8 @@ export default {
   text-align: left;
   padding: 1% 1% 3% 2%;
   background-color:#F8F8FF;
-  border:1px solid rgb(201, 199, 199)
+  border:1px solid rgb(201, 199, 199);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 .sub-title {
   font-weight:bold;
@@ -300,6 +303,7 @@ export default {
   line-height: 30px;
 }
 .card-body span{
+  font-size: 13px;
   font-weight: bold;
 }
 </style>

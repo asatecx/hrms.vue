@@ -184,6 +184,7 @@ export default {
       this.ruleForm.starttime = this.$route.params.starttime;
       this.ruleForm.endtime = this.$route.params.endtime;
       this.ruleForm.workcontents = this.$route.params.workcontents;
+      this.ruleForm.interviewresult = this.$route.params.interviewresult;
       this.ruleForm.companyId = this.$route.params.companyId;
       if(this.$route.params.opetype == '2'){
         this.ruleForm.UPDATE_DATE_TIME = this.$moment(this.$route.params.UPDATE_DATE_TIME).utcOffset(540).format('YYYY-MM-DD HH:mm:ss.SSS');
