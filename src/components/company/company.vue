@@ -94,18 +94,20 @@
             <div slot="header">
               <span>{{ item.USER_DISPLAY_NAME }}さん&nbsp;&nbsp;{{ item.GENDER }}&nbsp;&nbsp;{{ item.age }}歳</span>
             </div>
-            <div class="text">
+            <div class="card-body">
               {{ item.work_sts }}
               <br />
-              会社名：{{ item.COMPANY }}
+              <span>会社名：</span>{{ item.COMPANY }}
               <br />
-              所属：{{ item.CONTRACT_TYPE }}
+              <span>所属：</span>{{ item.CONTRACT_TYPE }}
               <br />
-              経験PR：{{ item.exp }}
+              <span>現在状況：</span>{{ item.STATUS }}
               <br />
-              希望月額単価：{{ item.PRICE_MIN }} ～ {{ item.PRICE_MAX }}
+              <span>経験PR：</span>{{ item.exp }}
               <br />
-              更新日：{{ item.UPDATE_DATE_TIME }}
+              <span>希望月額単価：</span>{{ item.PRICE_MIN }} ～ {{ item.PRICE_MAX }}
+              <br />
+              <span>更新日：</span>{{ item.UPDATE_DATE_TIME }}
             </div>
             <div class="bottom clearfix">
               <el-button type="text" class="button" @click="gotoPersonDetail(item.PERSON_ID)">詳細をみる</el-button>
@@ -290,5 +292,14 @@ export default {
 .sub-title {
   font-weight:bold;
   margin: 5px 0px 5px 0px;
+}
+.card-body {
+  padding: 0 1% 3% 5%;
+  font-size: 14px;
+  text-align: left;
+  line-height: 30px;
+}
+.card-body span{
+  font-weight: bold;
 }
 </style>
