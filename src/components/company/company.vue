@@ -190,6 +190,7 @@ export default {
   mounted() {},
   methods: {
     gotoPersonDetail(personId) {
+      sessionStorage.setItem("personId", personId);
       this.$router.push({
         name: "persondetail",
         params: {
@@ -228,8 +229,7 @@ export default {
        },
   },
   created() {
-    // alert(this.$route.params.test);
-    // alert(res.data.data[0].PERSON_ID);
+    this.getPersonList(1);
   },
 };
 </script>
