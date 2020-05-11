@@ -1,10 +1,10 @@
 <template>
   <div style="width:100%;">
-    <div style="width:20%;float:left;">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="sidemenu">
+    <div class="sidemenu">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
         <el-row class>
           <el-form-item prop="userNameDisp">
-            <el-input v-model="xxxxx" placeholder="フリーキーワード"></el-input>
+            <el-input v-model="xxxxx" placeholder="フリーキーワード" style="width:220px"></el-input>
           </el-form-item>
         </el-row>
         <el-row class>
@@ -72,7 +72,7 @@
             </el-select>
           </el-form-item>
         </el-row>
-        <div class="bottom clearfix">
+        <div class="bottom clearfix" style="text-align: center">
           <el-button type="primary" @click="getPersonList(1)">検索</el-button>
         </div>
       </el-form>
@@ -230,7 +230,7 @@ export default {
   created() {
     // alert(this.$route.params.test);
     // alert(res.data.data[0].PERSON_ID);
-  }
+  },
 };
 </script>
 
@@ -278,5 +278,17 @@ export default {
   height: 60px;
   line-height: 30px;
   padding: 0;
+}
+.sidemenu {
+  width: 16%;
+  float: left;
+  text-align: left;
+  padding: 1% 1% 3% 2%;
+  background-color:#F8F8FF;
+  border:1px solid rgb(201, 199, 199)
+}
+.sub-title {
+  font-weight:bold;
+  margin: 5px 0px 5px 0px;
 }
 </style>
