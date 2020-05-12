@@ -13,13 +13,25 @@
           <el-col :span="6">
             <div class="grid-content bg-purple-light">
               <span class="demonstration">開始日付</span>
-              <el-date-picker v-model="select_param.from" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder></el-date-picker>
+              <el-date-picker
+                v-model="select_param.from"
+                type="date"
+                format="yyyy/MM/dd"
+                value-format="yyyy/MM/dd"
+                placeholder
+              ></el-date-picker>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="grid-content bg-purple">
               <span class="demonstration">終了日付</span>
-              <el-date-picker v-model="select_param.to" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder></el-date-picker>
+              <el-date-picker
+                v-model="select_param.to"
+                type="date"
+                format="yyyy/MM/dd"
+                value-format="yyyy/MM/dd"
+                placeholder
+              ></el-date-picker>
             </div>
           </el-col>
           <el-col :span="4">
@@ -36,9 +48,10 @@
         <el-table-column prop="INTERVIEW_DATETIME" label="予約時間"></el-table-column>
         <el-table-column prop="INTERVIEW_PLACE" label="場所"></el-table-column>
         <el-table-column prop="INTERVIEW_STATUS" label="ステータス"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="280px">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row, '2')">編集</el-button>
+            <el-button size="mini" @click="showInterviewDialog(scope.$index)">結果</el-button>
             <el-button
               size="mini"
               type="danger"
@@ -48,6 +61,22 @@
         </el-table-column>
       </el-table>
     </el-form>
+    <el-dialog title="面接結果" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="面接結果" :label-width="formLabelWidth">
+          <el-select v-model="param.interviewresult" placeholder="面接結果を選択してください">
+            <el-option label="結果まち" value="4"></el-option>
+            <el-option label="合格" value="5"></el-option>
+            <el-option label="不合格" value="6"></el-option>
+            <el-option label="合格を辞退した" value="9"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">閉じる</el-button>
+        <el-button type="primary" @click="setInterviewResult()">確定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -68,7 +97,7 @@ export default {
         interviewresult: "",
         from: "",
         to: "",
-        validFlg: false,
+        validFlg: false
       },
       tableData: [],
       headerStyle: {
@@ -76,12 +105,22 @@ export default {
         "font-size": "20px",
         height: "20px"
       },
+      dialogFormVisible: false,
+      index: "",
+      form: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      },
+      formLabelWidth: "120px"
     };
   },
   methods: {
-    test(){
-      alert("q");
-    },
     getInterviewlist() {
       this.select_param.companyId = this.$store.state.adminName;
       var url =
@@ -155,14 +194,43 @@ export default {
           if (res.data.success) {
             this.$message({
               type: "success",
-              message: "删除成功!"
+              message: "面接キャンセルした!"
             });
           }
         })
         .catch(err => {
           console.log(err);
         });
-    }
+    },
+    showInterviewDialog(index){
+      this.dialogFormVisible = true;
+      this.index = index;
+    },
+    setInterviewResult() {
+      this.param.companyId = this.$store.state.adminName;
+      this.param.personId = this.tableData[this.index].PERSON_ID;
+      this.param.UPDATE_DATE_TIME = this.$moment(
+        this.tableData[this.index].UPDATE_DATE_TIME
+      )
+        .utcOffset(540)
+        .format("YYYY-MM-DD HH:mm:ss.SSS");
+      var url = this.$store.state.globalSettings.apiUrl + "/interview/updateResult";
+      this.$axios
+        .post(url, this.param)
+        .then(res => {
+          if (res.data.success) {
+            this.$message({
+              type: "success",
+              message: "面接結果を更新した!"
+            });
+            this.dialogFormVisible = false;
+            this.getInterviewlist();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.getInterviewlist();
