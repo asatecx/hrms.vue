@@ -35,6 +35,7 @@
         <el-table-column prop="PERSON_ID" label="面接者"></el-table-column>
         <el-table-column prop="INTERVIEW_DATETIME" label="予約時間"></el-table-column>
         <el-table-column prop="INTERVIEW_PLACE" label="場所"></el-table-column>
+        <el-table-column prop="INTERVIEW_STATUS" label="ステータス"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row, '2')">編集</el-button>
