@@ -44,7 +44,7 @@
       </el-tabs>
       <el-table :data="tableData" stripe style="width: 100%" header-cell-style="headerStyle">
         <el-table-column prop="CASE_NAME" label="案件名称／概要"></el-table-column>
-        <el-table-column prop="PERSON_ID" label="面接者"></el-table-column>
+        <el-table-column prop="USER_NAME_KANJI" label="面接者"></el-table-column>
         <el-table-column prop="INTERVIEW_DATETIME" label="予約時間"></el-table-column>
         <el-table-column prop="INTERVIEW_PLACE" label="場所"></el-table-column>
         <el-table-column prop="INTERVIEW_STATUS" label="ステータス"></el-table-column>
