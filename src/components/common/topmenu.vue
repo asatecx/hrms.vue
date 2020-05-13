@@ -57,6 +57,7 @@ export default {
     logout() {
       console.log("logout start");
       this.$cookies.remove("access_token");
+      localStorage.clear();
       this.loginflg = false;
       this.$router.push("/Home");
       // this.$router.push({ name: "Login", params: { title: "" } });
@@ -115,7 +116,9 @@ export default {
     this.userid = this.$store.state.adminName;
     if (this.$cookies.isKey("access_token")) {
       this.loginflg = true;
-      this.userType = this.$store.state.userInfo.userType;
+      // this.userType = this.$store.state.userInfo.userType;
+      // this.userType = JSON.parse(localStorage.getItem('userType'));
+      this.userType = localStorage.getItem('userType')
     } else {
       this.loginflg = false;
     }

@@ -74,6 +74,9 @@ export default {
             this.$cookies.set("access_token", res.data.data);
             this.$store.commit("setAdminName", this.formData.userId);
             this.$store.commit("setUserInfo", res.data.data.detail);
+            localStorage.setItem('adminName', this.formData.userId);
+            // localStorage.setItem('userInfo', JSON.stringify(res.data.data.detail));
+            localStorage.setItem('userType', res.data.data.detail.userType);
             // console.log(this.$parent)
             // this.$root.reload();
             this.reload(); //刷新login控件
