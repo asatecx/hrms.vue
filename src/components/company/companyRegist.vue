@@ -7,89 +7,125 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-    <span>会員情報入力</span>
-      <el-row class>
-        <div class="sub-title">名前<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-        <el-col :span="10">
-          <div class="sub-title">姓</div>
-          <el-form-item prop="userNameFirst">
-            <el-input v-model="ruleForm.userNameFirst" placeholder="例）山田"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
-          <div class="sub-title">名</div>
-          <el-form-item prop="userNameLast">
-            <el-input v-model="ruleForm.userNameLast" placeholder="例）一郎"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">表示名前</div>
-          <el-form-item prop="userNameDisp">
-            <el-input v-model="ruleForm.userNameDisp" placeholder="例）yamada2020"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">電話番号（ハイフン不要）<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="tel">
-            <el-input v-model="ruleForm.tel" placeholder="例）08033445566"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">メールアドレス<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="mail">
-            <el-input v-model="ruleForm.mail" placeholder="例）sales@asatecx.com"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">パスワード<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="password">
-            <el-input placeholder="" v-model="ruleForm.password" show-password></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">会社名<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="companyName">
-            <el-input v-model="ruleForm.companyName" placeholder="例）株式会社アサテクス"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">会社URL<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="companyURL">
-            <el-input v-model="ruleForm.companyURL" placeholder="例）http://www.asatecx.com"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">設立年（西暦）<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="establishYear">
-            <el-input v-model="ruleForm.establishYear" placeholder="例）2019"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row class>
-        <el-col :span="20">
-          <div class="sub-title">従業員数（人）<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="staffNum">
-            <el-input v-model="ruleForm.staffNum" placeholder="例）30"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <div class="bottom clearfix">
-            <el-button type="primary" @click="submitForm('ruleForm')">会員登録</el-button>
+      <el-page-header @back="goBack" content="会社情報入力" />
+      <div style="padding-top: 50px;padding-left: 25%;">
+        <el-row class>
+          <div class="sub-title">
+            名前
+            <el-tag type="danger" effect="dark" size="small">必須</el-tag>
           </div>
+          <el-col :span="5">
+            <div class="sub-title">姓</div>
+            <el-form-item prop="userNameFirst">
+              <el-input v-model="ruleForm.userNameFirst" placeholder="例）山田"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <div class="sub-title">名</div>
+            <el-form-item prop="userNameLast">
+              <el-input v-model="ruleForm.userNameLast" placeholder="例）一郎"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="10">
+            <div class="sub-title">表示名前</div>
+            <el-form-item prop="userNameDisp">
+              <el-input v-model="ruleForm.userNameDisp" placeholder="例）yamada2020"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="10">
+            <div class="sub-title">
+              電話番号（ハイフン不要）
+              <el-tag type="danger" effect="dark" size="small">必須</el-tag>
+            </div>
+            <el-form-item prop="tel">
+              <el-input v-model="ruleForm.tel" placeholder="例）08033445566"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="10">
+            <div class="sub-title">
+              メールアドレス
+              <el-tag type="danger" effect="dark" size="small">必須</el-tag>
+            </div>
+            <el-form-item prop="mail">
+              <el-input v-model="ruleForm.mail" placeholder="例）sales@asatecx.com"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="10">
+            <div class="sub-title">
+              パスワード
+              <el-tag type="danger" effect="dark" size="small">必須</el-tag>
+            </div>
+            <el-form-item prop="password">
+              <el-input placeholder v-model="ruleForm.password" show-password></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="15">
+            <div class="sub-title">
+              会社名
+              <el-tag type="danger" effect="dark" size="small">必須</el-tag>
+            </div>
+            <el-form-item prop="companyName">
+              <el-input v-model="ruleForm.companyName" placeholder="例）株式会社アサテクス"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="15">
+            <div class="sub-title">
+              会社URL
+              <el-tag type="danger" effect="dark" size="small">必須</el-tag>
+            </div>
+            <el-form-item prop="companyURL">
+              <el-input v-model="ruleForm.companyURL" placeholder="例）http://www.asatecx.com"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="5">
+            <div class="sub-title">
+              設立年（西暦）
+              <el-tag type="danger" effect="dark" size="small">必須</el-tag>
+            </div>
+            <el-form-item prop="establishYear">
+              <el-date-picker v-model="ruleForm.establishYear" type="year" format="yyyy" value-format="yyyy" placeholder="例）2019"></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="6">
+            <div class="sub-title">
+              従業員数（人）
+              <el-tag type="danger" effect="dark" size="small">必須</el-tag>
+            </div>
+            <el-form-item prop="staffNum">
+              <el-input-number
+                v-model="ruleForm.staffNum"
+                @change="handleChange1"
+                :min="0"
+                :max="100000"
+                label="描述文字"
+              ></el-input-number>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row class>
+          <el-col :span="20">
+            <div class="bottom clearfix">
+              <el-button type="primary" @click="submitForm('ruleForm')">会員登録</el-button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
     </el-form>
   </div>
 </template>
@@ -98,7 +134,6 @@
 export default {
   data() {
     return {
-
       ruleForm: {
         userNameFirst: "",
         userNameLast: "",
@@ -110,7 +145,7 @@ export default {
         companyName: "",
         companyURL: "",
         establishYear: "",
-        staffNum: "",
+        staffNum: ""
       },
       rules: {
         userNameFirst: [
@@ -132,7 +167,7 @@ export default {
             message: "メール形式不正",
             trigger: "blur"
           }
-        ],
+        ]
       },
 
       zipcode: "",
@@ -142,31 +177,31 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      var url = this.$store.state.globalSettings.apiUrl + '/company/regist';
+      var url = this.$store.state.globalSettings.apiUrl + "/company/regist";
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$axios.post(url, this.ruleForm)
-                    .then(res => {
-                        console.log(res)
-                    if (res.data.success) {
-                        // 登录成功
-                        // 进行视图跳转
-                        this.$router.push("/People");
-                        
-                    } else {
-                        //登录失败
-                        this.$alert( res.data.message, { type: "error" })
-                        .then(() => {
-                            this.formData.password = "";
-                        })
-                        .catch(() => {
-                            this.formData.password = "";
-                        });
-                    }
-                    })
-                    .catch(err => {
-                    console.log(err);
-                    });
+          this.$axios
+            .post(url, this.ruleForm)
+            .then(res => {
+              console.log(res);
+              if (res.data.success) {
+                // 登录成功
+                // 进行视图跳转
+                this.$router.push("/Home");
+              } else {
+                //登录失败
+                this.$alert(res.data.message, { type: "error" })
+                  .then(() => {
+                    this.formData.password = "";
+                  })
+                  .catch(() => {
+                    this.formData.password = "";
+                  });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         } else {
           console.log("error submit!!");
           return false;
@@ -186,10 +221,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .sub-title{
-    height: 30px;
-    line-height:30px;
-    padding-left: 100px;
-    text-align : left;
-  }
+.sub-title {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 100px;
+  text-align: left;
+}
 </style>
