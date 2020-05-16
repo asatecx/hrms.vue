@@ -1,19 +1,25 @@
 <template>
   <div>
-    <div class="center">
-      <el-carousel :interval="3000" type="card" height="200px">
-        <el-carousel-item v-for="item in lunboImgs" :key="item.id">
-          <!-- <img :src="item.imgSrc" alt=""> -->
+
+
+      <div class="block">
+
+    <el-carousel :interval="3000" height="640px">
+      <el-carousel-item v-for="item in lunboImgs" :key="item.id">
+                 <!-- <img :src="item.imgSrc" alt=""> -->
           <a @click="displayCase($event,item.id)">
-            <h3
+            <!-- <h3
               style="line-height:18px;text-align:center;padding:25px"
               class="medium"
               v-html="item.content"
-            ></h3>
+            ></h3> -->
+              <div :style="item.mystyle" class="tupian">
+             <span class="zhiti"> {{item.content}}</span>
+              </div>
           </a>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
+      </el-carousel-item>
+    </el-carousel>
+  </div>
   </div>
 </template>
 
@@ -24,20 +30,21 @@ export default {
     return {
       lunboImgs: [
         {
+          //https://developer.mozilla.org/ja/docs/Web/CSS/background-image
           id: 1,
-          content: "広告1"
+          content: "IT人材が見つかる",
+          mystyle:{backgroundImage: 'url("'+this.$store.state.globalSettings.apiUrl +"/photos/"+"it1.jpg"+'") ' }
+
         },
         {
           id: 2,
-          content: "広告2"
+          content: "ふさわしい人材と出会える",
+            mystyle:{backgroundImage: 'url("'+this.$store.state.globalSettings.apiUrl +"/photos/"+"it2.jpg"+'")'}
         },
         {
           id: 3,
-          content: "広告3"
-        },
-        {
-          id: 4,
-          content: "広告4"
+          content: "こちらへよこそ",
+            mystyle:{backgroundImage: 'url("'+this.$store.state.globalSettings.apiUrl +"/photos/"+"it3.jpg"+'")'}
         }
       ],
       keyword: "java",
@@ -59,5 +66,26 @@ export default {
 <style  scoped>
 .center {
   text-align: center;
+}
+.tupian {
+  padding: 0px;
+  margin:0px;
+  text-align: center;
+   height: 100%;
+   background-color:rgba(255,255,255,0.3);
+background-blend-mode:lighten;
+background-repeat: no-repeat;
+background-size: cover
+}
+@font-face {
+   font-family: KosugiMaru;
+   src: url('../../assets/font/KosugiMaru-Regular.ttf') format("truetype");
+}
+.zhiti{
+  font-family: 'KosugiMaru', cursive;
+  font-weight:normal;
+  font-size: 200px;
+ 
+
 }
 </style>

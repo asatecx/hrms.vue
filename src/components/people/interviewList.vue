@@ -2,11 +2,19 @@
 <div>
 
    <div style="text-align: left;"><el-button type="danger" @click="deletedetail">一括削除</el-button></div>
-会社名：<el-input v-model="selectkey.companyName" placeholder="会社名を入力" style="width:10%"></el-input>
+案件名：<el-input v-model="selectkey.casename" placeholder="会社名を入力" style="width:10%"></el-input>
 面接時間：<el-input v-model="selectkey.time" placeholder="面接時間を入力" style="width:10%"></el-input>
 面接場所：<el-input v-model="selectkey.place" placeholder="面接場所を入力" style="width:10%"></el-input>
+  面接結果：<el-select v-model="interviewstatus" clearable placeholder="選択してください">
+    <el-option
+      v-for="item in interviewstatuss"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
 {{select}}<!--ここ書かないとcomputedがきかない-->
-
+<paging @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
 <el-table
     :data="tableData.filter(data => {
       
@@ -15,7 +23,7 @@
                +data.endtime
                +data.workplace
                +data.interviewresult
-               +data.comment
+           
       return !search || str.toLowerCase().includes(search.toLowerCase())
     
     
@@ -29,21 +37,21 @@
     </el-table-column>
     
     <el-table-column
-    prop="companyName"
+    prop="casename"
     label="案件名"
     width="180">
     </el-table-column>
     <el-table-column
-    prop="time"
+    prop="interview_datetime"
     label="面接時間"
     width="180">
     </el-table-column>
     <el-table-column
-    prop="interviewPlace"
+    prop="interviewplace"
     label="面接場所">
     </el-table-column>
     <el-table-column
-    prop="interviewstatus"
+    prop="interviewresult"
     label="面接結果">
     </el-table-column>
      <!-- <el-table-column label="メモ" width="300px">
@@ -57,16 +65,14 @@
                 
                   </template>
      </el-table-column> -->
-     <el-table-column label="詳細" width="300px">
+     <el-table-column label="プロジェクト詳細" width="300px">
         <template slot-scope="scope">
               <el-popover
                 placement="right"
                 width="400"
                 trigger="click">
-             面接官コメント: {{scope.row.comment}}<br>
-             入場時間: {{scope.row.firstDayTime}}<br>
-             現場住所/駅: {{scope.row.firstDayPlace}}<br>
-             注意事項: {{scope.row.firstDaynotes}}
+             プロジェクト内容: {{scope.row.workcontents}}<br>
+             プロジェクト現場: {{scope.row.workplace}}<br>
                 <el-button slot="reference">見る</el-button>
               </el-popover>
           </template>
@@ -94,25 +100,19 @@
 </template>
 
 <script>
+import * as infodata from "../myinfoData";
  var pagetotal=0;
  var currentPage=1;
- var pagesize=100;
+ var pagesize=3;
 export default {
     data() {
 
-       // {"companyName":"NEC","time":"2020-10-20 17:00",
-      // "notes":"please wear your suits",
-      // "interviewPlace":"tamachi",
-      // "interviewMeetingPlace":"tamachi Station",
-      //"interviewstatus":"ok",
-      //"comment":"you are very good222",
-      //"firstDaynotes":"take your notebook",
-      //"firstDayPlace":"tamachi",
-      //"firstDayTime":"2020-11-01 9:00"},
       
         return {
+            interviewstatus:"",
+            interviewstatuss: infodata.mydata.interviewstatuss,
             show:false,
-            selectkey:{companyName:"",time:"",place:""},
+            selectkey:{casename:"",time:"",place:""},
             tableData:[],
             multipleSelection: [],
             search: ''
@@ -121,9 +121,9 @@ export default {
      methods:{
          getlist(){
              console.log("i am  selecting")
-            let comName = this.selectkey.companyName
+            let caseName = this.selectkey.casename
             let id=this.$store.state.adminName;
-             this.$http.getInterviewList(comName,id,currentPage,pagesize)
+             this.$http.getInterviewList(caseName,id,currentPage,pagesize)
           .then((res) => {
             this.tableData = res.data;
             }).catch(function(error) {
@@ -158,6 +158,17 @@ export default {
       },
       deletedetail(){
         this.multipleSelection
+      },
+      handleSizeChange(val) {
+        pagesize=val;
+          console.log(`P每页 ${val} 条`);
+          this.getlist();
+       
+      },
+     handleCurrentChange(val) {
+        currentPage=val;
+          console.log(`P当前页: ${val}`);
+          this.getlist();
       }
 
      }
