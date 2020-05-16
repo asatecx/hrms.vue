@@ -19,8 +19,8 @@ const carearinfourl='/niucaocao/carearinfo'
 const getBaseInfourl='/niucaocao/getbaseinfo'
 const getSkillInfourl='/niucaocao/getskillinfo'
 const getCarearInfourl='/niucaocao/getcarearinfo'
-
-
+const getinterviewNumberurl='/niucaocao/interviewNumber'
+const delInterviewsurl='/niucaocao/deleteInterviews'
 const yyyurl='/cccc/?userid='
 const zzzzurl='/zzzz'
 
@@ -111,6 +111,19 @@ export function getInterviewList(comName,id,currentPage,pagesize){
         }
     })
 }
+
+//getinterviewNumberurl
+export function getpagetotal(comName,id,currentPage,pagesize){   
+  return  Axios.get(getinterviewNumberurl, {
+        params: {
+            // ここにクエリパラメータを指定する
+            casename:comName ,
+            userid:id,
+            //interviewTime:time,
+          // interviewPlace:place,
+        }
+    })
+}
 //delInterviewurl
 export function deleteInterview(interviewId,userid){
      
@@ -121,6 +134,17 @@ export function deleteInterview(interviewId,userid){
             userid:userid,
  
         }
+    })
+}
+export function deleteIntervies(interviews,userid){
+     console.log(interviews.interviews);
+  return  Axios.post(delInterviewsurl, {
+        
+            // ここにクエリパラメータを指定する
+            interviews:interviews.interviews ,
+            userid:userid,
+ 
+       
     })
 }
 //http://localhost:8080/niucaocao/getCaseDetail

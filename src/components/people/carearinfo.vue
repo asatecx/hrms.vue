@@ -1,5 +1,6 @@
 <template>
   <div style="margin-top: 50px;margin-left: 450px;">
+ <el-backtop ></el-backtop>
     <!-- -->
     <div style="text-align: left;width:1000px">
       <el-form
@@ -115,7 +116,9 @@
         </el-form-item>
       </el-form>
     </div>
+   
   </div>
+  
 </template>
 
 <script>

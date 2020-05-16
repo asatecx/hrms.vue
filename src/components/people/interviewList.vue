@@ -14,7 +14,7 @@
     </el-option>
   </el-select>
 {{select}}<!--ここ書かないとcomputedがきかない-->
-<paging @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
+<paging :pagetotal="pagetotal" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
 <el-table
     :data="tableData.filter(data => {
       
@@ -101,9 +101,9 @@
 
 <script>
 import * as infodata from "../myinfoData";
- var pagetotal=0;
+ 
  var currentPage=1;
- var pagesize=3;
+ var pagesize=5;
 export default {
     data() {
 
@@ -115,17 +115,28 @@ export default {
             selectkey:{casename:"",time:"",place:""},
             tableData:[],
             multipleSelection: [],
-            search: ''
+            search: '',
+            pagetotal:0,
         }
     },
      methods:{
          getlist(){
-             console.log("i am  selecting")
             let caseName = this.selectkey.casename
             let id=this.$store.state.adminName;
              this.$http.getInterviewList(caseName,id,currentPage,pagesize)
           .then((res) => {
             this.tableData = res.data;
+            }).catch(function(error) {
+                // error 処理
+            });
+         },
+         getpagetotal(){
+            let caseName = this.selectkey.casename
+            let id=this.$store.state.adminName;
+             this.$http.getpagetotal(caseName,id,currentPage,pagesize)
+          .then((res) => {
+            console.log(res)
+            this.pagetotal = res.data.data.count;
             }).catch(function(error) {
                 // error 処理
             });
@@ -140,6 +151,7 @@ export default {
            .then(res => {
              console.log(res)
              if(res.data="ok"){
+               this.getpagetotal();
                 this.getlist();
              }else{
 
@@ -157,7 +169,21 @@ export default {
         this.multipleSelection = val;
       },
       deletedetail(){
-        this.multipleSelection
+        
+          this.$http.deleteIntervies({interviews:this.multipleSelection},this.$store.state.adminName)
+           .then(res => {
+             console.log(res)
+             if(res.data="ok"){
+               this.getpagetotal();
+                this.getlist();
+             }else{
+
+             }
+            
+        })
+        .catch(function(error) {
+          // error 処理
+        });
       },
       handleSizeChange(val) {
         pagesize=val;
@@ -173,7 +199,9 @@ export default {
 
      }
     ,created(){
+        this. getpagetotal();
             this.getlist()
+          
 
     },
     computed: {
