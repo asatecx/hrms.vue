@@ -47,22 +47,22 @@
             </el-form-item>
           </el-col>
           <el-col :span="11">
-            <el-form-item label="姓名（漢字）" prop="USER_NAME_KANJI">
+            <el-form-item label="姓名（漢字）" prop="user_name_kanji">
               <el-input v-model="ruleForm.user_name_kanji"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11">
-            <el-form-item label="姓名（カナ）" prop="USER_NAME_KANA">
+            <el-form-item label="姓名（カナ）" prop="user_name_kana">
               <el-input v-model="ruleForm.user_name_kana"></el-input>
             </el-form-item>
           </el-col>
            <el-col :span="11">
-            <el-form-item label="姓名（ローマ字）" prop="USER_NAME_ROMA">
+            <el-form-item label="姓名（ローマ字）" prop="user_name_roma">
               <el-input v-model="ruleForm.user_name_roma"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11">
-            <el-form-item label="性別　　" prop="GENDER">
+            <el-form-item label="性別　　" prop="gender">
               <el-radio-group v-model="ruleForm.gender">
                 <el-radio :label="'1'" >男</el-radio>
                 <el-radio :label="'0'" >女</el-radio>
@@ -71,7 +71,7 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="住所　　" required>
-              <el-form-item label prop="ADDR_PREF">
+              <el-form-item label prop="addr_pref">
                 <el-select v-model="ruleForm.addr_pref" placeholder="都道府県名" @change="getaddress()">
                   <el-option
                     v-for="item in options1"
@@ -81,7 +81,7 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label prop="ADDR_CITY">
+              <el-form-item label prop="addr_city">
                 <el-select v-model="ruleForm.addr_city" placeholder="市区町村名">
                   <el-option
                     v-for="item in options2"
@@ -95,7 +95,7 @@
           </el-col>
           <el-col :span="11">
              <el-form-item label="生年月日" required>
-              <el-form-item prop="BIRTHDAY">
+              <el-form-item prop="birthday">
                 <el-date-picker
                   type="date"
                   placeholder="日付を選択"
@@ -109,7 +109,7 @@
     <el-form-item>
           <el-col :span="10">
                 <el-form-item
-                    prop="MAIL"
+                    prop="mail"
                     label="Eメールアドレス"
                     :rules="[
                     { required: true, message: 'メールアドレスを入力してください', trigger: 'blur' },
