@@ -15,8 +15,8 @@
     <el-input v-model="selectkey.companyName" placeholder="会社名を入力" style="width:10%"></el-input>面接時間：
     <el-input v-model="selectkey.time" placeholder="面接時間を入力" style="width:10%"></el-input>面接場所：
     <el-input v-model="selectkey.place" placeholder="面接場所を入力" style="width:10%"></el-input>
-    {{select}}
-    <!--ここ書かないとcomputedがきかない-->
+    {{select}}<!--ここ書かないとcomputedがきかない-->
+    
     <paging @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="caseName" label="案件名" width="180"></el-table-column>

@@ -5,10 +5,10 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :page-sizes="[5, 10, 15, 20]"
+      :page-size="5"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="pagetotal">
     </el-pagination>
   </div>
 </template>
@@ -16,6 +16,11 @@
 <script>
 //https://hafilog.com/vue-emit-listeners
   export default {
+    props: {pagetotal:{
+            default: 0,
+            required: true
+          },
+    },
     methods: {
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);

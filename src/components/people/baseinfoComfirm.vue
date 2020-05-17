@@ -1,7 +1,7 @@
 <template>
     <div>
  
-           <div style="text-align: left;width:1200px;margin-left:400px">
+           <div style="text-align: left;width:900px;margin-left:400px">
             ■ 基本情報  
                <br>
           <el-form>
@@ -12,38 +12,38 @@
                          </el-form-item >
                     </el-col>
                     <el-col :span="8" >
-                       <el-form-item label="姓名（漢字:">
-                          {{myinfo.USER_NAME_KANJI}}
+                       <el-form-item label="姓名（漢字):">
+                          {{myinfo.user_name_kanji}}
                       </el-form-item >
                     </el-col>
                     <el-col :span="8" >
                        <el-form-item label="姓名（カナ）:">
-                          {{myinfo.USER_NAME_KANA}}
+                          {{myinfo.user_name_kana}}
                       </el-form-item >
                     </el-col>
                    <el-col :span="8" >
                        <el-form-item label="姓名（ローマ字:">
-                          {{myinfo.USER_NAME_ROMA}}
+                          {{myinfo.user_name_roma}}
                       </el-form-item >
                     </el-col>
                         <el-col :span="8">
                             <el-form-item label="性別：">
-                                {{myinfo.GENDER}}
+                                {{myinfo.gender==1?"男":"女"}}
                             </el-form-item >
                         </el-col>
                         <el-col :span="8">
                             <el-form-item label="住所：">
-                           {{myinfo.ADDR_PREF+" "}}{{myinfo.ADDR_CITY}}
+                           {{myinfo.addr_pref+" "}}{{myinfo.addr_city}}
                              </el-form-item >
                         </el-col>
                          <el-col :span="8">
                             <el-form-item label="生年月日:">
-                            {{myinfo.BIRTHDAY| moment}}
+                            {{myinfo.birthday| moment}}
                              </el-form-item >
                         </el-col>
                        <el-col :span="8">
                               <el-form-item label="国籍:">
-                                {{myinfo.COUNTRY}}
+                                {{myinfo.country}}
                              </el-form-item >
                          </el-col>
                         <el-col :span="8">
@@ -51,53 +51,53 @@
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label="最寄り駅:">
-                        {{myinfo.STATION}}
+                        {{myinfo.station}}
                         </el-form-item >
                     </el-col>
                         <el-col :span="8">
                             <el-form-item label="最終学歴:">
-                        {{myinfo.EDUCATION}}
+                        {{myinfo.education}}
                          </el-form-item >
                     </el-col>
                      <el-col :span="8">
                         <el-form-item label="専攻:">
-                        {{myinfo.MAJOR}}
+                        {{myinfo.major}}
                         </el-form-item >
                     </el-col>
                     <el-col :span="8">
                             <el-form-item label="実務経験:">
-                        {{myinfo.WORK_EXP}}年
+                        {{myinfo.work_exp}}年
                          </el-form-item >
                     </el-col>
                      <el-col :span="8">
                         <el-form-item label="日本語レベル:">
-                        {{myinfo.JAPANESELEVEL}}
+                        {{myinfo.japaneselevel}}
                         </el-form-item >
                     </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="来日年度:">
-                        {{myinfo.JAPAN_EXP}}年
-                         </el-form-item >
-                    </el-col>
+
                      <el-col :span="8">
                         <el-form-item label="電話番号:">
-                        {{myinfo.TEL}}
+                        {{myinfo.tel}}
                         </el-form-item >
+                    </el-col>
+                    <el-col :span="8">
+                            <el-form-item label="来日年度:">
+                        {{myinfo.japan_exp}}年
+                         </el-form-item >
                     </el-col>
                         <el-col :span="8">
                             <el-form-item label="Eメール:">
-                        {{myinfo.MAIL}}年
+                        {{myinfo.mail}}
                          </el-form-item >
                     </el-col>
+
            </el-row>  
-
-
-　
-
             </el-form>   
-              
-           <el-button type="primary" @click="submitForm()">ok</el-button>
-           </div>
+            <div style="text-align:center">
+                <el-button type="primary" @click="submitForm()" size="large">提出</el-button>
+                <el-button type="primary" @click="back" size="large">戻る</el-button>
+            </div>
+        </div>
     </div>
 </template>
 
