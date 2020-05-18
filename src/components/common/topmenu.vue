@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fixed-top">
     <el-menu
       :default-active="activeIndex2"
       class="el-menu-demo"
@@ -133,4 +133,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/css/bootstrap.min.css";
 </style>
