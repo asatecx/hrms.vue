@@ -1,8 +1,26 @@
 <template>
   <div>
 
+              <!-- ======= Hero Section ======= -->
+  <section id="hero" class="">
 
+    <div class="container">
+        <div class="" style="float:left">
+          <span style="font-size:60px;font-weight:bold">IT案件が見つかる</span><br>
+          <span style="font-size:60px;font-weight:bold">IT人材と出会える</span>
+          <h2>We are </h2>
+          <div>
+            <a href="" class="btn-get-started scrollto" @click="gotoPersonList()">人材を探す</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" style="float:left;margin-left:100px">
+          <img src="../../assets/img/hero-img.png" class="animated" alt="">
+        </div>
+    </div>
+
+  </section><!-- End Hero -->
       <div class="block">
+
 
     <el-carousel :interval="3000" height="640px">
       <el-carousel-item v-for="item in lunboImgs" :key="item.id">
@@ -22,7 +40,7 @@
   </div>
   </div>
 </template>
-
+<script src="../../assets/js/main.js"></script>
 <script>
 export default {
   name: "home",
@@ -58,12 +76,16 @@ export default {
     },
     doLoginPeople() {
       this.$router.push("/people");
+    },
+    gotoPersonList() {
+      this.$router.push("/company");
     }
   }
 };
 </script>
 
 <style  scoped>
+@import "../../assets/css/style.css";
 .center {
   text-align: center;
 }

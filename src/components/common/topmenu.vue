@@ -5,8 +5,8 @@
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
-      background-color="black"
-      text-color="#fff"
+      background-color="#fff"
+      text-color="#666666"
       active-text-color="#ffd04b"
     >
       <el-menu-item index="home">
