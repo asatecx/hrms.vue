@@ -8,19 +8,19 @@
       class="demo-ruleForm"
     >
       <el-page-header @back="goBack" content="会社情報入力" />
-      <div style="padding-top: 50px;padding-left: 25%;">
+      <div style="padding-top: 50px;padding-left: 20%;">
         <el-row class>
           <div class="sub-title">
             名前
             <el-tag type="danger" effect="dark" size="small">必須</el-tag>
           </div>
-          <el-col :span="5">
+          <el-col :span="7">
             <div class="sub-title">姓</div>
             <el-form-item prop="userNameFirst">
               <el-input v-model="ruleForm.userNameFirst" placeholder="例）山田"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="7">
             <div class="sub-title">名</div>
             <el-form-item prop="userNameLast">
               <el-input v-model="ruleForm.userNameLast" placeholder="例）一郎"></el-input>
@@ -121,7 +121,8 @@
         <el-row class>
           <el-col :span="20">
             <div class="bottom clearfix">
-              <el-button type="primary" @click="submitForm('ruleForm')">会員登録</el-button>
+              <el-button type="primary" @click="submitForm('ruleForm')" size="medium">会員登録</el-button>
+              <el-button type="primary" @click="goBack()" size="medium">戻る</el-button>
             </div>
           </el-col>
         </el-row>
@@ -211,11 +212,9 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    focus() {
-      this.zipcode = "";
-      this.addressData = {};
-      this.message = "";
-    }
+    goBack(){
+        this.$router.push("/Home");
+    },
   }
 };
 </script>
