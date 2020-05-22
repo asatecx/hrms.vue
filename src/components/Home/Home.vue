@@ -8,9 +8,9 @@
         <div class="" style="float:left">
           <span style="font-size:60px;font-weight:bold">IT案件が見つかる</span><br>
           <span style="font-size:60px;font-weight:bold">IT人材と出会える</span>
-          <h2>We are </h2>
+          <h2>We are trustworthy</h2>
           <div>
-            <a href="" class="btn-get-started scrollto" @click="gotoPersonList()">人材を探す</a>
+            <a href="javascript:void(0)" class="btn-get-started scrollto" @click="gotoPersonList()">人材を探す</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" style="float:left;margin-left:100px">

@@ -4,7 +4,7 @@
       <div slot="header">ログイン</div>
       <div>
         <el-form label-width="100px">
-          <el-form-item label="ユーザ名">
+          <el-form-item label="ユーザ名：">
             <el-input placeholder="ユーザ名を入力してください" v-model="formData.userId"></el-input>
           </el-form-item>
 
@@ -15,8 +15,8 @@
             <span style="color:red" v-if="isShow">ユーザまたはパスワード間違った</span>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="doLogin">ログイン</el-button>
-            <el-button @click="doCancel">キャンセル</el-button>
+            <el-button type="primary" @click="doLogin" size="medium">ログイン</el-button>
+            <!-- <el-button @click="doCancel">キャンセル</el-button> -->
           </el-form-item>
         </el-form>
       </div>

@@ -12,7 +12,13 @@
       <el-menu-item index="home">
         <img src="../../assets/logo.jpg" height="100%" />
       </el-menu-item>
-      <el-menu-item index="regist" style="float:right" v-show="!this.loginflg">会員登録</el-menu-item>
+      <el-submenu index="regist" style="float:right" v-show="!this.loginflg">
+        <template slot="title">
+          会員登録
+        </template>
+        <el-menu-item index="registperson">個人向け</el-menu-item>
+        <el-menu-item index="registcompany">企業向け</el-menu-item>
+      </el-submenu>
       <el-menu-item index="login" v-show="!this.loginflg" style="float:right">ログイン</el-menu-item>
       <el-submenu index="userInfo" v-show="this.loginflg" style="float:right">
         <template slot="title">
@@ -106,6 +112,10 @@ export default {
          this.$router.push("/carearinfo");
       }else if (key =="appealvideo"){
          this.$router.push("/appealvideo");//appealvideo
+      }else if (key =="registperson"){
+         this.$router.push("/makeAcount");
+      }else if (key =="registcompany"){
+         this.$router.push("/company.regist");
       }
     },
      errorHandler() {

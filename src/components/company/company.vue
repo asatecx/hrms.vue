@@ -2,11 +2,11 @@
   <div style="width:100%;">
     <div class="sidemenu">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-row class>
+        <!-- <el-row class>
           <el-form-item prop="userNameDisp">
             <el-input v-model="xxxxx" placeholder="フリーキーワード" style="width:220px"></el-input>
           </el-form-item>
-        </el-row>
+        </el-row> -->
         <el-row class>
           <div class="sub-title">所属</div>
           <el-form-item prop>
@@ -75,7 +75,7 @@
           </el-form-item>
         </el-row>
         <div class="bottom clearfix" style="text-align: center">
-          <el-button type="primary" @click="getPersonList(1)">検索</el-button>
+          <el-button type="primary" @click="getPersonList(1)" size="medium">検索</el-button>
         </div>
       </el-form>
     </div>
