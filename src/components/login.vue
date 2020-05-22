@@ -7,7 +7,6 @@
           <el-form-item label="ユーザ名：">
             <el-input placeholder="ユーザ名を入力してください" v-model="formData.userId"></el-input>
           </el-form-item>
-
           <el-form-item label="パスワード：">
             <el-input placeholder="パスワードを入力してください" type="password" v-model="formData.password"></el-input>
           </el-form-item>
@@ -127,6 +126,8 @@ export default {
   .el-card__header {
     text-align: center;
     font-size: 1.2em;
+    // background-color: rgb(132, 230, 149);
+    background: linear-gradient(to bottom,#1C86EE,#ffffff);
   }
 }
 </style>

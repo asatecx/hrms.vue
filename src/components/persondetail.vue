@@ -1,30 +1,29 @@
 <template>
   <div>
-    <el-row>
-      <el-card :body-style="{ padding: '0px 5px 0px 5px' }" class="box-card" shadow="hover">
-        <div slot="header">
-          <span>{{ personDetail.USER_DISPLAY_NAME }}さん&nbsp;&nbsp;{{ personDetail.GENDER }}&nbsp;&nbsp;{{ personDetail.age }}歳</span>
-        </div>
-        <div class="text">
-          現在の状況：{{ personDetail.STATUS }}
-          <br />
-          会社名：{{ personDetail.COMPANY }}
-          <br />
-          所属：{{ personDetail.CONTRACT_TYPE }}
-          <br />
-          経験PR：{{ personDetail.exp }}
-          <br />
-          希望月額単価：{{ personDetail.PRICE_MIN }} ～ {{ personDetail.PRICE_MAX }}
-          <br />
-          更新日：{{ personDetail.update }}
-        </div>
-        <div class="bottom clearfix">
-          <el-button type="primary" icon="el-icon-video-play" @click="playmovie">個人PRビデオ</el-button>
-          <el-button type="primary" icon="el-icon-download" @click="showResume">職歴書</el-button>
-          <el-button type="primary" icon="el-icon-user" @click="interview">面談予約</el-button>
-        </div>
-      </el-card>
-    </el-row>
+    <el-card :body-style="{ padding: '0px 5px 0px 5px' }" class="box-card" shadow="hover">
+      <div slot="header">
+        <span>{{ personDetail.USER_DISPLAY_NAME }}さん&nbsp;&nbsp;{{ personDetail.GENDER }}&nbsp;&nbsp;{{ personDetail.age }}歳</span>
+      </div>
+      <div class="text">
+        現在の状況：{{ personDetail.STATUS }}
+        <br />
+        会社名：{{ personDetail.COMPANY }}
+        <br />
+        所属：{{ personDetail.CONTRACT_TYPE }}
+        <br />
+        経験PR：{{ personDetail.exp }}
+        <br />
+        希望月額単価：{{ personDetail.PRICE_MIN }} ～ {{ personDetail.PRICE_MAX }}
+        <br />
+        更新日：{{ personDetail.UPDATE_DATE_TIME }}
+      </div>
+      <div class="bottom clearfix">
+        <el-button type="primary" icon="el-icon-video-play" @click="playmovie">個人PRビデオ</el-button>
+        <el-button type="primary" icon="el-icon-download" @click="showResume">職歴書</el-button>
+        <el-button type="primary" icon="el-icon-user" @click="interview">面談予約</el-button>
+      </div>
+    </el-card>
+    <br/>
   </div>
 </template>
 
@@ -33,15 +32,6 @@ export default {
   data() {
     return {
       personDetail: {
-        // id: "1",
-        // name: "TANG.XF",
-        // gender: "男",
-        // age: "39",
-        // work_sts:"今後稼働が空く予定です（20/04/01 ~ ）",
-        // company:"株式会社Asatecx",
-        // exp: "JavaでのWebアプリケーション開発中心に上流工程までキャリアを育ててきました。業種としては、業界大手のECサイト、仮想通貨取引などの経験が豊富です。工...",
-        // price:"70万円 〜 80万円 ※応相談",
-        // update:"2020年03月24日"
       }
     };
   },
@@ -102,18 +92,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .text {
   font-size: 14px;
   line-height: 20px;
   text-align: left;
   white-space: pre-wrap;
 }
-
 .item {
   padding: 18px 0;
 }
-
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -122,22 +110,20 @@ export default {
 .clearfix:after {
   clear: both;
 }
-
 .el-card__header {
   line-height: 35px;
   text-align: left;
   background-color: yellowgreen;
 }
 .box-card {
-  width: 90%;
-  height: 450px;
-  margin: 10px;
+  width: 70%;
+  height: 500px;
+  margin-left: 15%;
 }
 .bottom {
   margin-top: 13px;
   line-height: 12px;
 }
-
 .button {
   padding: 0;
   float: center;

@@ -262,12 +262,14 @@ export default {
 .el-card__header {
   line-height: 15px;
   text-align: left;
-  background-color: yellowgreen;
+  /* background-color: yellowgreen; */
+  background: linear-gradient(to right,#7EC0EE,#ffffff);
 }
 .box-card {
   width: 350px;
   height: 350px;
   margin: 10px;
+  background-color:#F8F8FF;
 }
 .bottom {
   margin-top: 13px;
