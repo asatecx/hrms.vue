@@ -13,7 +13,7 @@
         </el-main>
       </el-container>
       <el-footer>
-        <!-- <pagefooter/> -->
+        <pagefooter v-if="isShow"/>
       </el-footer>
     </el-container>
   </div>

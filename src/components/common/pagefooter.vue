@@ -1,7 +1,7 @@
 <template>
-  <div>
-    i am footer
-  </div>
+  <div class="layui-card">
+      <p>Copyright © 2020.Company name All rights reserved.<a href="http://www.asatecx.com/" target="_blank" title="株式会社アサテクス">株式会社アサテクス</a></p>
+    </div>
 </template>
 
 <script>
@@ -23,4 +23,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.layui-card {
+    margin-bottom: 15px;
+    border-radius: 2px;
+    background-color: rgb(250, 243, 243);
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, .05);
+    -webkit-box-shadow: #d4d2d2 0px 0px 10px;
+    -moz-box-shadow: #d4d2d2 0px 0px 10px;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    color:#818080;
+}
 </style>
