@@ -1,6 +1,6 @@
 <template>
   <div>
-   &nbsp;&nbsp;&nbsp;単価:&nbsp;<input
+   <input
       class="textlines"
       type="text"
       ref="input"

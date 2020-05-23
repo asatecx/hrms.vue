@@ -72,7 +72,11 @@
 
             </el-form>   
               
-           <el-button type="primary" @click="submitForm()">ok</el-button>
+           <!-- <el-button type="primary" @click="submitForm()">ok</el-button> -->
+              <div style="text-align:center" v-show="showflg">
+                  <el-button type="primary" @click="submitForm()" size="large">提出</el-button>
+                  <el-button type="primary" @click="back" size="large">戻る</el-button>
+              </div>
            </div>
     </div>
 </template>
@@ -80,7 +84,12 @@
 <script>
 import * as infodata from "../myinfoData";
     export default {
-
+          props: {showflg:{
+                  type: Boolean,
+                  default: true,
+                
+              },
+            },
            data(){
             return{
                 levelarry:infodata.mydata,
@@ -90,15 +99,33 @@ import * as infodata from "../myinfoData";
              }
            },
            created(){
-               console.log(this.$store.state.skillinfo)
-               this.myinfo=this.$store.state.skillinfo
+                if(this.showflg){
+                  this.myinfo=this.$store.state.skillinfo
+                }else{
+                          this.$http.getSkillInfo(this.$store.state.adminName).then(
+                          res => {
+                            // this.loadflg1=true;
+                            // this.loadflg2=true;
+                            // this.loadflg3=true;
+                            this.myinfo=res.data
+
+                            // this.initselectedskill(this.ruleForm.tableDataLanguage,this.skillSourceLanguage,this.selectedLanguage);
+                            // this.initselectedskill(this.ruleForm.tableDataDB,this.skillSourceDB,this.selectedDB);
+                            // this.initselectedskill(this.ruleForm.tableDataOS,this.skillSourceOS,this.selectedOS);
+
+                          }
+                        )
+                }
            },
            methods: {
             submitForm() {
              console.log(this.myinfo)
                   this.$http.modifyskillinfo(this.myinfo)
                 this.$router.push("/people");
-            }
+            },
+            back: function() {
+                this.$router.go(-1); //返回
+             },
            },
        
     }

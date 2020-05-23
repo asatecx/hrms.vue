@@ -27,6 +27,7 @@ import appealvideo from '@/components/people/appealvideo'
 import baseinfoComfirm from '@/components/people/baseinfoComfirm'
 import carearinfoComfirm from '@/components/people/carearinfoComfirm'
 import skillinfoComfirm from '@/components/people/skillinfoComfirm'
+import mycv from '@/components/people/myCV'
 
 Vue.use(Router)
 
@@ -170,6 +171,11 @@ export default new Router({
       path: '/priceandshc',
       name: 'priceandshc',
       component: priceandshc
+    },
+    {
+      path: '/mycv',
+      name: 'mycv',
+      component: mycv
     },
     
   ]

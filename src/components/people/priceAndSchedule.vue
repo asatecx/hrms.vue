@@ -1,14 +1,20 @@
 <template>
     <div class="shadow kuandu">
       {{message}}
-        <div style="height:100px"></div>
-        <price
+        <div style="height:30px;"></div>
+        最小単価：<price
           v-model="tankainfo.price_min"
             :type="`comma`"
            :disabled="tankaflg"
         ></price>
+        
+         最大単価：<price
+          v-model="tankainfo.price_max"
+            :type="`comma`"
+           :disabled="tankaflg"
+        ></price>
 
- <div class="block" style="margin-top:50px">
+ <div class="block" style="margin-top:20px">
     <span class="demonstration">稼働可開始日:</span>
     <el-date-picker
       v-model="tankainfo.schedualstart"
@@ -28,7 +34,7 @@
       >
     </el-date-picker>
   </div>
-    <div style="height:100px"></div>
+    <div style="height:50px"></div>
  <el-button type="success" @click="modifytanka" v-show="registFlg">登録</el-button>
   <el-button type="success" @click="changestatus" v-show="modifyFlg">編集</el-button>
     </div>
@@ -36,6 +42,7 @@
 
 <script>
     export default {
+
          data() {
                 return {
                   message:"　",
@@ -47,7 +54,8 @@
                   tankainfo:{
                   // valDecimal: '',
                       PERSON_ID:this.$store.state.adminName,
-                      price_min: '',
+                      price_min: 0,
+                      price_max:0,
                       schedualstart:"",
                       schedualend:"",
                   }

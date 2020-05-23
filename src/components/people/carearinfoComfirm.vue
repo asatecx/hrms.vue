@@ -79,31 +79,59 @@
 
             </el-form>   
               
-           <el-button type="primary" @click="submitForm()">ok</el-button>
+           <!-- <el-button type="primary" @click="submitForm()">ok</el-button> -->
+            <div style="text-align:center" v-show="showflg">
+                <el-button type="primary" @click="submitForm()" size="large">提出</el-button>
+                <el-button type="primary" @click="back" size="large">戻る</el-button>
+            </div>
+
            </div>
     </div>
 </template>
 
 <script>
     export default {
-
+            props: {showflg:{
+                    type: Boolean,
+                    default: true,
+                 
+                },
+            },
            data(){
             return{
                  buttonDialogVisible: true,
                 centerDialogVisible: false,
-                myinfo:''
+                myinfo:{
+                    carears: []
+
+                }
              }
            },
            created(){
                console.log(this.$store.state.myinfo)
-               this.myinfo=this.$store.state.myinfo
+                    if(this.showflg){
+                         this.myinfo=this.$store.state.myinfo
+                    }else{
+                                    this.$http.getCarearInfo(this.$store.state.adminName).then(
+                                    res => {
+                                         console.log("carearinfo:----");
+                                    console.log(res.data);
+                                    this.myinfo.carears=res.data
+                                    }
+
+                                )
+
+                    }
            },
            methods: {
             submitForm() {
                 console.log(this.myinfo)
                 this.$http.modifycarearinfo(this.myinfo)
                 this.$router.push("/people");
-            }
+            },
+             back: function() {
+                this.$router.go(-1); //返回
+             },
            },
        
     }

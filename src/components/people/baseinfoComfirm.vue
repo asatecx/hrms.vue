@@ -93,7 +93,7 @@
 
            </el-row>  
             </el-form>   
-            <div style="text-align:center">
+            <div style="text-align:center" v-show="showflg">
                 <el-button type="primary" @click="submitForm()" size="large">提出</el-button>
                 <el-button type="primary" @click="back" size="large">戻る</el-button>
             </div>
@@ -103,7 +103,12 @@
 
 <script>
     export default {
-
+            props: {showflg:{
+                    type: Boolean,
+                    default: true,
+                 
+                },
+            },
            data(){
             return{
                  buttonDialogVisible: true,
@@ -113,14 +118,29 @@
            },
            created(){
                console.log(this.$store.state.baseinfo)
-               this.myinfo=this.$store.state.baseinfo;
+               if(this.showflg){
+                    this.myinfo=this.$store.state.baseinfo;
+               }else{
+                                this.$http.getBaseInfo(this.$store.state.adminName).then(
+                                    res => {
+                                    console.log(res.data);
+                                
+                                    this.myinfo=res.data
+                            
+                                    }
+
+                                )
+               }
            },
            methods: {
             submitForm() {
-                this.$http.modifyskillinfo(this.$qs.stringify(this.myinfo))
+                this.$http.modifybaseinfo(this.$qs.stringify(this.myinfo))
               
                 this.$router.push("/people");
-            }
+            },
+                back: function() {
+                this.$router.go(-1); //返回
+                },
            },
        
     }

@@ -1,7 +1,7 @@
 <template>
 <div>
   <div style="width:700px;margin: 0px auto;">
-    <movie whoseVideo="admin"></movie>
+    <movie :whoseVideo="userid"></movie>
 
   </div>
   <div style="margin: 10px auto;">
@@ -24,6 +24,7 @@ export default {
 data(){
 
     return{
+      userid:this.$store.state.adminName,
               videouploadUrl:
         this.$store.state.globalSettings.apiUrl +
         "/video?username=" +

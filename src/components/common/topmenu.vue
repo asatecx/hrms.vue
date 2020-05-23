@@ -116,7 +116,11 @@ export default {
          this.$router.push("/makeAcount");
       }else if (key =="registcompany"){
          this.$router.push("/company.regist");
+      }else if (key =="resume"){
+         this.$router.push("/mycv");
       }
+
+      
     },
      errorHandler() {
         return true
