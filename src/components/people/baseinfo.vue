@@ -186,6 +186,7 @@
                   placeholder="日付を選択"
                   v-model="ruleForm.graduationdate"
                   style="width: 45%;"
+                   value-format="yyyy/MM/dd"
                 ></el-date-picker>
               </el-form-item>
             </el-form-item>
