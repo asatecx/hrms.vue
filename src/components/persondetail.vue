@@ -40,7 +40,13 @@ export default {
   },
   methods: {
     playmovie() {
-      this.$router.push("/movie");
+      // this.$router.push("/playvideo");
+      this.$router.push({
+        name: "playvideo",
+        params: {
+          personId: this.personDetail.PERSON_ID
+        }
+      });
     },
     showResume() {
       // this.$router.push("/resume");

@@ -6,7 +6,7 @@ import People from '@/components/people'
 import Company from '@/components/company/company'
 import MakeAcount from '@/components/makeAcount'
 import Uploadfile from '@/components/Uploadfile'
-import Movie from '@/components/parts/movie'
+import PlayVideo from '@/components/company/playvideo'
 import ComfirmAcount from '@/components/comfirmAcount'
 import InterviewList from '@/components/people/interviewList'
 import Case from '@/components/case'
@@ -103,9 +103,9 @@ export default new Router({
       component: Uploadfile
     },
     {
-      path: '/movie',
-      name: 'movie',
-      component: Movie
+      path: '/playvideo',
+      name: 'playvideo',
+      component: PlayVideo
     },
     {
       path: '/comfirmAcount',

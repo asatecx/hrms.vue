@@ -8,8 +8,8 @@ export default new Vuex.Store({
   state: {  //当前数据的状态，类似于组件对象data属性
       adminName: localStorage.getItem('adminName'),  //当前登录的用户名
       globalSettings: { //项目的全局设置信息
-      //apiUrl: 'http://127.0.0.1:8091'  //ローカル
-    apiUrl: 'http://47.74.24.150:8091'  //リリース
+      apiUrl: 'http://127.0.0.1:8091'  //ローカル
+    // apiUrl: 'http://47.74.24.150:8091'  //リリース
   //  apiUrl: 'http://192.168.99.100:8091'  //ToolBOx
       },
       userinfo:{
