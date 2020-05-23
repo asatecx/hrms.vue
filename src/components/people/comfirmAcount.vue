@@ -1,22 +1,22 @@
 <template>
-    <div>
-          <table border="1" style="border-color:gray">
+    <div style="height:600px">
+          <table  style="border-color:gray;margin: 0px auto">
               <tr >
-                  <td>名前</td>
+                  <td>名前:</td>
                   <td style="width:100px">{{userinfo.userId}}</td>
               </tr>
              
               <tr>
-                  <td>Eメール</td>
+                  <td>Eメール:</td>
                   <td>{{userinfo.email}}</td>
               </tr>
 
-              <tr>
-                  <td>type</td>
-                  <td>{{userinfo.userType}}</td>
-              </tr>
+  
           </table>
-           <el-button type="primary" @click="submitForm()">ok</el-button>
+          <div style="margin-top: 50px ">
+           <el-button type="primary" @click="submitForm()">提出</el-button>
+           <el-button type="primary" @click="back" >戻る</el-button>
+           </div>
     </div>
 </template>
 
@@ -33,6 +33,9 @@
                this.userinfo=this.$store.state.userInfo
            },
            methods: {
+             back: function() {
+                this.$router.go(-1); //返回
+             },
             submitForm() {
                 this.$http.makeAcount(this.$qs.stringify(this.userinfo))
                 .then(res => {
@@ -44,6 +47,8 @@
             this.$cookies.set("access_token", res.data.data);
             this.$store.commit("setAdminName", res.data.data.detail.userId);
             this.$store.commit("setUserInfo", res.data.data.detail);
+           localStorage.setItem('userType', res.data.data.detail.userType);
+           
             // console.log(this.$parent)
             // this.$root.reload();
             this.reload(); //刷新login控件??????????

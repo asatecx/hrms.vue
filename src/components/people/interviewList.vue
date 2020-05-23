@@ -101,7 +101,7 @@
 
 <script>
 import * as infodata from "../myinfoData";
- 
+ import { Loading } from 'element-ui';
  var currentPage=1;
  var pagesize=5;
 export default {
@@ -117,6 +117,7 @@ export default {
             multipleSelection: [],
             search: '',
             pagetotal:0,
+            loadingInstance:'',
         }
     },
      methods:{
@@ -126,9 +127,16 @@ export default {
              this.$http.getInterviewList(caseName,id,currentPage,pagesize)
           .then((res) => {
             this.tableData = res.data;
-            }).catch(function(error) {
-                // error 処理
+            this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+              this.loadingInstance.close();
             });
+            }).catch(err => {
+                console.log(err);
+                  this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                        this.loadingInstance.close();
+                      });
+                  this.$router.push("/errpage");
+              });
          },
          getpagetotal(){
             let caseName = this.selectkey.casename
@@ -137,9 +145,16 @@ export default {
           .then((res) => {
             console.log(res)
             this.pagetotal = res.data.data.count;
-            }).catch(function(error) {
-                // error 処理
+            this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+              this.loadingInstance.close();
             });
+            }).catch(err => {
+                console.log(err);
+                  this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                        this.loadingInstance.close();
+                      });
+                  this.$router.push("/errpage");
+              });
          },
       handleEdit(index, row) {
         console.log(index, row);
@@ -155,12 +170,18 @@ export default {
                 this.getlist();
              }else{
 
+
+
              }
             
         })
-        .catch(function(error) {
-          // error 処理
-        });
+          .catch(err => {
+                    console.log(err);
+                      this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                            loadingInstance.close();
+                          });
+                      this.$router.push("/errpage");
+                  });
         
         ;
       },
@@ -181,9 +202,13 @@ export default {
              }
             
         })
-        .catch(function(error) {
-          // error 処理
-        });
+          .catch(err => {
+                  console.log(err);
+                    this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                          loadingInstance.close();
+                        });
+                    this.$router.push("/errpage");
+                });
       },
       handleSizeChange(val) {
         pagesize=val;
@@ -199,6 +224,7 @@ export default {
 
      }
     ,created(){
+      this.loadingInstance = Loading.service();
         this. getpagetotal();
             this.getlist()
           

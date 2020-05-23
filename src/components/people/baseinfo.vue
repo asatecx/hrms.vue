@@ -233,6 +233,7 @@
 
 <script>
 import * as infodata from "../myinfoData";
+import { Loading } from 'element-ui';
 export default {
   data() {
     var messagesss = "";
@@ -371,15 +372,24 @@ export default {
     };
   },
   created() {
+         let loadingInstance = Loading.service();
            this.$http.getBaseInfo(this.$store.state.adminName).then(
             res => {
               console.log(res.data);
            
               this.ruleForm=res.data
-      
+                this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
              }
 
-           )
+           ).catch(err => {
+          console.log(err);
+             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
+            this.$router.push("/errpage");
+        });
            this.getaddress()
   },
   methods: {
@@ -453,9 +463,13 @@ export default {
             }
           }
         })
-        .catch(function(error) {
-          // error 処理
-        });
+          .catch(err => {
+                console.log(err);
+                  this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                        loadingInstance.close();
+                      });
+                  this.$router.push("/errpage");
+              });
     },
    
     handleChange(file, fileList) {
