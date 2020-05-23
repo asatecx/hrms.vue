@@ -95,7 +95,34 @@ import * as infodata from "../myinfoData";
                 levelarry:infodata.mydata,
                  buttonDialogVisible: true,
                 centerDialogVisible: false,
-                myinfo:''
+                myinfo:{
+      
+                    tableDataLanguage: [
+                      { 
+                        person_id:this.$store.state.adminName,
+                        skill: "",
+                        exp: "",
+                        level: "",
+                      }
+                    ],
+                    tableDataDB: [
+                      {
+                        person_id:this.$store.state.adminName,
+                        skill: "",
+                        exp: "",
+                        level: "",
+                      }
+                    ],
+                    tableDataOS: [
+                      {
+                        person_id:this.$store.state.adminName,
+                        skill: "",
+                        exp: "",
+                        level: "",
+                      }
+                    ],
+
+                  }
              }
            },
            created(){
