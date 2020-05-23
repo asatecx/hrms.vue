@@ -121,7 +121,7 @@ import * as infodata from "../myinfoData";
             submitForm() {
              console.log(this.myinfo)
                   this.$http.modifyskillinfo(this.myinfo)
-                this.$router.push("/people");
+                this.$router.push("/mycv");
             },
             back: function() {
                 this.$router.go(-1); //返回

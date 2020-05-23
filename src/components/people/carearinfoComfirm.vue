@@ -127,7 +127,7 @@
             submitForm() {
                 console.log(this.myinfo)
                 this.$http.modifycarearinfo(this.myinfo)
-                this.$router.push("/people");
+                this.$router.push("/mycv");
             },
              back: function() {
                 this.$router.go(-1); //返回

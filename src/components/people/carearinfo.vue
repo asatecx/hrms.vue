@@ -29,6 +29,7 @@
                         placeholder="日付を選択"
                         v-model="carear.start_ym"
                         style="width: 150px"
+                        value-format="yyyy/MM/dd"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -40,6 +41,7 @@
                         placeholder="日付を選択"
                         v-model="carear.end_ym"
                         style="width: 150px;"
+                         value-format="yyyy/MM/dd"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>

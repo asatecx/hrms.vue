@@ -38,7 +38,7 @@
                         </el-col>
                          <el-col :span="8">
                             <el-form-item label="生年月日:">
-                            {{myinfo.birthday| moment}}
+                            {{myinfo.birthday}}
                              </el-form-item >
                         </el-col>
                        <el-col :span="8">
@@ -136,7 +136,7 @@
             submitForm() {
                 this.$http.modifybaseinfo(this.$qs.stringify(this.myinfo))
               
-                this.$router.push("/people");
+                this.$router.push("/mycv");
             },
                 back: function() {
                 this.$router.go(-1); //返回

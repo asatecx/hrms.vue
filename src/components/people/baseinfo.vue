@@ -101,6 +101,7 @@
                   placeholder="日付を選択"
                   v-model="ruleForm.birthday"
                   style="width: 50%;"
+                   value-format="yyyy/MM/dd"
                 ></el-date-picker>
               </el-form-item>
             </el-form-item>
@@ -233,26 +234,6 @@
 import * as infodata from "../myinfoData";
 export default {
   data() {
-    var lowerThanDateOnly = (date1, date2) => {
-      var year1 = date1.getFullYear();
-      var month1 = date1.getMonth() + 1;
-      var day1 = date1.getDate();
-
-      var year2 = date2.getFullYear();
-      var month2 = date2.getMonth() + 1;
-      var day2 = date2.getDate();
-
-      if (year1 == year2) {
-        if (month1 == month2) {
-          return day1 < day2;
-        } else {
-          return month1 < month2;
-        }
-      } else {
-        return year1 < year2;
-      }
-    };
-
     var messagesss = "";
 
     return {
@@ -439,8 +420,7 @@ export default {
       console.log(value, direction, movedKeys);
     },
     loadstar(obj) {
-      console.log("objobjobjobjobjobjobjobj");
-      console.log(obj);
+
       obj = 1;
     },
 
