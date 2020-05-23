@@ -27,7 +27,7 @@
           </el-avatar>
           {{userid}}
         </template>
-        <el-menu-item index="info">MY情報</el-menu-item>
+        <!-- <el-menu-item index="info">MY情報</el-menu-item> -->
          <el-menu-item index="eigyo" v-show="this.userType=='3'">自社人材管理</el-menu-item>
         <el-menu-item index="caseRegist" v-show="this.userType=='2'">案件登録</el-menu-item>
         <el-menu-item index="myinterview" v-show="this.userType=='2'">面接管理</el-menu-item>

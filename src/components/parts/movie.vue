@@ -30,10 +30,10 @@ import '../../../node_modules/vue-video-player/src/custom-theme.css'
           sources: [{
             type: 'video/mp4',
             // src: 'http://localhost:8080/movie/movie.mp4'//你所放置的视频的地址，最好是放在服务器上
-            src: this.$store.state.globalSettings.apiUrl + '/home/hrms/videos/'+this.whoseVideo+'.mp4'//你所放置的视频的地址，最好是放在服务器上
+            src: this.$store.state.globalSettings.apiUrl + '/videos/'+this.whoseVideo+'.mp4'//你所放置的视频的地址，最好是放在服务器上
           }],
          // poster: "http://39.106.117.192:8080/static/indexImg.png", //你的封面地址（覆盖在视频上面的图片）
-          poster: this.$store.state.globalSettings.apiUrl + '/home/hrms/videos/logo.png', //你的封面地址（覆盖在视频上面的图片）
+          poster: this.$store.state.globalSettings.apiUrl + '/videos/logo.png/', //你的封面地址（覆盖在视频上面的图片）
 
           width: document.documentElement.clientWidth,
           notSupportedMessage: 'この動画は再生できないです' //允许覆盖Video.js无法播放媒体源时显示的默认信息。

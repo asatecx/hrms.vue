@@ -26,7 +26,7 @@ export default {
       sizeList: ["large"],
       squareUrl:
         this.$store.state.globalSettings.apiUrl +
-        "/home/hrms/photos/" +
+        "/photos/" +
         this.$store.state.adminName +
         ".jpg"
     };
