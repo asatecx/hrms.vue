@@ -1,17 +1,13 @@
 <template>
-    <div>
-               <el-row > 
-                     <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
-                       <div>&nbsp;</div>
-                         </el-col>  
-                      <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
+    <div  >
+     
            <div style="text-align: left;">
 
    
          
 
 ■ 職務履歴
-<table border="1" style="border-spacing:0px;height:10px;border:1px solid #CCCCCC;border-collapse:collapse;">
+<table ref="print" border="1" style="border-spacing:0px;height:10px;border:1px solid #CCCCCC;border-collapse:collapse;">
     <tr style="height:10px;background-color:#F3F4F7;">
         <td rowspan="2">No</td>
         <td rowspan="2">開発期間</td>
@@ -91,8 +87,7 @@
 
            </div>
 
-                    </el-col>
-                  </el-row>
+           
     </div>
 </template>
 
@@ -116,10 +111,36 @@ import { Loading } from 'element-ui';
              }
            },
            
-                mounted() {
-                       // plus.screen.lockOrientation("landscape-primary");
-                },
+            beforeMount() {
+            // 　　window.addEventListener('orientationchange', () => {
+            //         this.$router.push("/blankpage");
+            // 　　})
+            },
+ mounted(){
+//mounted()的钩子函数则是在dom完全渲染后才开始渲染数据，所以在mounted()中操作dom基本不会存在渲染问题。
+
+//https://www.jianshu.com/p/9c3264f4a405
+  var width = document.documentElement.clientWidth;
+  var height =  document.documentElement.clientHeight;
+  if( width < height ){
+      console.log(width + " " + height);
+      let  $print =  this.$refs.print; 
+      
+      console.log( $print);
+      $print.style.width=height;
+      $print.style.height=width;
+      $print.style.top= (height-width)/2 ;
+      $print.style.left=0-(height-width)/2 ;
+      $print.style.transform='rotate(90deg)';
+      $print.style.transformOrigin='50% 50%';
+  } 
+
+},
+
            created(){
+//created()中使用的方法时，dom还没有渲染，如果此时在该钩子函数中进行dom赋值数据（或者其它dom操作）时无异于徒劳，所以，此时this.$nextTick()就会被大量使用，
+
+
                console.log(this.$store.state.myinfo)
                     if(this.showflg){
                          this.myinfo=this.$store.state.myinfo
@@ -159,7 +180,49 @@ import { Loading } from 'element-ui';
 </script>
 
 <style lang="scss" scoped>
-
+@media screen and (orientation: portrait) {
+      html{
+         width : 100% ;
+         height : 100% ;
+          background-color: white ;
+          overflow : hidden;
+      }
+      body{
+          width : 100% ;
+         height : 100% ;
+         background-color: red ;
+          overflow : hidden;
+      }
+      #print{
+         position : absolute ;
+         background-color: yellow ;
+      }
+} 
+@media screen and (orientation: landscape) {
+       html{
+         width : 100% ;
+         height : 100% ;
+         background-color: white ;
+      } 
+       body{
+          width : 100% ;
+         height : 100% ;
+         background-color: white ;
+      }
+           #print{
+            position : absolute ;
+            top : 0 ; 
+            left : 0 ;
+            width : 100% ;
+            height : 100% ;
+            background-color: yellow ;
+         }
+}
+#print p{
+        margin: auto ;
+        margin-top : 20px ;
+        text-align: center;
+      }
 
 
 </style>

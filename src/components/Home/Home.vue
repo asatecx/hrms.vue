@@ -22,21 +22,18 @@
       <div class="block">
 
 
-    <el-carousel :interval="3000" height="640px">
+    <!-- <el-carousel :interval="3000" height="640px">
       <el-carousel-item v-for="item in lunboImgs" :key="item.id">
-                 <!-- <img :src="item.imgSrc" alt=""> -->
+                 
           <a @click="displayCase($event,item.id)">
-            <!-- <h3
-              style="line-height:18px;text-align:center;padding:25px"
-              class="medium"
-              v-html="item.content"
-            ></h3> -->
+
               <div :style="item.mystyle" class="tupian">
              <span class="zhiti"> {{item.content}}</span>
               </div>
           </a>
       </el-carousel-item>
-    </el-carousel>
+    </el-carousel> 
+    -->
   </div>
   </div>
 </template>

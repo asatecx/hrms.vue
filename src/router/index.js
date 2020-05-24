@@ -29,6 +29,7 @@ import carearinfoComfirm from '@/components/people/carearinfoComfirm'
 import skillinfoComfirm from '@/components/people/skillinfoComfirm'
 import mycv from '@/components/people/myCV'
 import errpage from '@/components/common/errpage'
+import blankpage from '@/components/common/blankpage'
 Vue.use(Router)
 
 export default new Router({
@@ -182,8 +183,13 @@ export default new Router({
       name: 'errpage',
       component: errpage
     },
+    {
+      path: '/blankpage',
+      name: 'blankpage',
+      component: blankpage
+    },
 
-   
+    
     
   ]
 })

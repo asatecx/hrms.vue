@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app"  >
     <el-container>
       <el-header>
         <topmenu v-if="isShow" />
@@ -57,6 +57,7 @@ export default {
       sessionStorage.setItem("store", JSON.stringify(this.$store.state));
     });
   },
+
   watch: {
     $route(to) {
       if (to.path == "/company") {
