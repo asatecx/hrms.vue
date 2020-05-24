@@ -83,8 +83,7 @@ export default {
       } else if (key == "home") {
         this.$router.push("/Home");
       } else if (key == "findcase") {
-        // this.$router.push("/company");
-        this.$router.push("/people");
+        // this.$router.push("/people");
       } else if (key == "findhr") {
         this.$router.push("/company");
       } else if (key == "regist") {
