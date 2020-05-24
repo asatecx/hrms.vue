@@ -1,9 +1,13 @@
 <template>
     <div>
- 
-           <div style="text-align: left;width:1200px;margin-left:400px">
+               <el-row > 
+                     <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                         </el-col>  
+                      <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
+           <div style="text-align: left;">
 
-          <el-form>
+   
          
 
 ■ 職務履歴
@@ -77,7 +81,7 @@
 </table>
 　
 
-            </el-form>   
+  
               
            <!-- <el-button type="primary" @click="submitForm()">ok</el-button> -->
             <div style="text-align:center" v-show="showflg">
@@ -86,6 +90,9 @@
             </div>
 
            </div>
+
+                    </el-col>
+                  </el-row>
     </div>
 </template>
 
@@ -108,6 +115,10 @@ import { Loading } from 'element-ui';
                 }
              }
            },
+           
+                mounted() {
+                       // plus.screen.lockOrientation("landscape-primary");
+                },
            created(){
                console.log(this.$store.state.myinfo)
                     if(this.showflg){

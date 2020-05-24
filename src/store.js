@@ -11,6 +11,7 @@ export default new Vuex.Store({
       apiUrl: 'http://127.0.0.1:8091'  //ローカル
     //apiUrl: 'http://47.74.24.150:8091'  //リリース
   //  apiUrl: 'http://192.168.99.100:8091'  //ToolBOx
+  
       },
       userinfo:{
         userId: '',

@@ -1,7 +1,7 @@
 <template>
-  <div style="margin-left: 300px;margin-top: 50px;">
+  <div style="margin-top: 50px;">
     <!-- -->
-    <div style="text-align: left;width:1000px">
+    <div style="text-align: left;">
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -9,21 +9,16 @@
         label-width="100px"
         class="demo-ruleForm"
         size="mini"
+         :label-position="labelPosition"
       >
 
-        <el-form-item>
-          <el-col :span="8">
+    <el-row  :gutter="10">
+                <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+                <el-col  :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
             <el-form-item label="写真　　">
-              <!-- <div class="demo-basic--circle">
-                <div class="block" v-for="size in sizeList" :key="size">
-                  <el-avatar shape="square" :size="200" :src="`${squareUrl+'?'+now}`" v-if="isShow"></el-avatar>
-                </div>
-              </div> -->
-              <!-- <div class="sub-title">プロフィール写真</div> -->
-             
               <photo v-if="isShow" ></photo>
-             
-              
               <el-button type="text" @click="dialogVisible = true">編集</el-button>
               <el-dialog
                 title="※JPGファイルをアップロードしてください"
@@ -45,33 +40,69 @@
                 </div>
               </el-dialog>
             </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item label="姓名（漢字）" prop="user_name_kanji">
-              <el-input v-model="ruleForm.user_name_kanji"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item label="姓名（カナ）" prop="user_name_kana">
-              <el-input v-model="ruleForm.user_name_kana"></el-input>
-            </el-form-item>
-          </el-col>
-           <el-col :span="11">
-            <el-form-item label="姓名（ローマ字）" prop="user_name_roma">
-              <el-input v-model="ruleForm.user_name_roma"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item label="性別　　" prop="gender">
-              <el-radio-group v-model="ruleForm.gender">
-                <el-radio :label="'1'" >男</el-radio>
-                <el-radio :label="'0'" >女</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item label="住所　　" required>
-              <el-form-item label prop="addr_pref">
+
+             </el-col>
+
+
+                <el-col  :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+
+                            <el-row  :gutter="10">
+                  
+                            <el-col  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                              <el-form-item label="姓名（漢字）" prop="user_name_kanji">
+                                <el-input v-model="ruleForm.user_name_kanji" style="width:200px"></el-input>
+                              </el-form-item>
+                            </el-col>
+                            <el-col  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                              <el-form-item label="姓名（カナ）" prop="user_name_kana">
+                                <el-input v-model="ruleForm.user_name_kana" style="width:200px"></el-input>
+                              </el-form-item>
+                            </el-col>
+
+                                      <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                                  <el-form-item label="姓名（ローマ字）" prop="user_name_roma">
+                                    <el-input v-model="ruleForm.user_name_roma" style="width:200px"></el-input>
+                                  </el-form-item>
+                                </el-col>
+                            </el-row>
+                </el-col>
+       </el-row>
+         
+           <el-row  :gutter="10">
+                  <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+
+                  <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+                    <el-form-item label="性別　　" prop="gender">
+                      <el-radio-group v-model="ruleForm.gender">
+                        <el-radio :label="'1'" >男</el-radio>
+                        <el-radio :label="'0'" >女</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-col>
+                           <el-col  :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+                            <el-form-item label="来日年度　" prop="comeJapanyears">
+                              <el-input
+                                placeholder="年数"
+                                v-model="ruleForm.japan_exp"
+                                type="number"
+                                min="0"
+                                style="width:120px"
+                              >
+                                <template slot="append">年</template>
+                              </el-input>
+                            </el-form-item>
+                          </el-col>
+           </el-row>
+
+ <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+          
+              <el-form-item  prop="addr_pref" label="住所:都道府県名" >
                 <el-select v-model="ruleForm.addr_pref" placeholder="都道府県名" @change="getaddress()">
                   <el-option
                     v-for="item in options1"
@@ -81,7 +112,9 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label prop="addr_city">
+              </el-col >
+                <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+              <el-form-item  prop="addr_city" label="住所:市区町村名">
                 <el-select v-model="ruleForm.addr_city" placeholder="市区町村名">
                   <el-option
                     v-for="item in options2"
@@ -91,9 +124,15 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-            </el-form-item>
           </el-col>
-          <el-col :span="11">
+       </el-row>
+
+
+ <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
              <el-form-item label="生年月日" required>
               <el-form-item prop="birthday">
                 <el-date-picker
@@ -106,9 +145,7 @@
               </el-form-item>
             </el-form-item>
           </el-col>
-        </el-form-item>
-    <el-form-item>
-          <el-col :span="10">
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
                 <el-form-item
                     prop="mail"
                     label="Eメールアドレス"
@@ -120,18 +157,22 @@
                     <el-input v-model="ruleForm.mail"></el-input>
                 </el-form-item>
           </el-col>
-          <el-col :span="10">
+     </el-row>
+ <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
              <el-form-item label="電話番号" prop="tel">
                     <el-input
                     placeholder="请输入内容"
                     v-model="ruleForm.tel"
+                    style="width:200px"
                     clearable>
                   </el-input>
               </el-form-item>
           </el-col>
-        </el-form-item>
-        <el-form-item>
-          <el-col :span="10">
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
                 <el-form-item label="国籍　　　" prop="country">
                   <el-select v-model="ruleForm.country" placeholder="国名">
                     <el-option
@@ -143,7 +184,13 @@
                   </el-select>
                  </el-form-item>
           </el-col>
-          <el-col :span="10">
+   </el-row>
+
+ <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
                <el-form-item label="日本語レベル　　　" prop="country">
                   <el-select v-model="ruleForm.japaneselevel" placeholder="日本語資格">
                     <el-option
@@ -155,30 +202,37 @@
                   </el-select>
                  </el-form-item>
           </el-col>
-        </el-form-item>
-
-        <el-form-item>
-          <el-col :span="10">
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
             <el-form-item label="最寄り駅" prop="station">
               <el-input placeholder="駅名を入力してください" v-model="ruleForm.station" style="width:250px">
                 <template slot="append">駅</template>
               </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+
+       </el-row>  
+
+ <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
             <el-form-item label="最終学歴　" prop="school">
               <el-input placeholder="学校名を入力してください" v-model="ruleForm.education" style="width:250px"></el-input>
             </el-form-item>
           </el-col>
-        </el-form-item>
-
-        <el-form-item>
-          <el-col :span="10">
+       
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
             <el-form-item label="専攻　　" prop="major">
               <el-input placeholder="例：情報通信" v-model="ruleForm.major" style="width:250px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+    </el-row>   
+ <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col> 
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
             <el-form-item label="卒業年月日">
               <el-form-item prop="graduationDate">
                 <el-date-picker
@@ -191,10 +245,7 @@
               </el-form-item>
             </el-form-item>
           </el-col>
-        </el-form-item>
-
-        <el-form-item>
-          <el-col :span="10">
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
             <el-form-item label="実務経験" prop="workyears">
               <el-input
                 placeholder="年数"
@@ -207,20 +258,13 @@
               </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
-            <el-form-item label="来日年度　" prop="comeJapanyears">
-              <el-input
-                placeholder="年数"
-                v-model="ruleForm.japan_exp"
-                type="number"
-                min="0"
-                style="width:120px"
-              >
-                <template slot="append">年</template>
-              </el-input>
-            </el-form-item>
-          </el-col>
-        </el-form-item>
+      </el-row>
+       <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col> 
+ 
+       </el-row>
         <!-- ------------------------------------------->
         <el-form-item style="text-align: center">
           <el-button type="primary" @click="submitForm('ruleForm')">提出</el-button>
@@ -239,6 +283,7 @@ export default {
     var messagesss = "";
 
     return {
+      labelPosition:"top",
       //url:this.$
       buttonDialogVisible: false,
       centerDialogVisible: false,

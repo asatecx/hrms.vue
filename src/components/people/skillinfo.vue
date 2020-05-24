@@ -1,7 +1,7 @@
 <template>
-  <div style="margin-top: 50px;margin-left: 450px;">
+  <div style="margin-top: 50px;">
     <!-- -->
-    <div style="text-align: left;width:1200px">
+    <div style="text-align: left;">
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -9,12 +9,12 @@
         label-width="100px"
         class="demo-ruleForm"
         size="mini"
-        
+        :label-position="labelPosition"
       >
 
      
         <el-form-item>
-          <el-col :span="20">
+          <el-col >
             <el-form-item label="開発言語">
               <div style="text-align: left;">
                 <el-transfer
@@ -23,7 +23,7 @@
                   filterable
                   :left-default-checked="[2, 3]"
                   :right-default-checked="[1]"
-                  :titles="['元', '先']"
+                  :titles="['ソース', 'ターゲット']"
                   :button-texts="['', '']"
                   :format="{
                       noChecked: '${total}',
@@ -42,42 +42,44 @@
         </el-form-item>
 
         <el-form-item>
-          <el-col :span="20">
-            <el-form-item label="　">
-              <el-table :data="language" stripe style="width: 100%">
-                <el-table-column label="開発言語" width="100px">
-                  <template slot-scope="scope">
-                    <el-input placeholder v-model="scope.row.skill" :disabled="true"></el-input>
-                  </template>
-                </el-table-column>
-
-
-                <el-table-column label="期間" width="130px">
-                   <template slot-scope="scope">
-                    <el-input
-                      placeholder="年数"
-                      v-model="scope.row.exp"
-                      type="number"
-                      min="0"
-                      style="width:120px"
-                    >
-                      <template slot="append">年</template>
-                    </el-input>
-                     </template>
-                 </el-table-column>
-
-                <el-table-column label="経験度" width="550px">
-                  <template slot-scope="scope">
-                    <el-rate v-model="scope.row.level" show-text :texts="textsLan" @loadstart="loadstar(scope.row.level)"></el-rate>
-                  </template>
-                </el-table-column>
+        
+   
+         
+              <el-table :data="language" stripe >
+                
+                      <el-table-column label="開発言語" width="100px" >
+                        <template slot-scope="scope">
+                          <el-input placeholder v-model="scope.row.skill" :disabled="true" ></el-input>
+                        </template>
+                      </el-table-column>
+               
+                      <el-table-column label="期間" width="130px">
+                        <template slot-scope="scope">
+                          <el-input
+                            placeholder="年数"
+                            v-model="scope.row.exp"
+                            type="number"
+                            min="0"
+                            style="width:60px"
+                          >
+                            
+                          </el-input>年
+                          </template>
+                      </el-table-column>
+               
+                      <el-table-column label="経験度" width="140px" >
+                        <template slot-scope="scope">
+                          <el-rate style="height:50px" v-model="scope.row.level" show-text :texts="textsLan" @loadstart="loadstar(scope.row.level)"></el-rate>
+                        </template>
+                      </el-table-column>
+                
               </el-table>
-            </el-form-item>
-          </el-col>
+           
+    
         </el-form-item>
 
         <el-form-item>
-          <el-col :span="20">
+          <el-col >
             <el-form-item label="ﾃﾞｰﾀﾍﾞｰｽ">
               <div style="text-align: left;">
                 <el-transfer
@@ -86,7 +88,7 @@
                   filterable
                   :left-default-checked="[2, 3]"
                   :right-default-checked="[1]"
-                  :titles="['元', '先']"
+                  :titles="['ソース', 'ターゲット']"
                   :button-texts="['', '']"
                   :format="{
                       noChecked: '${total}',
@@ -103,8 +105,11 @@
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item>
-          <el-col :span="20">
+
+
+         
+
+     
             <el-form-item label="　">
               <el-table :data="db" stripe style="width: 100%">
                 <el-table-column label="開発DB" width="100px">
@@ -121,24 +126,27 @@
                       v-model="scope.row.exp"
                       type="number"
                       min="0"
-                      style="width:120px"
+                      style="width:60px"
                     >
-                      <template slot="append">年</template>
-                    </el-input>
+                     
+                    </el-input>年
                      </template>
                  </el-table-column>
 
-                <el-table-column label="経験度" width="550px">
+                <el-table-column label="経験度" width="140px">
                   <template slot-scope="scope">
-                    <el-rate v-model="scope.row.level" show-text :texts="textsDB" @loadstart="loadstar(scope.row.level)"></el-rate>
+                    <el-rate style="height:60px" v-model="scope.row.level" show-text :texts="textsDB" @loadstart="loadstar(scope.row.level)"></el-rate>
                   </template>
                 </el-table-column>
               </el-table>
             </el-form-item>
-          </el-col>
-        </el-form-item>
+     
+  
+
+
+
         <el-form-item>
-          <el-col :span="20">
+          <el-col >
             <el-form-item label="OS">
               <div style="text-align: left;">
                 <el-transfer
@@ -147,7 +155,7 @@
                   filterable
                   :left-default-checked="[2, 3]"
                   :right-default-checked="[1]"
-                  :titles="['元', '先']"
+                  :titles="['ソース', 'ターゲット']"
                   :button-texts="['', '']"
                   :format="{
                       noChecked: '${total}',
@@ -165,7 +173,7 @@
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-col :span="20">
+          <el-col >
             <el-form-item label="　">
               <el-table :data="os" stripe style="width: 100%">
                 <el-table-column label="開発環境" width="100px">
@@ -181,16 +189,16 @@
                       v-model="scope.row.exp"
                       type="number"
                       min="0"
-                      style="width:120px"
+                      style="width:60px"
                     >
-                      <template slot="append">年</template>
-                    </el-input>
+                     
+                    </el-input>年
                      </template>
                  </el-table-column>
 
-                <el-table-column label="経験度" width="550px">
+                <el-table-column label="経験度" width="140px">
                   <template slot-scope="scope">
-                    <el-rate v-model="scope.row.level" show-text :texts="textsOS" @loadstart="loadstar(scope.row.level)"></el-rate>
+                    <el-rate style="height:72px" v-model="scope.row.level" show-text :texts="textsOS" @loadstart="loadstar(scope.row.level)"></el-rate>
                   </template>
                 </el-table-column>
               </el-table>
@@ -221,7 +229,8 @@ export default {
     
     return {
       //url:this.$
-loadingInstance:'',
+       labelPosition:"top",
+      loadingInstance:'',
       loading:false,
         loadflg1:false,
       loadflg2:false,
@@ -315,7 +324,7 @@ loadingInstance:'',
     ).catch(err => {
           console.log(err);
              this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
-                  loadingInstance.close();
+                  this.loadingInstance.close();
                 });
             this.$router.push("/errpage");
         });
@@ -430,13 +439,13 @@ loadingInstance:'',
           }
 
                 this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
-                  loadingInstance.close();
+                  this.loadingInstance.close();
                 });
         })
         .catch(err => {
           console.log(err);
              this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
-                  loadingInstance.close();
+                  this.loadingInstance.close();
                 });
             this.$router.push("/errpage");
         });

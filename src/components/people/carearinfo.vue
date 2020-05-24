@@ -1,29 +1,54 @@
 <template>
-  <div style="margin-top: 50px;margin-left: 450px;">
+  <div >
  <el-backtop ></el-backtop>
     <!-- -->
-    <div style="text-align: left;width:1000px">
+    <div style="text-align: left;">
       <el-form
         :model="ruleForm"
         :rules="rules"
         ref="ruleForm"
-        label-width="100px"
+        label-width="10%"
         class="demo-ruleForm"
         size="mini"
+        :label-position="labelPosition"
+        style="margin:0px auto"
       >
 
         <el-form-item>
-          <el-col :span="20">
-            <el-form-item label="職務履歴">
+         
+           
               <el-form-item v-for="(carear, index) in ruleForm.carears" :key="carear.key">
                 <br />
-                <el-divider>{{"No." + (index+1)}}</el-divider>
-                <div style="text-align: right">
-                  <i class="el-icon-delete" @click.prevent="removeCarear(carear)"></i>
-                </div>
-                <el-form-item label="期間">
-                  <el-col :span="5">
-                    <el-form-item :prop="'carears.' + index + '.start_ym'">
+                  <el-row >
+                  <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>      
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+
+                          <el-divider>{{"No." + (index+1)}}</el-divider>
+                  </el-col>
+                  </el-row>
+
+
+                <el-row >
+                   <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>
+
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <div style="text-align: right">
+                        <i class="el-icon-delete" @click.prevent="removeCarear(carear)"></i>
+                      </div>
+                  </el-col>
+                  </el-row>
+
+
+                   <el-row > 
+                  <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>     
+                  <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" >               
+                    <el-form-item :prop="'carears.' + index + '.start_ym'" label="開始日付">
                       <el-date-picker
                         type="date"
                         placeholder="日付を選択"
@@ -32,90 +57,176 @@
                         value-format="yyyy/MM/DD"
                       ></el-date-picker>
                     </el-form-item>
+                   </el-col>
+
+                    <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" >
+                          <el-form-item :prop="'carears.' + index + '.end_ym'" :rules="validate" label="終了日付">
+                            <el-date-picker
+                              type="date"
+                              placeholder="日付を選択"
+                              v-model="carear.end_ym"
+                              style="width: 150px;"
+                              value-format="yyyy/MM/DD"
+                            ></el-date-picker>
+                          </el-form-item>
+                      </el-col>
+                  </el-row>
+                 
+
+                  <el-row > 
+                     <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
+                        <el-form-item label="プロジェクト名" prop="pj_name">
+                          <el-input v-model="carear.pj_name" maxlength="50" show-word-limit　></el-input>
+                        </el-form-item>
+                    </el-col>
+
+                  </el-row>
+                <el-row > 
+                      <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-form-item label="勤務地" prop="work_place">
+                        <el-input v-model="carear.work_place"  placeholder="例:日本.東京"></el-input>
+                      </el-form-item>
                   </el-col>
-                  <el-col class="line" :span="2">～</el-col>
-                  <el-col :span="5">
-                    <el-form-item :prop="'carears.' + index + '.end_ym'" :rules="validate">
-                      <el-date-picker
-                        type="date"
-                        placeholder="日付を選択"
-                        v-model="carear.end_ym"
-                        style="width: 150px;"
-                         value-format="yyyy/MM/DD"
-                      ></el-date-picker>
+                  </el-row>
+                  <el-row > 
+                     <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-form-item label="言語" prop="language">
+                        <el-input v-model="carear.language"  placeholder="例:java/eclipse"></el-input>
+                      </el-form-item>
+                  </el-col>
+                  </el-row> 
+
+                   <el-row > 
+                     <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">                 
+                    <el-form-item label="業種" prop="bussness_type">
+                      <el-select v-model="carear.bussness_type" placeholder="業種名">
+                        <el-option
+                          v-for="item in industryList"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        ></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
-                </el-form-item>
-                <el-form-item label="プロジェクト名" prop="pj_name">
-                  <el-input v-model="carear.pj_name" maxlength="50" show-word-limit></el-input>
-                </el-form-item>
-                <el-form-item label="勤務地" prop="work_place">
-                  <el-input v-model="carear.work_place" Style="width:200px" placeholder="例:日本.東京"></el-input>
-                </el-form-item>
-                <el-form-item label="言語" prop="language">
-                  <el-input v-model="carear.language" Style="width:300px" placeholder="例:java/eclipse"></el-input>
-                </el-form-item>
-                <el-form-item label="業種" prop="bussness_type">
-                  <el-select v-model="carear.bussness_type" placeholder="業種名">
-                    <el-option
-                      v-for="item in industryList"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="プロジェクトと作業の内容" prop="work_contents">
-                  <el-input type="textarea" v-model="carear.work_contents"></el-input>
-                </el-form-item>
+                  </el-row> 
 
-                <el-form-item label="環境" prop="dev_env">
-                  <el-input type="textarea" v-model="carear.dev_env"></el-input>
-                </el-form-item>
+                  <el-row > 
+                     <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
 
-                <el-form-item label="担当フェーズ" prop="face">
-                  <el-checkbox v-model="carear.face.phase_rd" true-label="1" false-label="0" >要件定義</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_bd" true-label="1" false-label="0">基本設計</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_fd" true-label="1" false-label="0">機能設計</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_dd" true-label="1" false-label="0">詳細設計</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_cd" true-label="1" false-label="0">製造</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_ut" true-label="1" false-label="0">単体試験</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_it" true-label="1" false-label="0">結合試験</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_st" true-label="1" false-label="0">総合試験</el-checkbox>
-                  <el-checkbox v-model="carear.face.phase_ot" true-label="1" false-label="0">運用保守</el-checkbox>
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-form-item label="プロジェクトと作業の内容" prop="work_contents">
+                        <el-input type="textarea" v-model="carear.work_contents" ></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row> 
+                  <el-row > 
+                      <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+                   
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-form-item label="環境" prop="dev_env">
+                        <el-input type="textarea" v-model="carear.dev_env" ></el-input>
+                      </el-form-item>
+                  </el-col>
+                  </el-row> 
+                  <el-row > 
+                      <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+                   
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-form-item label="担当フェーズ" prop="face">
+                        <el-checkbox v-model="carear.face.phase_rd" true-label="1" false-label="0" >要件定義</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_bd" true-label="1" false-label="0">基本設計</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_fd" true-label="1" false-label="0">機能設計</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_dd" true-label="1" false-label="0">詳細設計</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_cd" true-label="1" false-label="0">製造</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_ut" true-label="1" false-label="0">単体試験</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_it" true-label="1" false-label="0">結合試験</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_st" true-label="1" false-label="0">総合試験</el-checkbox>
+                        <el-checkbox v-model="carear.face.phase_ot" true-label="1" false-label="0">運用保守</el-checkbox>
 
-                </el-form-item>
-
-                <el-form-item label="役割" prop="role">
-                    <el-checkbox v-model="carear.role.role_tester" true-label="1" false-label="0">tester</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_pg" true-label="1" false-label="0">PG</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_se" true-label="1" false-label="0">SE</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_bse" true-label="1" false-label="0">BSE</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_sl" true-label="1" false-label="0">sub-Leader</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_tl" true-label="1" false-label="0">TL</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_pmo" true-label="1" false-label="0">PMO</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_am" true-label="1" false-label="0">AM</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_pm" true-label="1" false-label="0">PM</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_arch" true-label="1" false-label="0">Architect</el-checkbox>
-                    <el-checkbox v-model="carear.role.role_consul" true-label="1" false-label="0">consultant</el-checkbox>
-                </el-form-item>
-                <el-form-item label="備考" prop="memo">
-                  <el-input v-model="carear.memo"></el-input>
-                </el-form-item>
-              </el-form-item>
-
-              <div style="text-align: right">
-                <i class="el-icon-circle-plus" @click="addCarear"></i>
-              </div>
+                      </el-form-item>
+                  </el-col>
+                  </el-row> 
+                  <el-row > 
+                      <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+                   
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-form-item label="役割" prop="role">
+                          <el-checkbox v-model="carear.role.role_tester" true-label="1" false-label="0">tester</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_pg" true-label="1" false-label="0">PG</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_se" true-label="1" false-label="0">SE</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_bse" true-label="1" false-label="0">BSE</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_sl" true-label="1" false-label="0">sub-Leader</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_tl" true-label="1" false-label="0">TL</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_pmo" true-label="1" false-label="0">PMO</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_am" true-label="1" false-label="0">AM</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_pm" true-label="1" false-label="0">PM</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_arch" true-label="1" false-label="0">Architect</el-checkbox>
+                          <el-checkbox v-model="carear.role.role_consul" true-label="1" false-label="0">consultant</el-checkbox>
+                      </el-form-item>
+                  </el-col>
+                  </el-row> 
+                  <el-row > 
+                      <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+                   
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="備考" prop="memo">
+                      <el-input v-model="carear.memo"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  </el-row> 
             </el-form-item>
-          </el-col>
+                  <el-row > 
+                     <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                       <div>&nbsp;</div>
+                      </el-col>     
+
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                    <div style="text-align: right">
+                      <i class="el-icon-circle-plus" @click="addCarear"></i>
+                    </div>
+                  </el-col>
+                  </el-row> 
+         
         </el-form-item>
 
         <!-- ------------------------------------------->
-        <el-form-item style="text-align: center">
-          <el-button type="primary" @click="submitForm('ruleForm')">提出</el-button>
-          <el-button @click="resetForm('ruleForm')">リセット</el-button>
-        </el-form-item>
+        <el-row > 
+        <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+          <div>&nbsp;</div>
+        </el-col>     
+         
+         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-form-item style="text-align: center">
+              <el-button type="primary" @click="submitForm('ruleForm')">提出</el-button>
+              <el-button @click="resetForm('ruleForm')">リセット</el-button>
+            </el-form-item>
+         </el-col>
+         </el-row> 
       </el-form>
     </div>
    
@@ -186,6 +297,7 @@ export default {
     };
     return {
       //url:this.$
+      labelPosition:"top",
       buttonDialogVisible: false,
       centerDialogVisible: false,
       fileList: [],

@@ -138,6 +138,8 @@ import { Loading } from 'element-ui';
                             // this.loadflg1=true;
                             // this.loadflg2=true;
                             // this.loadflg3=true;
+                             console.log("###################")
+                            console.log(res.data)
                             this.myinfo=res.data
 
                             // this.initselectedskill(this.ruleForm.tableDataLanguage,this.skillSourceLanguage,this.selectedLanguage);

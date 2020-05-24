@@ -9,7 +9,7 @@
    
       </div>
     </div>
-    <div class="sub-title">プロフィール写真</div>
+    <!-- <div class="sub-title">プロフィール写真</div> -->
   </div>
 </template>
 
