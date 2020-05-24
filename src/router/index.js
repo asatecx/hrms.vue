@@ -6,11 +6,11 @@ import People from '@/components/people'
 import Company from '@/components/company/company'
 import MakeAcount from '@/components/people/makeAcount'
 import Uploadfile from '@/components/Uploadfile'
-import Movie from '@/components/parts/movie'
+import PlayVideo from '@/components/company/playvideo'
 import ComfirmAcount from '@/components/people/comfirmAcount'
 import InterviewList from '@/components/people/interviewList'
 import Case from '@/components/case'
-import Persondetail from '@/components/persondetail'
+import Persondetail from '@/components/company/persondetail'
 import Myinfo from '@/components/myinfo'
 import CompanyRegist from '@/components/company/companyRegist'
 import CaseRegist from '@/components/case/caseRegist'
@@ -104,9 +104,9 @@ export default new Router({
       component: Uploadfile
     },
     {
-      path: '/movie',
-      name: 'movie',
-      component: Movie
+      path: '/playvideo',
+      name: 'playvideo',
+      component: PlayVideo
     },
     {
       path: '/comfirmAcount',

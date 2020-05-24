@@ -40,7 +40,13 @@ export default {
   },
   methods: {
     playmovie() {
-      this.$router.push("/movie");
+      // this.$router.push("/playvideo");
+      this.$router.push({
+        name: "playvideo",
+        params: {
+          personId: this.personDetail.PERSON_ID
+        }
+      });
     },
     showResume() {
       // this.$router.push("/resume");
@@ -48,7 +54,6 @@ export default {
       this.$axios
         .post(url, this.personDetail, { responseType: "arraybuffer" })
         .then(res => {
-          console.log(res.data);
           let blob = new Blob([res.data], {
             type: "application/pdf;charset-UTF-8"
           });
@@ -56,7 +61,7 @@ export default {
           // location.href = objectUrl;
           // URL.revokeObjectURL(objectUrl);
           let downEle = document.createElement("a");
-          let fname = `職歴書`; //下载文件的名字
+          let fname = `職歴書_` + this.personDetail.USER_DISPLAY_NAME; //下载文件的名字
           downEle.href = objectUrl;
           downEle.setAttribute("download", fname);
           document.body.appendChild(downEle);
