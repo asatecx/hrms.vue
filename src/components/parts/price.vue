@@ -55,7 +55,11 @@ export default {
     },
     validateInteger(val) {
       // 数字以外を消す
-      return val.replace(/\D/g, '');
+      var result;
+      if(val){
+       result= val.replace(/\D/g, '');
+      }
+      return result;
     },
     validateDecimal(val) {
       // 小数のフォーマットに一致する部分を切り出して一致している部分のみで上書き

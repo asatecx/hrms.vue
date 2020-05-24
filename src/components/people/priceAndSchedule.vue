@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { Loading } from 'element-ui';
     export default {
 
          data() {
@@ -62,15 +63,25 @@
                 };
          },
          created(){
-
+            let loadingInstance = Loading.service();
            this.$http.getTanka(this.$store.state.adminName).then(
             res => {
               console.log(res);
               this.tankainfo=res.data;
-
+              this.tankainfo.price_min= Number(this.tankainfo.price_min).toLocaleString();;
+               this.tankainfo.price_max= Number(this.tankainfo.price_max).toLocaleString();;
+              this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                loadingInstance.close();
+              });
              }
 
-           )
+           ).catch(err => {
+                            console.log(err);
+                              this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                                    loadingInstance.close();
+                                  });
+                              this.$router.push("/errpage");
+             });
 
          },
          methods:{
@@ -88,8 +99,14 @@
                     this.tankaflg=true;
                   this.startflg=true;
                   this.endflg=true;
+            var tempmin=this.tankainfo.price_min;
+            var tempmax=this.tankainfo.price_max;
+            this.tankainfo.price_min=this.tankainfo.price_min.replace(/\D/g, '')
+            this.tankainfo.price_max=this.tankainfo.price_max.replace(/\D/g, '')
              this.$http.modifytanka(this.$qs.stringify(this.tankainfo))
              this.message="登録しました"
+            this.tankainfo.price_min=tempmin
+            this.tankainfo.price_max=tempmax
            }
 
          }

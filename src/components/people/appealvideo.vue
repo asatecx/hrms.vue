@@ -25,7 +25,7 @@ data(){
 
     return{
       userid:this.$store.state.adminName,
-              videouploadUrl:
+      videouploadUrl:
         this.$store.state.globalSettings.apiUrl +
         "/video?username=" +
         this.$store.state.adminName,

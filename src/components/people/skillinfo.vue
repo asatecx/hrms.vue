@@ -9,6 +9,7 @@
         label-width="100px"
         class="demo-ruleForm"
         size="mini"
+        
       >
 
      
@@ -210,15 +211,18 @@
 
 <script>
 import * as infodata from "../myinfoData";
+import { Loading } from 'element-ui';
 
 export default {
   data() {
 
 
     var messagesss = "";
-   
+    
     return {
       //url:this.$
+loadingInstance:'',
+      loading:false,
         loadflg1:false,
       loadflg2:false,
       loadflg3:false,
@@ -287,8 +291,9 @@ export default {
     };
   },
   created() {
-  
    
+  this.loadingInstance = Loading.service();
+      
     this.$http.getSkillInfo(this.$store.state.adminName).then(
       res => {
          console.log("333333333");
@@ -302,10 +307,27 @@ export default {
         this.initselectedskill(this.ruleForm.tableDataDB,this.skillSourceDB,this.selectedDB);
         this.initselectedskill(this.ruleForm.tableDataOS,this.skillSourceOS,this.selectedOS);
 
+        this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+          this.loadingInstance.close();
+        });
+
       }
-    )
+    ).catch(err => {
+          console.log(err);
+             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
+            this.$router.push("/errpage");
+        });
      this.getskillsource();
+
+
+
         
+  },
+  mounted(){
+
+
   },
   methods: {
     initselectedskill(tableData,skillsource,selectedSkill){
@@ -406,9 +428,17 @@ export default {
               });
             }
           }
+
+                this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
         })
-        .catch(function(error) {
-          // error 処理
+        .catch(err => {
+          console.log(err);
+             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
+            this.$router.push("/errpage");
         });
     },
     handleChange(file, fileList) {

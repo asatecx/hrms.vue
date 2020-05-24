@@ -4,10 +4,10 @@ import Home from '@/components/Home/Home'
 import Login from '@/components/login'
 import People from '@/components/people'
 import Company from '@/components/company/company'
-import MakeAcount from '@/components/makeAcount'
+import MakeAcount from '@/components/people/makeAcount'
 import Uploadfile from '@/components/Uploadfile'
 import PlayVideo from '@/components/company/playvideo'
-import ComfirmAcount from '@/components/comfirmAcount'
+import ComfirmAcount from '@/components/people/comfirmAcount'
 import InterviewList from '@/components/people/interviewList'
 import Case from '@/components/case'
 import Persondetail from '@/components/company/persondetail'
@@ -28,7 +28,7 @@ import baseinfoComfirm from '@/components/people/baseinfoComfirm'
 import carearinfoComfirm from '@/components/people/carearinfoComfirm'
 import skillinfoComfirm from '@/components/people/skillinfoComfirm'
 import mycv from '@/components/people/myCV'
-
+import errpage from '@/components/common/errpage'
 Vue.use(Router)
 
 export default new Router({
@@ -177,6 +177,13 @@ export default new Router({
       name: 'mycv',
       component: mycv
     },
+    {
+      path: '/errpage',
+      name: 'errpage',
+      component: errpage
+    },
+
+   
     
   ]
 })

@@ -7,7 +7,8 @@
         
 
 ■ スキルレベル
-<table border="1" style="border-spacing:0px;height:10px;border:1px solid #CCCCCC;border-collapse:collapse;">
+<table border="1" style="border-spacing:0px;height:10px;border:1px solid #CCCCCC;border-collapse:collapse;"
+>
    
      <tr style="height:10px;background-color:#F3F4F7;">
          <td style="width:60px"></td>
@@ -83,6 +84,7 @@
 
 <script>
 import * as infodata from "../myinfoData";
+import { Loading } from 'element-ui';
     export default {
           props: {showflg:{
                   type: Boolean,
@@ -92,6 +94,7 @@ import * as infodata from "../myinfoData";
             },
            data(){
             return{
+             
                 levelarry:infodata.mydata,
                  buttonDialogVisible: true,
                 centerDialogVisible: false,
@@ -129,6 +132,7 @@ import * as infodata from "../myinfoData";
                 if(this.showflg){
                   this.myinfo=this.$store.state.skillinfo
                 }else{
+                  let loadingInstance = Loading.service();
                           this.$http.getSkillInfo(this.$store.state.adminName).then(
                           res => {
                             // this.loadflg1=true;
@@ -141,7 +145,13 @@ import * as infodata from "../myinfoData";
                             // this.initselectedskill(this.ruleForm.tableDataOS,this.skillSourceOS,this.selectedOS);
 
                           }
-                        )
+                        ).catch(err => {
+                            console.log(err);
+                              this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                                    loadingInstance.close();
+                                  });
+                              this.$router.push("/errpage");
+                          });
                 }
            },
            methods: {

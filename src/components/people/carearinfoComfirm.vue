@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import { Loading } from 'element-ui';
     export default {
             props: {showflg:{
                     type: Boolean,
@@ -112,14 +113,23 @@
                     if(this.showflg){
                          this.myinfo=this.$store.state.myinfo
                     }else{
+                         let loadingInstance = Loading.service();
                                     this.$http.getCarearInfo(this.$store.state.adminName).then(
                                     res => {
-                                         console.log("carearinfo:----");
-                                    console.log(res.data);
                                     this.myinfo.carears=res.data
+
+                                        this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                                        loadingInstance.close();
+                                        });
                                     }
 
-                                )
+                                ).catch(err => {
+                                        console.log(err);
+                                            this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                                                loadingInstance.close();
+                                                });
+                                            this.$router.push("/errpage");
+                                        });
 
                     }
            },

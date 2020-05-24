@@ -29,7 +29,7 @@
                         placeholder="日付を選択"
                         v-model="carear.start_ym"
                         style="width: 150px"
-                        value-format="yyyy/MM/dd"
+                        value-format="yyyy/MM/DD"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -41,7 +41,7 @@
                         placeholder="日付を選択"
                         v-model="carear.end_ym"
                         style="width: 150px;"
-                         value-format="yyyy/MM/dd"
+                         value-format="yyyy/MM/DD"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -125,6 +125,7 @@
 
 <script>
 import * as infodata from "../myinfoData";
+import { Loading } from 'element-ui';
 export default {
   data() {
     var lowerThanDateOnly = (date1, date2) => {
@@ -243,15 +244,29 @@ export default {
     };
   },
   created() {
+
+      let loadingInstance = Loading.service();
             this.$http.getCarearInfo(this.$store.state.adminName).then(
             res => {
               console.log(res);
              console.log(res.data[2]);
               this.ruleForm.carears=res.data
-      console.log(this.ruleForm.carears[2]);
+              if(res.data.length==0){
+                 this.addCarear() ;
+              }
+            
+                this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
              }
 
-           )
+           ).catch(err => {
+          console.log(err);
+             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
+            this.$router.push("/errpage");
+        });
 
 
   },

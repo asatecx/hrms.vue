@@ -1,6 +1,8 @@
 <template>
-    <div class="divcss5">
-        <p style="text-align: center;"> アカウントを作成</p>
+
+   <el-card class="cat-login-card">
+      <div slot="header">アカウントを作成</div>
+        
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="ユーザーID" prop="userId">
                     <el-input v-model="ruleForm.userId"></el-input>
@@ -23,8 +25,8 @@
                     <el-input v-model="ruleForm.email"></el-input>
                 </el-form-item>
 
-                   <el-radio v-model="ruleForm.userType" label="1" border>フリーランス</el-radio>
-                  <el-radio v-model="ruleForm.userType" label="2" border>営業担当</el-radio>
+                   <!-- <el-radio v-model="ruleForm.userType" label="1" border>フリーランス</el-radio>
+                  <el-radio v-model="ruleForm.userType" label="2" border>営業担当</el-radio> -->
 
                
                 <el-form-item>
@@ -33,8 +35,8 @@
                 </el-form-item>
             </el-form>
 
-
-    </div>
+        </el-card >
+    
 </template>
 
 <script>
@@ -110,5 +112,22 @@ methods: {
 
 <style lang="scss" scoped>
     body{text-align:center} 
-    .divcss5{margin:0 auto;width:600px;height:600px;border:1px solid #000} 
+    .divcss5{margin:0 auto;
+    width:500px;
+    height:600px;
+    padding: 20px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+    } 
+
+.cat-login-card {
+  width: 400px;
+  margin: 150px auto;
+
+  .el-card__header {
+    text-align: center;
+    font-size: 1.2em;
+    // background-color: rgb(132, 230, 149);
+    background: linear-gradient(to bottom,#1C86EE,#ffffff);
+  }
+}
 </style>

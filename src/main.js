@@ -52,6 +52,9 @@ Vue.component("paging", paging)
 import price from '@/components/parts/price'
 Vue.component("price", price)
 
+import pagefooter from '@/components/common/pagefooter'
+Vue.component("pagefooter", pagefooter)
+
 //https://momentjs.com/
 import moment  from 'moment'
 Vue.prototype.$moment = moment;
@@ -85,5 +88,4 @@ new Vue({
   template: '<App/>'
 })
 
-import pagefooter from '@/components/common/pagefooter'
-Vue.component("pagefooter", pagefooter)
+
