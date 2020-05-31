@@ -14,7 +14,10 @@
 
      
         <el-form-item>
-          <el-col >
+             <el-col :xs="0" :sm="7" :md="7" :lg="7" :xl="7" >
+                    <div>&nbsp;</div>
+              </el-col>  
+            <el-col  :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
             <el-form-item label="開発言語">
               <div style="text-align: left;">
                 <el-transfer
@@ -43,7 +46,10 @@
 
         <el-form-item>
         
-   
+                <el-col :xs="0" :sm="8" :md="8" :lg="8" :xl="8" >
+                    <div>&nbsp;</div>
+              </el-col>  
+            <el-col  :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
          
               <el-table :data="language" stripe >
                 
@@ -75,11 +81,14 @@
                 
               </el-table>
            
-    
+             </el-col>
         </el-form-item>
 
         <el-form-item>
-          <el-col >
+             <el-col :xs="0" :sm="7" :md="7" :lg="7" :xl="7" >
+                    <div>&nbsp;</div>
+              </el-col>  
+            <el-col  :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
             <el-form-item label="ﾃﾞｰﾀﾍﾞｰｽ">
               <div style="text-align: left;">
                 <el-transfer
@@ -111,6 +120,10 @@
 
      
             <el-form-item label="　">
+              <el-col :xs="0" :sm="8" :md="8" :lg="8" :xl="8" >
+                    <div>&nbsp;</div>
+              </el-col>  
+            <el-col  :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
               <el-table :data="db" stripe style="width: 100%">
                 <el-table-column label="開発DB" width="100px">
                   <template slot-scope="scope">
@@ -139,6 +152,7 @@
                   </template>
                 </el-table-column>
               </el-table>
+               </el-col>  
             </el-form-item>
      
   
@@ -146,7 +160,10 @@
 
 
         <el-form-item>
-          <el-col >
+            <el-col :xs="0" :sm="7" :md="7" :lg="7" :xl="7" >
+                    <div>&nbsp;</div>
+              </el-col>  
+            <el-col  :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
             <el-form-item label="OS">
               <div style="text-align: left;">
                 <el-transfer
@@ -173,7 +190,10 @@
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-col >
+                     <el-col :xs="0" :sm="8" :md="8" :lg="8" :xl="8" >
+                    <div>&nbsp;</div>
+              </el-col>  
+            <el-col  :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
             <el-form-item label="　">
               <el-table :data="os" stripe style="width: 100%">
                 <el-table-column label="開発環境" width="100px">

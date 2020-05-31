@@ -16,30 +16,8 @@
             >人材を探す</a>
           </div>
         </div>
-<<<<<<< HEAD
-        <div class="col-lg-6 order-1 order-lg-2 hero-img" style="float:left;">
-          <img src="../../assets/img/hero-img.png" class="animated" alt="">
-        </div>
-    </div>
-
-  </section><!-- End Hero -->
-      <div class="block">
 
 
-    <!-- <el-carousel :interval="3000" height="640px">
-      <el-carousel-item v-for="item in lunboImgs" :key="item.id">
-                 
-          <a @click="displayCase($event,item.id)">
-
-              <div :style="item.mystyle" class="tupian">
-             <span class="zhiti"> {{item.content}}</span>
-              </div>
-          </a>
-      </el-carousel-item>
-    </el-carousel> 
-    -->
-  </div>
-=======
         <div class="col-lg-6 order-1 order-lg-2 hero-img" style="float:left;margin-left:100px">
           <img src="../../assets/img/hero-img.png" class="animated" alt />
         </div>
@@ -63,7 +41,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
->>>>>>> develop
+
   </div>
 </template>
 <script src="../../assets/js/main.js"></script>

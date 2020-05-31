@@ -1,14 +1,14 @@
 <template>
-    <div  >
-     
+  <div style="margin-top:40px;margin-bottom:30px;">
+        <el-row  >
+        <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                <div>&nbsp;</div>
+        </el-col>  
+        <el-col  :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
            <div style="text-align: left;">
-
-   
-         
-
 ■ 職務履歴
 <table ref="print" border="1" style="border-spacing:0px;height:10px;border:1px solid #CCCCCC;border-collapse:collapse;">
-    <tr style="height:10px;background-color:#F3F4F7;">
+    <tr style="height:10px;background-color:#F3F4F7;" class="gudingTitle1">
         <td rowspan="2">No</td>
         <td rowspan="2">開発期間</td>
         <td rowspan="2">勤務地</td>
@@ -19,7 +19,7 @@
         <td colspan="9">開発フェーズ</td>
  
     </tr>
-    <tr  style="height:10px;background-color:#F3F4F7;">
+    <tr  style="height:10px;background-color:#F3F4F7;" class="gudingTitle2">
      
   
         <td width="6px">要件定義</td>
@@ -76,18 +76,28 @@
      </template >
 </table>
 　
+           </div>
 
-  
+         </el-col> 
+
+ 
+         </el-row  >
+
+          <!-- <el-row  >
+        <el-col :xs="0" :sm="8" :md="8" :lg="8" :xl="8" >
+                <div>&nbsp;</div>
+        </el-col>  
+        <el-col  :xs="24" :sm="8" :md="8" :lg="8" :xl="8"> -->
               
            <!-- <el-button type="primary" @click="submitForm()">ok</el-button> -->
-            <div style="text-align:center" v-show="showflg">
+            <div  v-show="showflg" class="dingwei" ref="botton">
                 <el-button type="primary" @click="submitForm()" size="large">提出</el-button>
                 <el-button type="primary" @click="back" size="large">戻る</el-button>
             </div>
 
-           </div>
+         <!-- </el-col>  
+         </el-row  > -->
 
-           
     </div>
 </template>
 
@@ -120,20 +130,38 @@ import { Loading } from 'element-ui';
 //mounted()的钩子函数则是在dom完全渲染后才开始渲染数据，所以在mounted()中操作dom基本不会存在渲染问题。
 
 //https://www.jianshu.com/p/9c3264f4a405
-  var width = document.documentElement.clientWidth;
-  var height =  document.documentElement.clientHeight;
-  if( width < height ){
-      console.log(width + " " + height);
-      let  $print =  this.$refs.print; 
+//   var width = document.documentElement.clientWidth;
+//   var height =  document.documentElement.clientHeight;
+//   if( width < height ){
+//       console.log(width + " " + height);
+//       let  $print =  this.$refs.print; 
       
-      console.log( $print);
-      $print.style.width=height;
-      $print.style.height=width;
-      $print.style.top= (height-width)/2 ;
-      $print.style.left=0-(height-width)/2 ;
-      $print.style.transform='rotate(90deg)';
-      $print.style.transformOrigin='50% 50%';
-  } 
+//       console.log( $print);
+//       $print.style.width=height;
+//       $print.style.height=width;
+//       $print.style.top= (height-width)/2 ;
+//       $print.style.left=0-(height-width)/2 ;
+//       $print.style.transform='rotate(90deg)';
+//       $print.style.transformOrigin='50% 50%';
+// } 
+ var evt = "onorientationchange" in window ? "orientationchange" : "resize";
+       let  $botton =  this.$refs.botton; 
+    window.addEventListener(evt, function() {
+            var width = document.documentElement.clientWidth;
+            var height =  document.documentElement.clientHeight;
+            if( width < height ){
+               // console.log("phone"+width);
+               
+                $botton.style.marginLeft=(width/2)-60+"px";
+
+
+            } else{
+               // console.log("pc"+width);
+                $botton.style.marginLeft=(width/2)-60+"px";
+            }
+
+ }, false);
+
 
 },
 
@@ -223,6 +251,12 @@ import { Loading } from 'element-ui';
         margin-top : 20px ;
         text-align: center;
       }
+.dingwei{
+   margin-top:5px;
+position: absolute;
+margin-left:45%
 
+
+}
 
 </style>

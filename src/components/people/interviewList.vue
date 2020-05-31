@@ -1,20 +1,64 @@
 <template>
-<div>
+<div style="margin-top:45px">
+  
+    <el-form  label-width="100px">
+        <el-row >
+           <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                <div>&nbsp;</div>
+           </el-col> 
 
-   <div style="text-align: left;"><el-button type="danger" @click="deletedetail">一括削除</el-button></div>
-案件名：<el-input v-model="selectkey.casename" placeholder="会社名を入力" style="width:10%"></el-input>
-面接時間：<el-input v-model="selectkey.time" placeholder="面接時間を入力" style="width:10%"></el-input>
-面接場所：<el-input v-model="selectkey.place" placeholder="面接場所を入力" style="width:10%"></el-input>
-  面接結果：<el-select v-model="interviewstatus" clearable placeholder="選択してください">
-    <el-option
-      v-for="item in interviewstatuss"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-  </el-select>
+
+         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+        <el-row >
+                <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                            <el-form-item label="案件名称：" >
+                                  <el-input v-model="selectkey.casename" style="width:200px" placeholder="案件名を入力"></el-input>
+                              </el-form-item>
+                      
+                  </el-col>
+
+                  
+                           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                                      <el-form-item label="面接時間：" >
+                                  <el-input v-model="selectkey.time" placeholder="面接時間を入力" style="width:200px"></el-input>
+                              </el-form-item>
+                  </el-col>
+                    <el-row >
+                      </el-row >
+                         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                            <el-form-item label="面接場所：" >
+                  <el-input v-model="selectkey.place" placeholder="面接場所を入力" style="width:200px"></el-input>
+                        </el-form-item>
+                  </el-col>
+                         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                            <el-form-item label="面接結果：" >
+                    <el-select v-model="interviewstatus" clearable placeholder="選択してください">
+                      
+                    
+                      <el-option
+                        v-for="item in interviewstatuss"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                      </el-form-item>
+                    </el-col>
+                    </el-row >
+          </el-col>
+
+   </el-row >
+ </el-form>
 {{select}}<!--ここ書かないとcomputedがきかない-->
-<paging :pagetotal="pagetotal" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
+
+
+ <el-row >
+           <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                <div>&nbsp;</div>
+        </el-col> 
+    <el-col :xs="24" :sm="24" :md="24" :lg="15" :xl="24">
+       <div style="text-align: left;"><el-button type="danger" round @click="deletedetail">一括削除</el-button></div>
+      <paging :pagetotal="pagetotal" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
 <el-table
     :data="tableData.filter(data => {
       
@@ -28,31 +72,32 @@
     
     
     })"
-    style="width: 100%"
+    
     @selection-change="handleSelectionChange"
+    v-show="showflg"
     >
     <el-table-column
       type="selection"
-      width="55">
+      width="55" >
     </el-table-column>
     
     <el-table-column
     prop="casename"
     label="案件名"
-    width="180">
+    width="120px">
     </el-table-column>
     <el-table-column
     prop="interview_datetime"
     label="面接時間"
-    width="180">
+    width="180px" >
     </el-table-column>
     <el-table-column
     prop="interviewplace"
-    label="面接場所">
+    label="面接場所" width="200px" >
     </el-table-column>
     <el-table-column
     prop="interviewresult"
-    label="面接結果">
+    label="結果"  width="60px" >
     </el-table-column>
      <!-- <el-table-column label="メモ" width="300px">
                   <template slot-scope="scope">
@@ -65,37 +110,124 @@
                 
                   </template>
      </el-table-column> -->
-     <el-table-column label="プロジェクト詳細" width="300px">
+     <el-table-column label="詳細" width="80px">
         <template slot-scope="scope">
               <el-popover
                 placement="right"
                 width="400"
                 trigger="click">
+            面接場所: {{scope.row.interviewplace}}<br>
+             面接結果: {{scope.row.interviewresult}}<br>
              プロジェクト内容: {{scope.row.workcontents}}<br>
              プロジェクト現場: {{scope.row.workplace}}<br>
-                <el-button slot="reference">見る</el-button>
+               <el-button slot="reference" icon="el-icon-more" circle></el-button> 
+                
               </el-popover>
           </template>
      </el-table-column>
     <el-table-column
-      align="right">
-      <template slot="header" >
+      align="right" width="10px">
+      <!-- <template slot="header" >
         <el-input
           v-model="search"
           size="mini"
           placeholder="キーワードで検索"/>
-      </template>
+      </template> -->
       <template slot-scope="scope">
         <!-- <el-button
           size="mini"
           @click="handleEdit(scope.$index, scope.row)">Edit</el-button> -->
-        <el-button
+        <!-- <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+          @click="handleDelete(scope.$index, scope.row)">×</el-button> -->
+
+            <i class="el-icon-delete" @click.prevent="handleDelete(scope.$index, scope.row)"></i>
       </template>
     </el-table-column>
   </el-table>
+
+  <el-table
+    :data="tableData.filter(data => {
+      
+      var str = data.casename
+               +data.starttime
+               +data.endtime
+               +data.workplace
+               +data.interviewresult
+           
+      return !search || str.toLowerCase().includes(search.toLowerCase())
+    
+    
+    })"
+    
+    @selection-change="handleSelectionChange"
+    v-show="!showflg"
+    >
+    <el-table-column
+      type="selection"
+      width="55" >
+    </el-table-column>
+    
+    <el-table-column
+    prop="casename"
+    label="案件名"
+    width="100px">
+    </el-table-column>
+     <el-table-column
+    prop="interview_datetime"
+    label="面接時間"
+    width="102px" >
+    </el-table-column>
+     <!-- <el-table-column label="メモ" width="300px">
+                  <template slot-scope="scope">
+                    <el-input
+                        type="textarea"
+                        :rows="2"
+                        placeholder="メモ書き"
+                        v-model="scope.row.memo">
+                      </el-input>
+                
+                  </template>
+     </el-table-column> -->
+     <el-table-column label="詳細" width="80px">
+        <template slot-scope="scope">
+              <el-popover
+                placement="right"
+                width="400"
+                trigger="click">
+            面接場所: {{scope.row.interviewplace}}<br>
+             面接結果: {{scope.row.interviewresult}}<br>
+             プロジェクト内容: {{scope.row.workcontents}}<br>
+             プロジェクト現場: {{scope.row.workplace}}<br>
+               <el-button slot="reference" icon="el-icon-more" circle></el-button> 
+                
+              </el-popover>
+          </template>
+     </el-table-column>
+    <el-table-column
+      align="right" width="10px">
+      <!-- <template slot="header" >
+        <el-input
+          v-model="search"
+          size="mini"
+          placeholder="キーワードで検索"/>
+      </template> -->
+      <template slot-scope="scope">
+        <!-- <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">Edit</el-button> -->
+        <!-- <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">×</el-button> -->
+
+            <i class="el-icon-delete" @click.prevent="handleDelete(scope.$index, scope.row)"></i>
+      </template>
+    </el-table-column>
+  </el-table>
+    </el-col>
+   </el-row >
 </div>
 </template>
 
@@ -109,6 +241,7 @@ export default {
 
       
         return {
+          showflg:true,
             interviewstatus:"",
             interviewstatuss: infodata.mydata.interviewstatuss,
             show:false,
@@ -230,7 +363,46 @@ export default {
           
 
     },
+
+    mounted(){
+
+ var evt = "onorientationchange" in window ? "orientationchange" : "resize";
+     //  let  $botton =  this.$refs.botton; 
+    window.addEventListener(evt, function() {
+            var width = document.documentElement.clientWidth;
+            var height =  document.documentElement.clientHeight;
+            if( width < height ){
+                console.log("phone"+width);
+               
+              this.showflg=false
+
+
+            } else{
+                console.log("pc"+width);
+              this.showflg=true
+            }
+
+ }, false);
+
+             var width = document.documentElement.clientWidth;
+            var height =  document.documentElement.clientHeight;
+            if( width < height ){
+                console.log("phonew"+width);
+               
+              this.showflg=false
+
+
+            } else{
+                console.log("pcw"+width);
+              this.showflg=true
+            }
+
+
+},
     computed: {
+
+
+
         select: function() {
                 this.getlist()
                 return ""
