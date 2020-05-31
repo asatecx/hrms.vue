@@ -1,5 +1,6 @@
 <template>
     <div class="shadow kuandu">
+       {{tankainfo.update_DATE_TIME}}
       {{message}}
         <div style="height:30px;"></div>
         最小単価：<price
@@ -35,6 +36,7 @@
     </el-date-picker>
   </div>
     <div style="height:50px"></div>
+   
  <el-button type="success" @click="modifytanka" v-show="registFlg">登録</el-button>
   <el-button type="success" @click="changestatus" v-show="modifyFlg">編集</el-button>
     </div>
@@ -59,6 +61,7 @@ import { Loading } from 'element-ui';
                       price_max:0,
                       schedualstart:"",
                       schedualend:"",
+                      update_DATE_TIME:"",
                   }
                 };
          },
@@ -103,6 +106,7 @@ import { Loading } from 'element-ui';
             var tempmax=this.tankainfo.price_max;
             this.tankainfo.price_min=this.tankainfo.price_min.replace(/\D/g, '')
             this.tankainfo.price_max=this.tankainfo.price_max.replace(/\D/g, '')
+            this.tankainfo.UPDATE_DATE_TIME=this.$moment(this.tankainfo.update_DATE_TIME).utcOffset(540).format('YYYY-MM-DD HH:mm:ss.SSS')
              this.$http.modifytanka(this.$qs.stringify(this.tankainfo))
              this.message="登録しました"
             this.tankainfo.price_min=tempmin
