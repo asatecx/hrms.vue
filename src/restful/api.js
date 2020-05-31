@@ -97,12 +97,15 @@ export function getCaseList(searchkey,id,currentPage,pagesize){
   })
 }
 //http://localhost:8080/niucaocao/interviewList
-export function getInterviewList(comName,id,currentPage,pagesize){
+export function getInterviewList(comName,casetime,caseplace,result,id,currentPage,pagesize){
      
   return  Axios.get(interviewListurl, {
         params: {
             // ここにクエリパラメータを指定する
             casename:comName ,
+            casetime:casetime ,
+            caseplace:caseplace ,
+            result:result,
             userid:id,
             currentPage:currentPage,
             pagesize:pagesize,

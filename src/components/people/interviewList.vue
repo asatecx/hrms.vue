@@ -23,8 +23,9 @@
                                   <el-input v-model="selectkey.time" placeholder="面接時間を入力" style="width:200px"></el-input>
                               </el-form-item>
                   </el-col>
+                   </el-row >
                     <el-row >
-                      </el-row >
+                     
                          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
                             <el-form-item label="面接場所：" >
                   <el-input v-model="selectkey.place" placeholder="面接場所を入力" style="width:200px"></el-input>
@@ -32,7 +33,7 @@
                   </el-col>
                          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
                             <el-form-item label="面接結果：" >
-                    <el-select v-model="interviewstatus" clearable placeholder="選択してください">
+                    <el-select v-model="selectkey.result" clearable placeholder="選択してください">
                       
                     
                       <el-option
@@ -116,8 +117,7 @@
                 placement="right"
                 width="400"
                 trigger="click">
-            面接場所: {{scope.row.interviewplace}}<br>
-             面接結果: {{scope.row.interviewresult}}<br>
+      
              プロジェクト内容: {{scope.row.workcontents}}<br>
              プロジェクト現場: {{scope.row.workplace}}<br>
                <el-button slot="reference" icon="el-icon-more" circle></el-button> 
@@ -245,7 +245,7 @@ export default {
             interviewstatus:"",
             interviewstatuss: infodata.mydata.interviewstatuss,
             show:false,
-            selectkey:{casename:"",time:"",place:""},
+            selectkey:{casename:"",time:"",place:"",result:""},
             tableData:[],
             multipleSelection: [],
             search: '',
@@ -255,9 +255,13 @@ export default {
     },
      methods:{
          getlist(){
-            let caseName = this.selectkey.casename
+            let caseName = this.selectkey.casename;
+            let casetime = this.selectkey.time;
+            let caseplace= this.selectkey.place;
+            let result=this.selectkey.result;
+            
             let id=this.$store.state.adminName;
-             this.$http.getInterviewList(caseName,id,currentPage,pagesize)
+             this.$http.getInterviewList(caseName,casetime,caseplace,result,id,currentPage,pagesize)
           .then((res) => {
             this.tableData = res.data;
             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
