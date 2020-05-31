@@ -1,6 +1,6 @@
 <template>
     <div class="shadow kuandu">
-       {{tankainfo.update_DATE_TIME}}
+     
       {{message}}
         <div style="height:30px;"></div>
         最小単価：<price
