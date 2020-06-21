@@ -40,23 +40,46 @@
                       </el-form-item >
                     </el-col>
                        <el-col  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                            <el-form-item label="性別：">
-                                {{myinfo.gender==1?"男":"女"}}
+                            <el-form-item label="ニックネーム：">
+                              {{myinfo.user_display_name}}
                             </el-form-item >
                         </el-col>
                          <el-col  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                            <el-form-item label="生年月日:">
-                            {{myinfo.birthday}}
+                            <el-form-item label="会社:">
+                            {{myinfo.company}}
                              </el-form-item >
                         </el-col>
                      </el-row >
                 </el-col>
            </el-row>
+                      <el-row>
+     
+                  <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+
+
+                  <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+                                   <el-form-item label="性別：">
+                                {{myinfo.gender==1?"男":"女"}}
+                            </el-form-item >
+                        </el-col>
+
+                     <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+                                 <el-form-item label="生年月日:">
+                            {{myinfo.birthday}}
+                             </el-form-item >
+                         </el-col>
+                        <el-col :span="8">
+               
+                    </el-col>
+             </el-row>
            <el-row>
      
                   <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
                     <div>&nbsp;</div>
                   </el-col>  
+
 
                   <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
                             <el-form-item label="住所：">
@@ -138,6 +161,18 @@
                          </el-form-item >
                     </el-col>
            </el-row>  
+                            <el-row>
+                  <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                            <el-form-item label="経験PR:">
+                        {{myinfo.exp_pr}}
+                         </el-form-item >
+                    </el-col>
+   
+           </el-row> 
             </el-form>   
             <div style="text-align:center" v-show="showflg">
                 <el-button type="primary" @click="submitForm()" size="large">提出</el-button>
@@ -160,21 +195,35 @@ import { Loading } from 'element-ui';
             return{
                  buttonDialogVisible: true,
                 centerDialogVisible: false,
-                myinfo:''
+                 myinfo:''
              }
            },
+           computed:{
+     
+
+           },
            created(){
-               console.log(this.$store.state.baseinfo)
+        console.log("###"+this.showflg)
                if(this.showflg){
+                  console.log("×××"+this.showflg)
                     this.myinfo=this.$store.state.baseinfo;
+                   
                }else{
+                 this.getinfo();
+               }
+           },
+           methods: {
+             getinfo(){
+
+                 console.log("〇〇〇〇〇〇"+this.showflg)
                         let loadingInstance = Loading.service();
                                 this.$http.getBaseInfo(this.$store.state.adminName).then(
                                     res => {
-                                    console.log(res.data);
+                                    //console.log(res.data);
                                 
                                     this.myinfo=res.data
-                            
+                                    
+                                    this.$emit('nickname', this.myinfo.user_display_name)
                                     }
 
                                 ).catch(err => {
@@ -184,13 +233,12 @@ import { Loading } from 'element-ui';
                                                 });
                                             this.$router.push("/errpage");
                                         });
-               }
-           },
-           methods: {
+                                        return this.myinfo;
+             },
             submitForm() {
                 this.$http.modifybaseinfo(this.$qs.stringify(this.myinfo))
               
-                this.$router.push("/mycv");
+                this.$router.push("/interviewList");
             },
                 back: function() {
                 this.$router.go(-1); //返回

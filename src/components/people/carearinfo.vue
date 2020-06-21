@@ -50,11 +50,11 @@
                   <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" >               
                     <el-form-item :prop="'carears.' + index + '.start_ym'" label="開始日付">
                       <el-date-picker
-                        type="date"
+                       
                         placeholder="日付を選択"
-                        v-model="carear.start_ym"
+                        v-model="ruleForm.carears[index].start_ym"
                         style="width: 150px"
-                        value-format="yyyy/MM/DD"
+                       
                       ></el-date-picker>
                     </el-form-item>
                    </el-col>
@@ -62,11 +62,11 @@
                     <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" >
                           <el-form-item :prop="'carears.' + index + '.end_ym'" :rules="validate" label="終了日付">
                             <el-date-picker
-                              type="date"
+                             
                               placeholder="日付を選択"
-                              v-model="carear.end_ym"
+                              v-model="ruleForm.carears[index].end_ym"
                               style="width: 150px;"
-                              value-format="yyyy/MM/DD"
+                             
                             ></el-date-picker>
                           </el-form-item>
                       </el-col>
@@ -297,6 +297,8 @@ export default {
     };
     return {
       //url:this.$
+
+      time:"",
       labelPosition:"top",
       buttonDialogVisible: false,
       centerDialogVisible: false,
@@ -333,7 +335,7 @@ export default {
         carears: [
           {
             person_id:this.$store.state.adminName,
-            start_ym: "",
+            start_ym: new Date(),
             end_ym: "",
             pj_name: "",
             language: "",

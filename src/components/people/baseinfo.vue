@@ -67,7 +67,21 @@
                             </el-row>
                 </el-col>
        </el-row>
-         
+         <el-row  :gutter="10">
+                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                    <div>&nbsp;</div>
+                  </el-col>  
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+           <el-form-item label="ニックネーム" prop="user_display_name">
+              <el-input placeholder="ニックネームを入力" v-model="ruleForm.user_display_name" style="width:250px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+           <el-form-item label="会社" prop="company">
+              <el-input placeholder="所属会社を入力" v-model="ruleForm.company" style="width:250px"></el-input>
+            </el-form-item>
+          </el-col>
+     </el-row>
            <el-row  :gutter="10">
                   <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
                     <div>&nbsp;</div>
@@ -154,7 +168,7 @@
                     { type: 'email', message: '有効なメールアドレスを入力してください', trigger: ['blur', 'change'] }
                     ]"
                 >
-                    <el-input v-model="ruleForm.mail"></el-input>
+                    <el-input v-model="ruleForm.mail"  style="width:200px"></el-input>
                 </el-form-item>
           </el-col>
      </el-row>
@@ -165,7 +179,7 @@
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
              <el-form-item label="電話番号" prop="tel">
                     <el-input
-                    placeholder="请输入内容"
+                    placeholder="(営業担当)電話番号を入力"
                     v-model="ruleForm.tel"
                     style="width:200px"
                     clearable>
@@ -260,8 +274,21 @@
           </el-col>
       </el-row>
        <el-row  :gutter="10">
-                 <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
+                      <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
                     <div>&nbsp;</div>
+                  </el-col> 
+                 <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6" >
+                          
+                              <el-form-item label="経験PR" prop="exp_pr">
+                        
+                                <el-input
+                                  type="textarea"
+                                  :rows="2"
+                                  placeholder="経験PRを入力"
+                                  v-model="ruleForm.exp_pr" style="width:500px">
+                                </el-input>
+                              </el-form-item>
+                            
                   </el-col> 
  
        </el-row>
@@ -340,6 +367,8 @@ export default {
         user_name_kanji: "",
         user_name_kana: "",
         user_name_roma: "",
+        user_display_name:"",
+        company:"",
         gender: "",
         addr_pref: "",
         addr_city: "",
@@ -353,13 +382,14 @@ export default {
         work_exp: "",
         japan_exp: "",
         mail: "",
-        tel: ""
+        tel: "",
+        exp_pr:""
       },
       //https://www.jianshu.com/p/93c5cd5f3226
       //https://qiita.com/tekunikaruza/items/0a68d86084d961d632ac
       //https://blog.csdn.net/wadeltf/article/details/97629395
       rules: {
-        USER_NAME_KANJI: [
+        user_name_kanji: [
           {
             required: true,
             message: "名前を入力してください",
@@ -367,7 +397,7 @@ export default {
           },
           { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
         ],
-        USER_NAME_KANA: [
+        user_name_kana: [
           {
             required: true,
             message: "名前を入力してください",
@@ -375,7 +405,7 @@ export default {
           },
           { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
         ],
-          USER_NAME_ROMA: [
+          user_name_roma: [
           {
             required: true,
             message: "名前を入力してください",
@@ -383,30 +413,39 @@ export default {
           },
           { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
         ],
-        ADDR_PREF: [
+       user_display_name: [
+          {
+            required: true,
+            message: "ニックネームを入力してください",
+            trigger: "blur"
+          },
+          { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+        ],
+        
+        addr_pref: [
           {
             required: true,
             message: "都道府県を入力してください",
             trigger: "blur"
           }
         ],
-        ADDR_CITY: [
+        addr_city: [
           {
             required: true,
             message: "市区町村を入力してください",
             trigger: "blur"
           }
         ],
-        BIRTHDAY: [
+        birthday: [
           {
-            type: "date",
+           
             required: true,
             message: "日付を選択してください",
             trigger: "blur"
           }
         ],
 
-        GENDER: [
+        gender: [
           {
             required: true,
             message: "性別を選択してください",
@@ -455,9 +494,9 @@ export default {
       return isJPG && isLt2M;
     },
     submitForm(formName) {
-      //console.log(this.ruleForm);
+      console.log(this.ruleForm);
       this.$refs[formName].validate(valid => {
-           console.log(valid);
+         
         if (valid) {
           this.$store.commit("setbaseinfo", this.ruleForm);
           alert("submit!");

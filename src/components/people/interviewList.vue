@@ -134,15 +134,32 @@
           placeholder="キーワードで検索"/>
       </template> -->
       <template slot-scope="scope">
-        <!-- <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Edit</el-button> -->
+ 
+           <i class="el-icon-edit" @click.prevent="handleEdit(scope.$index, scope.row)"></i>
         <!-- <el-button
           size="mini"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">×</el-button> -->
 
             <i class="el-icon-delete" @click.prevent="handleDelete(scope.$index, scope.row)"></i>
+
+               <el-dialog title="ステータス更新" :visible.sync="dialogFormVisible">
+                <el-form :model="form">
+                  <el-form-item label="ステータス" :label-width="formLabelWidth">
+                    <el-select v-model="form.status" placeholder="ステータスを選ぶ">
+                      <el-option label="面接を受ける" value="2"></el-option>
+                      <el-option label="面接を断る" value="3"></el-option>
+                      <el-option label="面接参加をキャンセル" value="8"></el-option>
+                      <el-option label="合格を辞退" value="9"></el-option>
+                      
+                    </el-select>
+                  </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="dialogFormVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="confirm(tempindex, temprow)">确 定</el-button>
+                </div>
+              </el-dialog>
       </template>
     </el-table-column>
   </el-table>
@@ -228,6 +245,8 @@
   </el-table>
     </el-col>
    </el-row >
+
+
 </div>
 </template>
 
@@ -241,6 +260,26 @@ export default {
 
       
         return {
+       param: {
+        companyId: "",
+        personId: "",
+        interviewresult: "",
+        UPDATE_DATE_TIME: ""
+      },
+          tempindex:"",
+          temprow:"",
+          dialogFormVisible:false,
+                  form: {
+          name: '',
+          status: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
+        formLabelWidth: '120px',
           showflg:true,
             interviewstatus:"",
             interviewstatuss: infodata.mydata.interviewstatuss,
@@ -254,6 +293,40 @@ export default {
         }
     },
      methods:{
+       setInterviewResult(index) {
+         this.param.interviewresult=this.tableData[index].interviewresult;
+      this.param.companyId = this.tableData[index].companyId;
+      this.param.personId = this.$store.state.adminName;
+      this.param.UPDATE_DATE_TIME = this.$moment(
+        this.tableData[index].update_DATE_TIME
+      )
+        .utcOffset(540)
+        .format("YYYY-MM-DD HH:mm:ss.SSS");
+      var url = this.$store.state.globalSettings.apiUrl + "/interview/updateResult";
+      this.$axios
+        .post(url, this.param)
+        .then(res => {
+          if (res.data.success) {
+            this.$message({
+              type: "success",
+              message: "面接結果を更新した!"
+            });
+            this.dialogFormVisible = false;
+            this.getlist();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+       confirm(index,row){
+         console.log(index,row);
+         console.log(index,row.casename);
+         
+         row.interviewresult=this.form.status;
+         this.setInterviewResult(index) ;
+         this.dialogFormVisible = false
+       },
          getlist(){
             let caseName = this.selectkey.casename;
             let casetime = this.selectkey.time;
@@ -264,6 +337,7 @@ export default {
              this.$http.getInterviewList(caseName,casetime,caseplace,result,id,currentPage,pagesize)
           .then((res) => {
             this.tableData = res.data;
+            console.log(this.tableData);
             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
               this.loadingInstance.close();
             });
@@ -294,6 +368,10 @@ export default {
               });
          },
       handleEdit(index, row) {
+        this.dialogFormVisible = true
+    this.tempindex=index;
+    this.temprow=row;
+        
         console.log(index, row);
       },
       handleDelete(index, row) {

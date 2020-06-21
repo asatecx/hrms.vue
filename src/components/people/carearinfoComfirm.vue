@@ -197,7 +197,7 @@ import { Loading } from 'element-ui';
             submitForm() {
                 console.log(this.myinfo)
                 this.$http.modifycarearinfo(this.myinfo)
-                this.$router.push("/mycv");
+                this.$router.push("/interviewList");
             },
              back: function() {
                 this.$router.go(-1); //返回
