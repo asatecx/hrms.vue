@@ -105,7 +105,7 @@
               <br />
               <span>現在状況：</span>{{ item.STATUS }}
               <br />
-              <span>経験PR：</span>{{ item.exp }}
+              <span>経験PR：</span>{{ item.EXP_PR }}
               <br />
               <span>希望月額単価：</span>{{ item.PRICE_MIN }} ～ {{ item.PRICE_MAX }}
               <br />

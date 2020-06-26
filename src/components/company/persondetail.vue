@@ -11,7 +11,7 @@
         <br />
         所属：{{ personDetail.CONTRACT_TYPE }}
         <br />
-        経験PR：{{ personDetail.exp }}
+        経験PR：{{ personDetail.EXP_PR }}
         <br />
         希望月額単価：{{ personDetail.PRICE_MIN }} ～ {{ personDetail.PRICE_MAX }}
         <br />
