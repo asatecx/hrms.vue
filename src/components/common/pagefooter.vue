@@ -1,6 +1,6 @@
 <template>
   <div class="layui-card">
-      <p>Copyright © 2020.Company name All rights reserved.<a href="http://www.asatecx.com/" target="_blank" title="株式会社アサテクス">株式会社アサテクス</a></p>
+      <p>Copyright © 2020.Company name All rights reserved.<a href="#" target="_blank" title="株式会社XXXXXX">株式会社XXXXXX</a></p>
     </div>
 </template>
 
