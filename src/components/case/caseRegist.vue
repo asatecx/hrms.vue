@@ -11,12 +11,12 @@
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">案件名称／概要<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="userNameFirst">
-            <el-input v-model="ruleForm.userNameFirst" placeholder="例）山田"></el-input>
+          <el-form-item prop="caseName">
+            <el-input v-model="ruleForm.caseName" maxlength="100" placeholder="例）XXXXシステム開発"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row class>
+      <!-- <el-row class>
         <el-col :span="20">
           <div class="sub-title">作業場所</div>
           <el-form-item prop="userNameDisp">
@@ -53,16 +53,16 @@
             <el-input v-model="ruleForm.tel" placeholder="例）08033445566"></el-input>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-row class>
         <el-col :span="10">
           <div class="sub-title">作業内容<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="">
-            <el-input type="textarea" placeholder="" v-model="textarea" maxlength="300" rows="5" show-word-limit />
+          <el-form-item prop="workcontent">
+            <el-input type="textarea" placeholder="" v-model="ruleForm.workcontent" maxlength="300" rows="5" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row class>
+      <!-- <el-row class>
         <el-col :span="5">
           <div class="sub-title">募集人数<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
           <el-form-item prop="password">
@@ -96,12 +96,12 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">備考</div>
-          <el-form-item prop="staffNum">
-            <el-input type="textarea" placeholder="" v-model="textarea" maxlength="200" rows="5" show-word-limit />
+          <el-form-item prop="memo">
+            <el-input type="textarea" placeholder="" v-model="ruleForm.memo" maxlength="200" rows="5" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -118,30 +118,19 @@ export default {
     return {
 
       ruleForm: {
-        userNameFirst: "",
-        userNameLast: "",
-        userName: "",
-        userNameDisp: "",
-        tel: "",
-        mail: "",
-        password: "",
-        companyName: "",
-        companyURL: "",
-        establishYear: "",
-        staffNum: "",
+        userId: this.$store.state.adminName,
+        caseName: "",
+        workcontent: "",
+        memo: "",
       },
       rules: {
-        userNameFirst: [
-          { required: true, message: "お名前(姓)入力必須", trigger: "blur" },
-          { max: 10, message: "最大桁数(10)超えた", trigger: "blur" }
+        caseName: [
+          { required: true, message: "案件名称入力必須", trigger: "blur" },
+          { max: 100, message: "最大桁数(100)超えた", trigger: "blur" }
         ],
-        userNameLast: [
-          { required: true, message: "お名前(名)入力必須", trigger: "blur" },
-          { max: 10, message: "最大桁数(10)超えた", trigger: "blur" }
-        ],
-        userNameDisp: [
-          { required: true, message: "表示名入力必須", trigger: "blur" },
-          { max: 20, message: "最大桁数(20)超えた", trigger: "blur" }
+        workcontent: [
+          { required: true, message: "作業内容入力必須", trigger: "blur" },
+          { max: 300, message: "最大桁数(300)超えた", trigger: "blur" }
         ],
         mail: [
           {
@@ -152,16 +141,11 @@ export default {
           }
         ],
       },
-      value1: '',
-      value2: '',
-      radio1: '可',
-      num: 1,
-      num1: 1,
     };
   },
   methods: {
     submitForm(formName) {
-      var url = this.$store.state.globalSettings.apiUrl + '/company/regist';
+      var url = this.$store.state.globalSettings.apiUrl + '/company/case/regist';
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$axios.post(url, this.ruleForm)
