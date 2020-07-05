@@ -40,17 +40,17 @@
       <el-row class>
         <el-col :span="4">
           <div class="sub-title">
-            予約時刻
+            予約時刻１
           </div>
-          <el-form-item prop="interviewdate">
-            <el-date-picker v-model="ruleForm.interviewdate" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder="日付" />
+          <el-form-item prop="interviewdate1">
+            <el-date-picker v-model="ruleForm.interviewdate1" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder="日付" />
           </el-form-item>
         </el-col>
         <el-col :span="3">
           <div class="sub-title"/>
-          <el-form-item prop="starttime">
+          <el-form-item prop="starttime1">
             <el-time-select
-              v-model="ruleForm.starttime"
+              v-model="ruleForm.starttime1"
               :picker-options="{start: '08:30',step: '00:15',end: '20:30'}"
               placeholder="開始時刻" style="width:150%"
             ></el-time-select>
@@ -58,9 +58,69 @@
         </el-col>
         <el-col :span="3">
           <div class="sub-title"/>
-          <el-form-item prop="endtime">
+          <el-form-item prop="endtime1">
             <el-time-select
-              v-model="ruleForm.endtime"
+              v-model="ruleForm.endtime1"
+              :picker-options="{start: '08:30',step: '00:15',end: '20:30'}"
+              placeholder="終了時刻" style="width:150%"
+            ></el-time-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row class>
+        <el-col :span="4">
+          <div class="sub-title">
+            予約時刻２
+          </div>
+          <el-form-item prop="interviewdate2">
+            <el-date-picker v-model="ruleForm.interviewdate2" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder="日付" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <div class="sub-title"/>
+          <el-form-item prop="starttime2">
+            <el-time-select
+              v-model="ruleForm.starttime2"
+              :picker-options="{start: '08:30',step: '00:15',end: '20:30'}"
+              placeholder="開始時刻" style="width:150%"
+            ></el-time-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <div class="sub-title"/>
+          <el-form-item prop="endtime2">
+            <el-time-select
+              v-model="ruleForm.endtime2"
+              :picker-options="{start: '08:30',step: '00:15',end: '20:30'}"
+              placeholder="終了時刻" style="width:150%"
+            ></el-time-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row class>
+        <el-col :span="4">
+          <div class="sub-title">
+            予約時刻３
+          </div>
+          <el-form-item prop="interviewdate3">
+            <el-date-picker v-model="ruleForm.interviewdate3" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder="日付" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <div class="sub-title"/>
+          <el-form-item prop="starttime3">
+            <el-time-select
+              v-model="ruleForm.starttime3"
+              :picker-options="{start: '08:30',step: '00:15',end: '20:30'}"
+              placeholder="開始時刻" style="width:150%"
+            ></el-time-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <div class="sub-title"/>
+          <el-form-item prop="endtime3">
+            <el-time-select
+              v-model="ruleForm.endtime3"
               :picker-options="{start: '08:30',step: '00:15',end: '20:30'}"
               placeholder="終了時刻" style="width:150%"
             ></el-time-select>
@@ -84,6 +144,23 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row class>
+        <el-col :span="10">
+          <div class="sub-title">
+            備考
+          </div>
+          <el-form-item prop="memo">
+            <el-input
+              type="textarea"
+              placeholder
+              v-model="ruleForm.memo"
+              maxlength="300"
+              rows="5"
+              show-word-limit
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
       <div class="bottom clearfix">
         <el-button type="primary" @click="submitForm('ruleForm')" size="large">予約</el-button>
         <el-button type="primary" @click="back" size="large">戻る</el-button>
@@ -100,12 +177,19 @@ export default {
         casename: "",
         workplace: "",
         interviewplace: "",
-        interviewdate: "",
-        starttime: "",
-        endtime: "",
+        interviewdate1: "",
+        starttime1: "",
+        endtime1: "",
+        interviewdate2: "",
+        starttime2: "",
+        endtime2: "",
+        interviewdate3: "",
+        starttime3: "",
+        endtime3: "",
         workcontents: "",
         companyId: "",
         personId: "",
+        memo: "",
         UPDATE_DATE_TIME: "",
       },
       rules: {
@@ -121,10 +205,10 @@ export default {
           { required: true, message: "入力必須です", trigger: "blur" },
           { max: 100, message: "最大桁数(100)超えた", trigger: "blur" }
         ],
-        interviewdate: [
+        interviewdate1: [
           { required: true, message: "入力必須です", trigger: "blur" }
         ],
-        starttime: [
+        starttime1: [
           { required: true, message: "入力必須です", trigger: "blur" }
         ],
         workcontents: [

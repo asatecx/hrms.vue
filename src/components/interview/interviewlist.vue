@@ -45,7 +45,9 @@
       <el-table :data="tableData" stripe style="width: 100%" header-cell-style="headerStyle">
         <el-table-column prop="CASE_NAME" label="案件名称／概要"></el-table-column>
         <el-table-column prop="USER_NAME_KANJI" label="面接者"></el-table-column>
-        <el-table-column prop="INTERVIEW_DATETIME" label="予約時間"></el-table-column>
+        <el-table-column prop="INTERVIEW_DATETIME1" label="予約時間1"></el-table-column>
+        <el-table-column prop="INTERVIEW_DATETIME2" label="予約時間2"></el-table-column>
+        <el-table-column prop="INTERVIEW_DATETIME3" label="予約時間3"></el-table-column>
         <el-table-column prop="INTERVIEW_PLACE" label="場所"></el-table-column>
         <el-table-column prop="INTERVIEW_STATUS" label="ステータス"></el-table-column>
         <el-table-column label="操作" width="280px">
@@ -150,9 +152,9 @@ export default {
           casename: this.tableData[index].CASE_NAME,
           workplace: this.tableData[index].WORK_PLACE,
           interviewplace: this.tableData[index].INTERVIEW_PLACE,
-          interviewdate: this.tableData[index].INTERVIEW_DATE,
-          starttime: this.tableData[index].START_TIME,
-          endtime: this.tableData[index].END_TIME,
+          interviewdate: this.tableData[index].INTERVIEW_DATE1,
+          starttime: this.tableData[index].START_TIME1,
+          endtime: this.tableData[index].END_TIME1s,
           workcontents: this.tableData[index].WORK_CONTENTS,
           interviewresult: this.tableData[index].INTERVIEW_RESULT,
           companyId: this.tableData[index].COMPANY_ID,
