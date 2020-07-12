@@ -14,6 +14,7 @@ const acounturl='/main/makeAcount'
 const tankaurl='/niucaocao/tanka'
 const gettankaurl='/niucaocao/gettanka'
 const baseinfourl='/niucaocao/baseinfo'
+const baseinfoPurl='/niucaocao/baseinfoP'
 const skillinfourl='/niucaocao/skillinfo'
 const carearinfourl='/niucaocao/carearinfo'
 const getBaseInfourl='/niucaocao/getbaseinfo'
@@ -21,6 +22,8 @@ const getSkillInfourl='/niucaocao/getskillinfo'
 const getCarearInfourl='/niucaocao/getcarearinfo'
 const getinterviewNumberurl='/niucaocao/interviewNumber'
 const delInterviewsurl='/niucaocao/deleteInterviews'
+const changeAcounturl='/main/changeAcount'
+const changePasswordurl='/main/changePassword'
 const yyyurl='/cccc/?userid='
 const zzzzurl='/zzzz'
 
@@ -176,7 +179,11 @@ export function modifybaseinfo(baseinfo){
  
   return  Axios.post(baseinfourl,baseinfo)
 }
-
+//baseinfoPurl
+export function modifybaseinfoP(baseinfo){
+ 
+  return  Axios.post(baseinfoPurl,baseinfo)
+}
 //https://blog.csdn.net/Moddlec/article/details/83894308
 export function modifyskillinfo(skillinfo){
  
@@ -238,7 +245,15 @@ export function getCarearInfo(userId){
 }
 
 
+export function changeAcount(userinfo){
+ 
+  return  Axios.post(changeAcounturl,userinfo)
+}
 
+export function changePassword(userinfo){
+ 
+  return  Axios.post(changePasswordurl,userinfo)
+}
 
 
 

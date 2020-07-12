@@ -7,6 +7,7 @@ import store from './store'
 //elementを導入する   https://element.eleme.io/#/zh-CN/component/quickstart
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import '@/assets/icon/iconfont.css';
 import locale from 'element-ui/lib/locale/lang/ja'
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'small', zIndex: 3000,locale });
@@ -36,6 +37,8 @@ Vue.use(VideoPlayer);
 //https://www.jianshu.com/p/535b53989b39
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+import fogetpassword from '@/components/common/forgetpassowrd'
+Vue.component("fogetpassword", fogetpassword)
 
 import topmenu from '@/components/common/topmenu'
 Vue.component("topmenu", topmenu)
@@ -74,6 +77,15 @@ Vue.filter('maru', function (bb) {
       }
  
     }
+)
+Vue.filter('privacy', function (bb) {
+  if(bb==1){
+    return "公開"
+  }else{
+    return "非公開"
+  }
+
+}
 )
 Vue.filter('addComma', function (val) {
   return Number(val).toLocaleString();

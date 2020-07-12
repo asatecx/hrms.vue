@@ -35,7 +35,7 @@
                   @change="handleChange"
                   :data="skillSourceLanguage"
                 >
-                  <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
+                  <span slot-scope="{ option }">{{ option.label }}</span>
                   <!-- <el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button> -->
                   <!-- <el-button class="transfer-footer" slot="right-footer" size="small" @click="copyskill">OK</el-button> -->
                 </el-transfer>
@@ -55,11 +55,11 @@
                 
                       <el-table-column label="開発言語" width="100px" >
                         <template slot-scope="scope">
-                          <el-input placeholder v-model="scope.row.skill" :disabled="true" ></el-input>
+                          <el-input placeholder v-model="scope.row.skill" :disabled="true" style="width:300px" ></el-input>
                         </template>
                       </el-table-column>
                
-                      <el-table-column label="期間" width="130px">
+                      <el-table-column label="期間" width="100px">
                         <template slot-scope="scope">
                           <el-input
                             placeholder="年数"
@@ -106,7 +106,7 @@
                   @change="handleChange"
                   :data="skillSourceDB"
                 >
-                  <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
+                  <span slot-scope="{ option }"> {{ option.label }}</span>
                   <!-- <el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button> -->
                   <!-- <el-button class="transfer-footer" slot="right-footer" size="small" @click="copyskill">OK</el-button> -->
                 </el-transfer>
@@ -127,12 +127,12 @@
               <el-table :data="db" stripe style="width: 100%">
                 <el-table-column label="開発DB" width="100px">
                   <template slot-scope="scope">
-                    <el-input placeholder v-model="scope.row.skill" :disabled="true"></el-input>
+                    <el-input placeholder v-model="scope.row.skill" :disabled="true" style="width:300px"></el-input>
                   </template>
                 </el-table-column>
 
 
-                <el-table-column label="期間" width="130px">
+                <el-table-column label="期間" width="100px">
                    <template slot-scope="scope">
                     <el-input
                       placeholder="年数"
@@ -181,7 +181,7 @@
                   @change="handleChange"
                   :data="skillSourceOS"
                 >
-                  <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
+                  <span slot-scope="{ option }">{{ option.label }}</span>
                   <!-- <el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button> -->
                   <!-- <el-button class="transfer-footer" slot="right-footer" size="small" @click="copyskill">OK</el-button> -->
                 </el-transfer>
@@ -198,11 +198,11 @@
               <el-table :data="os" stripe style="width: 100%">
                 <el-table-column label="開発環境" width="100px">
                   <template slot-scope="scope">
-                    <el-input placeholder v-model="scope.row.skill" :disabled="true"></el-input>
+                    <el-input placeholder v-model="scope.row.skill" :disabled="true" style="width:300px"></el-input>
                   </template>
                 </el-table-column>
 
-                <el-table-column label="期間" width="130px">
+                <el-table-column label="期間" width="100px">
                    <template slot-scope="scope">
                     <el-input
                       placeholder="年数"
