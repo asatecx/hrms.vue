@@ -5,6 +5,7 @@ import store from '../store'
 Axios.defaults.baseURL=store.state.globalSettings.apiUrl
 const addressurl='/niucaocao/getaddress'//人材の住所を取得する。
 const skillurl='/niucaocao/getskillsource'
+const skillNoKBNurl='/niucaocao/getskillsourceNoKBN'
 const toptenurl='/niucaocao/gettopTen'
 const CaseListurl ='/niucaocao/getCaseList'
 const interviewListurl ='/niucaocao/interviewList'
@@ -67,6 +68,12 @@ export function getskillsource(){
 
     return  Axios.get(skillurl)
    ;
+}
+export function getskillsourceNoKBN(){
+  // http://localhost:8091/niucaocao/getskillsource
+
+   return  Axios.get(skillNoKBNurl)
+  ;
 }
 
 //http://localhost:8080/niucaocao/gettopTen
