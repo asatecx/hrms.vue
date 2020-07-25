@@ -49,19 +49,27 @@
                             <el-row  :gutter="10">
                   
                             <el-col  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                            
                               <el-form-item label="姓名（漢字）" prop="user_name_kanji">
+                                  <el-badge :value="ruleForm.name_privacy|privacy" class="item">
                                 <el-input v-model="ruleForm.user_name_kanji" style="width:200px"></el-input>
+                                  </el-badge>
                               </el-form-item>
+                            
                             </el-col>
                             <el-col  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                               <el-form-item label="姓名（カナ）" prop="user_name_kana">
+                                 <el-badge :value="ruleForm.name_privacy|privacy" class="item">
                                 <el-input v-model="ruleForm.user_name_kana" style="width:200px"></el-input>
+                                 </el-badge>
                               </el-form-item>
                             </el-col>
 
                                       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                                   <el-form-item label="姓名（ローマ字）" prop="user_name_roma">
+                                    <el-badge :value="ruleForm.name_privacy|privacy" class="item">
                                     <el-input v-model="ruleForm.user_name_roma" style="width:200px"></el-input>
+                                     </el-badge>
                                   </el-form-item>
                                 </el-col>
                             </el-row>
@@ -78,7 +86,9 @@
           </el-col>
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
            <el-form-item label="会社" prop="company">
+              <el-badge :value="ruleForm.company_privacy|privacy" class="item">
               <el-input placeholder="所属会社を入力" v-model="ruleForm.company" style="width:250px"></el-input>
+               </el-badge>
             </el-form-item>
           </el-col>
      </el-row>
@@ -96,18 +106,23 @@
                     </el-form-item>
                   </el-col>
                            <el-col  :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-                            <el-form-item label="来日年度　" prop="comeJapanyears">
-                              <el-input
-                                placeholder="年数"
-                                v-model="ruleForm.japan_exp"
-                                type="number"
-                                min="0"
-                                style="width:120px"
-                              >
-                                <template slot="append">年</template>
-                              </el-input>
-                            </el-form-item>
+
+                                             <el-form-item label="国籍　　　" prop="country">
+                  <el-select v-model="ruleForm.country" placeholder="国名" @change="hidenforJapanese">
+                    <el-option
+                      v-for="item in countryList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    ></el-option>
+                  </el-select>
+                 </el-form-item>
+
+     
                           </el-col>
+
+
+                          
            </el-row>
 
  <el-row  :gutter="10">
@@ -148,7 +163,9 @@
                   </el-col>  
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
              <el-form-item label="生年月日" required>
+              
               <el-form-item prop="birthday">
+                  <el-badge :value="ruleForm.birthday_privacy|privacy" class="item">
                 <el-date-picker
                   type="date"
                   placeholder="日付を選択"
@@ -156,10 +173,13 @@
                   style="width: 50%;"
                    value-format="yyyy/MM/dd"
                 ></el-date-picker>
+                   </el-badge>
               </el-form-item>
+             
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
+           
                 <el-form-item
                     prop="mail"
                     label="Eメールアドレス"
@@ -168,7 +188,9 @@
                     { type: 'email', message: '有効なメールアドレスを入力してください', trigger: ['blur', 'change'] }
                     ]"
                 >
+                  <el-badge :value="ruleForm.mail_privacy|privacy" class="item">
                     <el-input v-model="ruleForm.mail"  style="width:200px"></el-input>
+                      </el-badge>
                 </el-form-item>
           </el-col>
      </el-row>
@@ -178,25 +200,23 @@
                   </el-col>  
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
              <el-form-item label="電話番号" prop="tel">
+                <el-badge :value="ruleForm.tel_privacy|privacy" class="item">
                     <el-input
                     placeholder="(営業担当)電話番号を入力"
                     v-model="ruleForm.tel"
                     style="width:200px"
                     clearable>
                   </el-input>
+                  </el-badge>
               </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-                <el-form-item label="国籍　　　" prop="country">
-                  <el-select v-model="ruleForm.country" placeholder="国名">
-                    <el-option
-                      v-for="item in countryList"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    ></el-option>
-                  </el-select>
-                 </el-form-item>
+          
+                                        <el-form-item label="最寄り駅" prop="station">
+              <el-input placeholder="駅名を入力してください" v-model="ruleForm.station" style="width:250px">
+                <template slot="append">駅</template>
+              </el-input>
+            </el-form-item>
           </el-col>
    </el-row>
 
@@ -205,7 +225,7 @@
                     <div>&nbsp;</div>
                   </el-col>  
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-               <el-form-item label="日本語レベル　　　" prop="country">
+               <el-form-item label="日本語レベル　　　" prop="country" v-show="japaneseFlg">
                   <el-select v-model="ruleForm.japaneselevel" placeholder="日本語資格">
                     <el-option
                       v-for="item in japaneseList"
@@ -217,11 +237,17 @@
                  </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-            <el-form-item label="最寄り駅" prop="station">
-              <el-input placeholder="駅名を入力してください" v-model="ruleForm.station" style="width:250px">
-                <template slot="append">駅</template>
-              </el-input>
-            </el-form-item>
+             <el-form-item label="来日年度　" prop="comeJapanyears" v-show="japaneseFlg">
+                              <el-input
+                                placeholder="年数"
+                                v-model="ruleForm.japan_exp"
+                                type="number"
+                                min="0"
+                                style="width:120px"
+                              >
+                                <template slot="append">年</template>
+                              </el-input>
+                            </el-form-item>
           </el-col>
 
        </el-row>  
@@ -310,6 +336,7 @@ export default {
     var messagesss = "";
 
     return {
+     japaneseFlg:true,
       labelPosition:"top",
       //url:this.$
       buttonDialogVisible: false,
@@ -462,6 +489,7 @@ export default {
               console.log(res.data);
            
               this.ruleForm=res.data
+      
                 this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
                   loadingInstance.close();
                 });
@@ -477,6 +505,13 @@ export default {
            this.getaddress()
   },
   methods: {
+    hidenforJapanese(){
+      if(this.ruleForm.country=="日本"){
+        this.japaneseFlg=false;
+      }else{
+        this.japaneseFlg=true;
+      }
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       this.myreload();
@@ -534,6 +569,7 @@ export default {
     },
     getaddress() {
       console.log("i am  selecting");
+      
       let searchkey = this.ruleForm.addr_pref;
       this.$http
         .getaddress(searchkey)
@@ -602,5 +638,9 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.item {
+  margin-top: 10px;
+  margin-right: 40px;
 }
 </style>

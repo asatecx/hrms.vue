@@ -83,6 +83,7 @@ export var mydata={
                                 {value:'砂利採取業',label:'砂利採取業'},],
 
 countris:[{value:'日本',label:'日本'},
+                  
                     {value:'中国',label:'中国'},
                     {value:'韓国',label:'韓国'},
                     {value:'中国(台湾)',label:'中国(台湾)'},

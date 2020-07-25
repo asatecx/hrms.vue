@@ -31,6 +31,7 @@
          <el-menu-item index="eigyo" v-show="this.userType=='3'">自社人材管理</el-menu-item>
         <el-menu-item index="caseRegist" v-show="this.userType=='2'">案件登録</el-menu-item>
         <el-menu-item index="myinterview" v-show="this.userType=='2'">面接管理</el-menu-item>
+         <el-menu-item index="personalInfo" v-show="this.userType=='1'">個人情報</el-menu-item>
         <el-menu-item index="resume" v-show="this.userType=='1'">MY履歴</el-menu-item>
         <el-menu-item index="interview" v-show="this.userType=='1'">MY面接</el-menu-item>
         <el-menu-item index="priceandshc" v-show="this.userType=='1'">MY単価・日程</el-menu-item>
@@ -101,9 +102,7 @@ export default {
           this.$router.push("/interviewList");
       } else if (key == "priceandshc") {
          this.$router.push("/priceandshc");
-      } else if (key =="eigyo"){
-         
-      }else if (key =="baseinfo"){
+      } else if (key =="baseinfo"){
          this.$router.push("/baseinfo");
       }else if (key =="skillinfo"){
          this.$router.push("/skillinfo");
@@ -117,6 +116,8 @@ export default {
          this.$router.push("/company.regist");
       }else if (key =="resume"){
          this.$router.push("/mycv");
+      }else if (key =="personalInfo"){
+         this.$router.push("/personalInfo");
       }
 
       

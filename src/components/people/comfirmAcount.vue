@@ -61,7 +61,7 @@
             }
           } else {
             //登录失败
-            this.$alert("用户名或密码有误！", "登录失败", { type: "error" })
+            this.$alert("登録が失敗しました", "登録が失敗しました", { type: "error" })
               .then(() => {
                 this.formData.password = "";
               })

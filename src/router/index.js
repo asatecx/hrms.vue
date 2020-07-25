@@ -28,8 +28,12 @@ import baseinfoComfirm from '@/components/people/baseinfoComfirm'
 import carearinfoComfirm from '@/components/people/carearinfoComfirm'
 import skillinfoComfirm from '@/components/people/skillinfoComfirm'
 import mycv from '@/components/people/myCV'
+import personalInfo from '@/components/people/personalInfo'
+import passwordChangeComfirm from '@/components/people/passwordChangeComfirm'
+import passwordChange from '@/components/people/passwordChange'
 import errpage from '@/components/common/errpage'
 import blankpage from '@/components/common/blankpage'
+
 Vue.use(Router)
 
 export default new Router({
@@ -188,7 +192,22 @@ export default new Router({
       name: 'blankpage',
       component: blankpage
     },
-
+    {
+      path: '/personalInfo',
+      name: 'personalInfo',
+      component: personalInfo
+    },
+    {
+      path: '/passwordChangeComfirm',
+      name: 'passwordChangeComfirm',
+      component: passwordChangeComfirm
+    },
+    {
+      path: '/passwordChange',
+      name: 'passwordChange',
+      component: passwordChange
+    },
+    
     
     
   ]

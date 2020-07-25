@@ -1,0 +1,23 @@
+{
+  "id": "1907737",
+  "name": "hrms",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11488024",
+      "name": "Customer management",
+      "font_class": "Customermanagement",
+      "unicode": "e74b",
+      "unicode_decimal": 59211
+    },
+    {
+      "icon_id": "11488087",
+      "name": "password",
+      "font_class": "password",
+      "unicode": "e75b",
+      "unicode_decimal": 59227
+    }
+  ]
+}

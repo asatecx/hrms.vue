@@ -28,7 +28,7 @@
                           <el-divider>{{"No." + (index+1)}}</el-divider>
                   </el-col>
                   </el-row>
-
+ 
 
                 <el-row >
                    <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" >
@@ -100,9 +100,37 @@
                       </el-col>     
 
                   <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-                      <el-form-item label="言語" prop="language">
+
+                 
                         <el-input v-model="carear.language"  placeholder="例:java/eclipse"></el-input>
-                      </el-form-item>
+                        <el-button class="transfer-footer" size="small" @click="startpop(index)">OK</el-button>
+
+                        <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+                            <el-transfer
+                              style="text-align: left; display: inline-block;"
+                              v-model="skillselectedList"
+                              filterable
+                              :left-default-checked="[2, 3]"
+                              :right-default-checked="[1]"
+                              :titles="['ソース', 'ターゲット']"
+                              :button-texts="['', '']"
+                              :format="{
+                                  noChecked: '${total}',
+                                  hasChecked: '${checked}/${total}'
+                                }"
+                              @change="handleChange"
+                              :data="skillList"
+                            >
+                              <span slot-scope="{ option }"> {{ option.label }}</span>
+                            
+                            
+                            </el-transfer>
+                          <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogFormVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="setskilltoform()">确 定</el-button>
+                               
+                          </div>
+                        </el-dialog>
                   </el-col>
                   </el-row> 
 
@@ -297,7 +325,10 @@ export default {
     };
     return {
       //url:this.$
-
+      tempindex:"",
+           dialogFormVisible: false,
+ skillList:[],
+ skillselectedList:[],
       time:"",
       labelPosition:"top",
       buttonDialogVisible: false,
@@ -331,7 +362,7 @@ export default {
 
       imageUrl: "",
       ruleForm: {
-       
+      
         carears: [
           {
             person_id:this.$store.state.adminName,
@@ -382,10 +413,58 @@ export default {
             this.$router.push("/errpage");
         });
 
+        this.getskillsource();
+
 
   },
   methods: {
+    test(index){console.log(index)},
+    startpop(index){
+dialogFormVisible = true;
+this.tempindex=index;
 
+    },
+    setskilltoform(){
+
+      console.log(this.tempindex);
+     this.dialogFormVisible = false;
+     
+      var str=this.skillselectedList.join(',')
+
+       this.ruleForm.carears[this.tempindex].language= this.ruleForm.carears[this.tempindex].language+str
+
+    },
+ 
+    getskillsource() {
+      this.$http
+        .getskillsourceNoKBN()
+        .then(res => {
+          this.skillList = [];
+          for (const key in res.data.skills) {
+            if (res.data.skills.hasOwnProperty(key)) {
+              const element = res.data.skills[key];
+              let index = Number(key) + 1;
+              this.skillList.push({
+                key: index,
+                label: element
+                //disabled: i % 4 === 0
+              });
+            }
+          }
+
+
+                // this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                //   this.loadingInstance.close();
+                // });
+        })
+        .catch(err => {
+          console.log(err);
+             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  this.loadingInstance.close();
+                });
+            this.$router.push("/errpage");
+        });
+    },
    
     submitForm(formName) {
       //console.log(this.ruleForm);
