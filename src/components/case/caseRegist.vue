@@ -7,38 +7,38 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-    <span>案件情報入力</span>
+    <el-page-header @back="goBack" content="案件登録" /><br/>
       <el-row class>
         <el-col :span="20">
           <div class="sub-title">案件名称／概要<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="caseName">
-            <el-input v-model="ruleForm.caseName" maxlength="100" placeholder="例）XXXXシステム開発"></el-input>
+          <el-form-item prop="casename">
+            <el-input v-model="ruleForm.casename" maxlength="100" placeholder="例）XXXXシステム開発"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
-      <!-- <el-row class>
+      <el-row class>
         <el-col :span="20">
-          <div class="sub-title">作業場所</div>
-          <el-form-item prop="userNameDisp">
-            <el-input v-model="ruleForm.userNameDisp" placeholder="例）yamada2020"></el-input>
+          <div class="sub-title">作業場所<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
+          <el-form-item prop="workplace">
+            <el-input v-model="ruleForm.workplace" placeholder="東京"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row class>
         <el-col :span="5">
           <div class="sub-title">開始<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
-          <el-form-item prop="">
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期"/>
+          <el-form-item prop="startdate">
+            <el-date-picker v-model="ruleForm.startdate" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder=""/>
           </el-form-item>
         </el-col>
         <el-col :span="5">
           <div class="sub-title">終了</div>
-          <el-form-item prop="">
-            <el-date-picker v-model="value2" type="date" placeholder="选择日期"/>
+          <el-form-item prop="enddate">
+            <el-date-picker v-model="ruleForm.enddate" type="date" format="yyyy/MM/dd" value-format="yyyy/MM/dd" placeholder=""/>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row class>
+      <!-- <el-row class>
         <el-col :span="20">
           <div class="sub-title">必須スキル<el-tag type="danger" effect="dark" size="small">必須</el-tag></div>
           <el-form-item prop="tel">
@@ -106,7 +106,7 @@
         </el-col>
       </el-row>
       <div class="bottom clearfix">
-            <el-button type="primary" @click="submitForm('ruleForm')">案件登録</el-button>
+            <el-button type="primary" @click="caseRegist('ruleForm')">登録</el-button>
           </div>
     </el-form>
   </div>
@@ -119,8 +119,11 @@ export default {
 
       ruleForm: {
         userId: this.$store.state.adminName,
-        caseName: "",
+        casename: "",
+        workplace: "",
         workcontent: "",
+        startdate: "",
+        enddate: "",
         memo: "",
       },
       rules: {
@@ -128,24 +131,25 @@ export default {
           { required: true, message: "案件名称入力必須", trigger: "blur" },
           { max: 100, message: "最大桁数(100)超えた", trigger: "blur" }
         ],
+        workplace: [
+          { required: true, message: "作業場所入力必須", trigger: "blur" },
+          { max: 300, message: "最大桁数(300)超えた", trigger: "blur" }
+        ],
         workcontent: [
           { required: true, message: "作業内容入力必須", trigger: "blur" },
           { max: 300, message: "最大桁数(300)超えた", trigger: "blur" }
         ],
-        mail: [
-          {
-            type: "email",
-            required: true,
-            message: "メール形式不正",
-            trigger: "blur"
-          }
+        startdate: [
+          { required: true, message: "開始日入力必須", trigger: "blur" },
         ],
       },
     };
   },
   methods: {
-    submitForm(formName) {
-      var url = this.$store.state.globalSettings.apiUrl + '/company/case/regist';
+    caseRegist(formName) {
+      var url = this.$store.state.globalSettings.apiUrl + '/case/regist';
+      this.ruleForm.startdate = this.$moment(this.$route.params.startdate).utcOffset(540).format('YYYY-MM-DD HH:mm:ss.SSS');
+      this.ruleForm.enddate = this.$moment(this.$route.params.enddate).utcOffset(540).format('YYYY-MM-DD HH:mm:ss.SSS');
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$axios.post(url, this.ruleForm)
@@ -154,7 +158,7 @@ export default {
                     if (res.data.success) {
                         // 登录成功
                         // 进行视图跳转
-                        this.$router.push("/People");
+                        this.$router.push("/case/caselist");
                         
                     } else {
                         //登录失败
@@ -176,20 +180,9 @@ export default {
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    goBack() {
+      this.$router.go(-1); //返回上一层
     },
-    focus() {
-      this.zipcode = "";
-      this.addressData = {};
-      this.message = "";
-    },
-    handleChange(value) {
-        console.log(value);
-    },
-    handleChange1(value) {
-        console.log(value);
-    }
   }
 };
 </script>

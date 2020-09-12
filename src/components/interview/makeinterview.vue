@@ -17,7 +17,14 @@
         <el-col :span="10">
           <div class="sub-title">案件名称／概要</div>
           <el-form-item prop="casename">
-            <el-input v-model="ruleForm.casename" placeholder></el-input>
+            <el-select v-model="ruleForm.casename" placeholder="">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -217,6 +224,25 @@ export default {
       },
       starttime: "",
       endtime: "",
+      param: {
+        companyId: ""
+      },
+      options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
     };
   },
   methods: {
@@ -281,6 +307,27 @@ export default {
     back(){
         this.$router.go(-1);//返回上一层
     },
+    getCaseName() {
+      this.param.companyId = this.$store.state.adminName;
+      var url =
+        this.$store.state.globalSettings.apiUrl + "/interview/casename";
+      this.$axios
+        .post(url, this.param)
+        .then(res => {
+          if (res.data.success) {
+            // 登录成功
+            // 进行视图跳转
+            // this.$router.push("/interview/success");
+            this.options = res.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.getCaseName();
   },
   created() {
     this.initForm();

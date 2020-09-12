@@ -29,7 +29,7 @@
         </template>
         <!-- <el-menu-item index="info">MY情報</el-menu-item> -->
          <el-menu-item index="eigyo" v-show="this.userType=='3'">自社人材管理</el-menu-item>
-        <el-menu-item index="caseRegist" v-show="this.userType=='2'">案件登録</el-menu-item>
+        <el-menu-item index="casemanage" v-show="this.userType=='2'">案件管理</el-menu-item>
         <el-menu-item index="myinterview" v-show="this.userType=='2'">面接管理</el-menu-item>
          <el-menu-item index="personalInfo" v-show="this.userType=='1'">個人情報</el-menu-item>
         <el-menu-item index="resume" v-show="this.userType=='1'">MY履歴</el-menu-item>
@@ -90,8 +90,8 @@ export default {
       } else if (key == "regist") {
         //this.$router.push("/company.regist");
         this.$router.push("/regist");
-      } else if (key == "caseRegist") {
-        this.$router.push("/case/regist");
+      } else if (key == "casemanage") {
+        this.$router.push("/case/caselist");
       } else if (key == "myinterview") {
         this.$router.push("/interview/interviewlist");
       } else if (key == "logout") {

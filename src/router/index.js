@@ -14,6 +14,7 @@ import Persondetail from '@/components/company/persondetail'
 import Myinfo from '@/components/myinfo'
 import CompanyRegist from '@/components/company/companyRegist'
 import CaseRegist from '@/components/case/caseRegist'
+import CaseList from '@/components/case/caselist'
 import Makeinterview from '@/components/interview/makeinterview'
 import MyInterview from '@/components/interview/interviewlist'
 import InterviewSuccess from '@/components/interview/success'
@@ -151,6 +152,11 @@ export default new Router({
       path: '/case/regist',
       name: 'caseRegist',
       component: CaseRegist
+    },
+    {
+      path: '/case/caselist',
+      name: 'caselist',
+      component: CaseList
     },
     {
       path: '/interview/makeinterview',
