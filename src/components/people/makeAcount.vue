@@ -11,12 +11,12 @@
                 <el-form-item label="パスワード" prop="password">
                 <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="もう一度パスワードを入力" prop="checkPass">
+                <el-form-item label="再度入力" prop="checkPass">
                     <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                     prop="email"
-                    label="Eメールアドレス"
+                    label="Eメール"
                     :rules="[
                     { required: true, message: 'メールアドレスを入力してください', trigger: 'blur' },
                     { type: 'email', message: '有効なメールアドレスを入力してください', trigger: ['blur', 'change'] }
@@ -28,15 +28,17 @@
                    <!-- <el-radio v-model="ruleForm.userType" label="1" border>フリーランス</el-radio>
                   <el-radio v-model="ruleForm.userType" label="2" border>営業担当</el-radio> -->
 
-               
+               HRMSへの登録には、<el-link type="primary" @click="confirmkiyaku">規約</el-link>および<el-link type="primary" @click="confirmPersonalpolicy">個人情報保護方針</el-link>への同意が必要です。
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">作成</el-button>
-                    <el-button @click="resetForm('ruleForm')">リセット</el-button>
+                     
+                    <el-button type="primary" @click="submitForm('ruleForm')">同意して登録</el-button>
+                  <!--  <el-button @click="resetForm('ruleForm')">リセット</el-button>-->
                 </el-form-item>
             </el-form>
 
         </el-card >
-    
+       
+
 </template>
 
 <script>
@@ -90,6 +92,17 @@ data() {
   };
 },
 methods: {
+    confirmPersonalpolicy(){
+    // let routeData=this.$router.push("/personalInfopolicy");
+    let routeData=this.$router.resolve({name: "personalInfopolicy"});
+     window.open(routeData.href, '_blank');
+    },
+    confirmkiyaku(){
+     //this.$router.push("/kiyaku");
+     let routeData=this.$router.resolve({name: "kiyaku"});
+     window.open(routeData.href, '_blank');
+    },
+
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

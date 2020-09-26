@@ -5,6 +5,7 @@ import Login from '@/components/login'
 import People from '@/components/people'
 import Company from '@/components/company/company'
 import MakeAcount from '@/components/people/makeAcount'
+
 import Uploadfile from '@/components/Uploadfile'
 import PlayVideo from '@/components/company/playvideo'
 import ComfirmAcount from '@/components/people/comfirmAcount'
@@ -19,6 +20,8 @@ import MyInterview from '@/components/interview/interviewlist'
 import InterviewSuccess from '@/components/interview/success'
 import comfirmMyinfo from '@/components/comfirmMyinfo'
 import regist from '@/components/common/regist'
+import personalInfopolicy from '@/components/common/personalInfopolicy'
+import kiyaku from '@/components/common/kiyaku'
 import priceandshc from '@/components/people/priceAndSchedule'
 import baseinfo from '@/components/people/baseinfo'
 import carearinfo from '@/components/people/carearinfo'
@@ -46,6 +49,16 @@ export default new Router({
       path: '/Home',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/personalInfopolicy',
+      name: 'personalInfopolicy',
+      component: personalInfopolicy
+    },
+    {
+      path: '/kiyaku',
+      name: 'kiyaku',
+      component: kiyaku
     },
     {
       path: '/baseinfo',

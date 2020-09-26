@@ -13,12 +13,14 @@ const delInterviewurl ='/niucaocao/deleteInterview'
 const caseDetailurl ='/niucaocao/getCaseDetail'
 const acounturl='/main/makeAcount'
 const tankaurl='/niucaocao/tanka'
+const moveflgurl='/niucaocao/moveflg'
 const gettankaurl='/niucaocao/gettanka'
 const baseinfourl='/niucaocao/baseinfo'
 const baseinfoPurl='/niucaocao/baseinfoP'
 const skillinfourl='/niucaocao/skillinfo'
 const carearinfourl='/niucaocao/carearinfo'
 const getBaseInfourl='/niucaocao/getbaseinfo'
+const getkanseidoinfourl='/niucaocao/getkanseidoinfo'
 const getSkillInfourl='/niucaocao/getskillinfo'
 const getCarearInfourl='/niucaocao/getcarearinfo'
 const getinterviewNumberurl='/niucaocao/interviewNumber'
@@ -182,6 +184,11 @@ export function modifytanka(tankainfo){
   return  Axios.post(tankaurl,tankainfo)
 }
 
+// export function modifymoveflg(moveflg){
+ 
+//   return  Axios.post(moveflgurl,moveflg)
+// }
+
 export function modifybaseinfo(baseinfo){
  
   return  Axios.post(baseinfourl,baseinfo)
@@ -218,6 +225,18 @@ export function getTanka(userId){
 export function getBaseInfo(userId){
      
   return  Axios.get(getBaseInfourl, {
+        params: {
+            // ここにクエリパラメータを指定する
+    
+            userid:userId,
+
+        }
+    })
+}
+
+export function getkanseidoInfo(userId){
+     
+  return  Axios.get(getkanseidoinfourl, {
         params: {
             // ここにクエリパラメータを指定する
     

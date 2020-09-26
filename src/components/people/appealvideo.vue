@@ -42,12 +42,14 @@ data(){
         this.$store.state.adminName,
           fileList: [],
     }
+    
 },
 methods:{
 
-        handleChange(file, fileList) {
+      handleChange(file, fileList) {
       this.fileList = fileList.slice(-1);
       this.buttonDialogVisible = true;
+     // this.$http.modifymoveflg(this.$qs.stringify(this.moveinfo))
     },
 }
 

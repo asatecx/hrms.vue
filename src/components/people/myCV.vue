@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div style="width:200px">
+        <div style="text-align:left;">完成度:</div>
+        <el-progress :text-inside="true" :stroke-width="24" :percentage="kanseido" status="success"></el-progress>
+        </div>
 <baseinfo :showflg="bshowflg" ref="basemessage" @nickname="getnickname" v-if="isShow"></baseinfo>
 <skillinfo :showflg="sshowflg" v-if="isShow"> </skillinfo>
 <carearinfo :showflg="cshowflg" v-if="isShow"></carearinfo>
@@ -16,6 +20,7 @@ import skillinfo from '@/components/people/skillinfoComfirm'
         data(){
 
             return{
+                kanseido:50,
                 bshowflg:false,
                 cshowflg:false,
                  sshowflg:false,
@@ -27,6 +32,24 @@ import skillinfo from '@/components/people/skillinfoComfirm'
         components: { baseinfo,carearinfo, skillinfo},
         created() {
           //  this.reload();
+
+           this.$http.getkanseidoInfo(this.$store.state.adminName).then(
+            res => {
+
+              console.log(res);
+
+              this.kanseido=res.data
+      
+             }
+
+           ).catch(err => {
+          console.log(err);
+             this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+                  loadingInstance.close();
+                });
+            this.$router.push("/errpage");
+        });
+
             var personId = this.$store.state.adminName;
             var url = this.$store.state.globalSettings.apiUrl + "/person/detail";
             this.$axios
