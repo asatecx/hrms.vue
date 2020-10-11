@@ -61,6 +61,7 @@
        <div style="text-align: left;"><el-button type="danger" round @click="deletedetail">一括削除</el-button></div>
       <paging :pagetotal="pagetotal" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"></paging>
 <el-table
+     
     :data="tableData.filter(data => {
       
       var str = data.casename
@@ -87,10 +88,11 @@
     label="案件名"
     width="120px">
     </el-table-column>
-    <el-table-column
-    prop="interview_datetime"
+
+        <el-table-column
+    prop="interview_datetimeUI"
     label="面接時間"
-    width="180px" >
+    width="214px" >
     </el-table-column>
     <el-table-column
     prop="interviewplace"
@@ -154,7 +156,28 @@
                       
                     </el-select>
                   </el-form-item>
+                     <el-form-item label="面接時間" :label-width="formLabelWidth">
+                        <el-select  v-model="form.interview_datetime" placeholder="面接時間" >
+                          <el-option :value="scope.row.interview_datetime1" >{{scope.row.interview_datetime1}}</el-option>
+                          <el-option  :value="scope.row.interview_datetime2" >{{scope.row.interview_datetime2}}</el-option>
+                          <el-option  :value="scope.row.interview_datetime3">{{scope.row.interview_datetime3}}</el-option>
+                        </el-select>
+                    </el-form-item>
+                 
+                      <el-form-item label="評価" :label-width="formLabelWidth">
+                      <el-rate v-model="form.rate"></el-rate>
+                    </el-form-item>
+
+                     <el-form-item label="面接側へのメッセージ" :label-width="formLabelWidth">
+                     　<el-input
+                        type="textarea"
+                        autosize
+                        placeholder="面接側へのメッセージ"
+                        v-model="form.messageToCompany">
+                      </el-input>
+                    </el-form-item>
                 </el-form>
+            
                 <div slot="footer" class="dialog-footer">
                   <el-button @click="dialogFormVisible = false">取 消</el-button>
                   <el-button type="primary" @click="confirm(tempindex, temprow)">确 定</el-button>
@@ -191,10 +214,12 @@
     label="案件名"
     width="100px">
     </el-table-column>
-     <el-table-column
-    prop="interview_datetime"
+
+            <el-table-column
+  prop="interview_datetimeUI"
     label="面接時間"
-    width="102px" >
+    width="214px" >
+
     </el-table-column>
      <!-- <el-table-column label="メモ" width="300px">
                   <template slot-scope="scope">
@@ -233,12 +258,12 @@
       <template slot-scope="scope">
         <!-- <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Edit</el-button> -->
+          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>-->
         <!-- <el-button
           size="mini"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">×</el-button> -->
-
+            <i class="el-icon-edit" @click.prevent="handleEdit(scope.$index, scope.row)"></i>
             <i class="el-icon-delete" @click.prevent="handleDelete(scope.$index, scope.row)"></i>
       </template>
     </el-table-column>
@@ -260,24 +285,24 @@ export default {
 
       
         return {
+         
        param: {
         companyId: "",
         personId: "",
         interviewresult: "",
-        UPDATE_DATE_TIME: ""
+        UPDATE_DATE_TIME: "",
+        rateToCompany: "",
+        messageToCompany:"",
+        interview_datetime:"",
       },
           tempindex:"",
           temprow:"",
           dialogFormVisible:false,
                   form: {
-          name: '',
+          interview_datetime: '',
           status: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          rate: '',
+          messageToCompany: '',
         },
         formLabelWidth: '120px',
           showflg:true,
@@ -295,6 +320,9 @@ export default {
      methods:{
        setInterviewResult(index) {
          this.param.interviewresult=this.tableData[index].interviewresult;
+         this.param.rateToCompany=this.tableData[index].rateToCompany;
+         this.param.messageToCompany=this.tableData[index].messageToCompany;
+          this.param.interview_datetime=this.tableData[index].interview_datetime;
       this.param.companyId = this.tableData[index].companyId;
       this.param.personId = this.$store.state.adminName;
       this.param.UPDATE_DATE_TIME = this.$moment(
@@ -322,8 +350,10 @@ export default {
        confirm(index,row){
          console.log(index,row);
          console.log(index,row.casename);
-         
-         row.interviewresult=this.form.status;
+         row.interview_datetime=this.form.interview_datetime;
+           row.interviewresult=this.form.status;
+           row.rateToCompany=this.form.rate;
+           row.messageToCompany=this.form.messageToCompany;
          this.setInterviewResult(index) ;
          this.dialogFormVisible = false
        },
@@ -368,6 +398,11 @@ export default {
               });
          },
       handleEdit(index, row) {
+       this.form.interview_datetime=this.tableData[index].interview_datetimeUI;
+          this.form.status=this.tableData[index].interviewresult;
+          this.form.rate=this.tableData[index].rateToCompany;
+          this.form.messageToCompany=this.tableData[index].messageToCompany;
+
         this.dialogFormVisible = true
     this.tempindex=index;
     this.temprow=row;
@@ -493,3 +528,7 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>
